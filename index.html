@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Institucional - Encuesta FCHS | UNAL Sede Manizales</title>
+    <title>Dashboard de Viabilidad FCHS - Universidad Nacional de Colombia Sede Manizales</title>
     
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
@@ -12,16 +12,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Variables de diseño institucional */
         :root {
             --unal-verde: #94B43B;
             --unal-verde-oscuro: #5A7A28;
+            --unal-verde-claro: #E8F5E9;
             --unal-gris: #666666;
             --unal-gris-claro: #E8E8E8;
+            --unal-gris-oscuro: #333333;
             --unal-rojo: #B8272D;
+            --unal-rojo-claro: #FFEBEE;
             --unal-amarillo: #F4D03F;
+            --unal-amarillo-claro: #FFF9C4;
             --unal-azul: #006BB3;
-            --sombra-suave: 0 2px 10px rgba(0,0,0,0.1);
+            --unal-azul-claro: #E3F2FD;
+            --sombra: 0 2px 8px rgba(0,0,0,0.1);
             --transicion: all 0.3s ease;
         }
 
@@ -32,20 +36,18 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: #f5f7fa;
-            color: #333;
+            color: var(--unal-gris-oscuro);
             line-height: 1.6;
         }
 
         /* Header institucional */
         .header {
-            background: white;
-            box-shadow: var(--sombra-suave);
+            background: var(--unal-verde);
+            color: white;
             padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            box-shadow: var(--sombra);
         }
 
         .header-content {
@@ -53,74 +55,236 @@
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
         }
 
-        .logo-section {
+        .logo-container {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
-        .logo {
+        .logo-unal {
+            width: 60px;
             height: 60px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--unal-verde);
+            font-size: 18px;
         }
 
-        .header-title {
-            flex: 1;
-        }
-
-        .header-title h1 {
-            font-size: 24px;
-            color: var(--unal-verde-oscuro);
+        .header-text h1 {
+            font-size: 28px;
             font-weight: 700;
+            margin-bottom: 5px;
         }
 
-        .header-title p {
-            font-size: 14px;
-            color: var(--unal-gris);
-            margin-top: 5px;
+        .header-text p {
+            font-size: 16px;
+            opacity: 0.9;
         }
 
-        .nav-controls {
+        /* Navegación por pestañas */
+        .nav-tabs {
+            background: white;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-tabs-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
-            gap: 15px;
-            align-items: center;
+            gap: 0;
+            overflow-x: auto;
         }
 
-        .filter-btn {
-            background: var(--unal-verde);
-            color: white;
+        .tab-button {
+            background: none;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 18px 25px;
+            font-size: 15px;
+            color: var(--unal-gris);
             cursor: pointer;
-            font-size: 14px;
+            position: relative;
             transition: var(--transicion);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 500;
+            white-space: nowrap;
         }
 
-        .filter-btn:hover {
-            background: var(--unal-verde-oscuro);
-            transform: translateY(-2px);
+        .tab-button:hover {
+            color: var(--unal-verde);
+            background: rgba(148, 180, 59, 0.05);
         }
 
-        /* Layout principal */
-        .dashboard-container {
+        .tab-button.active {
+            color: var(--unal-verde);
+            font-weight: 600;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--unal-verde);
+        }
+
+        /* Contenedor principal */
+        .container {
             max-width: 1400px;
             margin: 30px auto;
             padding: 0 20px;
         }
 
-        /* KPI Cards */
-        .kpi-section {
+        /* Secciones de contenido */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid principal */
+        .main-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Alerta principal mejorada */
+        .main-alert {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--unal-rojo-claro) 0%, #FFF5F5 100%);
+            border: 1px solid rgba(184, 39, 45, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .alert-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--unal-rojo);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .alert-content h2 {
+            color: var(--unal-rojo);
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .alert-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .alert-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .alert-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--unal-gris-oscuro);
+        }
+
+        .alert-stat-label {
+            font-size: 14px;
+            color: var(--unal-gris);
+        }
+
+        /* Cards mejoradas */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            overflow: hidden;
+            transition: var(--transicion);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--unal-gris-claro);
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: var(--unal-gris-oscuro);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-subtitle {
+            color: var(--unal-gris);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* Gráficos mejorados */
+        .chart-container {
+            position: relative;
+            height: 350px;
+            margin-bottom: 20px;
+        }
+
+        .chart-explanation {
+            padding: 15px;
+            background: var(--unal-gris-claro);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--unal-gris);
+        }
+
+        .chart-explanation strong {
+            color: var(--unal-gris-oscuro);
+        }
+
+        /* KPI Grid mejorado */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -128,8 +292,9 @@
         .kpi-card {
             background: white;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: var(--sombra-suave);
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            text-align: center;
             transition: var(--transicion);
             position: relative;
             overflow: hidden;
@@ -140,442 +305,396 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--unal-verde);
+            right: 0;
+            height: 4px;
+            background: var(--unal-gris-claro);
         }
 
-        .kpi-card.negative::before {
-            background: var(--unal-rojo);
-        }
-
-        .kpi-card.neutral::before {
-            background: var(--unal-amarillo);
-        }
-
-        .kpi-card.positive::before {
-            background: var(--unal-verde);
-        }
+        .kpi-card.negative::before { background: var(--unal-rojo); }
+        .kpi-card.neutral::before { background: var(--unal-amarillo); }
+        .kpi-card.positive::before { background: var(--unal-verde); }
+        .kpi-card.info::before { background: var(--unal-azul); }
 
         .kpi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
-        .kpi-card h3 {
-            font-size: 14px;
-            color: var(--unal-gris);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            font-weight: 600;
+        .kpi-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            opacity: 0.8;
         }
+
+        .kpi-card.negative .kpi-icon { color: var(--unal-rojo); }
+        .kpi-card.neutral .kpi-icon { color: var(--unal-amarillo); }
+        .kpi-card.positive .kpi-icon { color: var(--unal-verde); }
+        .kpi-card.info .kpi-icon { color: var(--unal-azul); }
 
         .kpi-value {
             font-size: 36px;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 5px;
+            margin: 10px 0;
+            color: var(--unal-gris-oscuro);
+        }
+
+        .kpi-label {
+            color: var(--unal-gris);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .kpi-detail {
+            color: var(--unal-gris);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* Análisis cualitativo mejorado */
+        .qualitative-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+        }
+
+        .concern-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .concern-card {
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            border: 2px solid transparent;
+            transition: var(--transicion);
+        }
+
+        .concern-card.financial {
+            background: var(--unal-rojo-claro);
+            border-color: rgba(184, 39, 45, 0.2);
+        }
+
+        .concern-card.academic {
+            background: var(--unal-amarillo-claro);
+            border-color: rgba(244, 208, 63, 0.3);
+        }
+
+        .concern-card.regional {
+            background: var(--unal-azul-claro);
+            border-color: rgba(0, 107, 179, 0.2);
+        }
+
+        .concern-card.process {
+            background: #F3E5F5;
+            border-color: rgba(106, 27, 154, 0.2);
+        }
+
+        .concern-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--sombra);
+        }
+
+        .concern-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .concern-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--unal-gris-oscuro);
+        }
+
+        .concern-count {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--unal-gris-oscuro);
+        }
+
+        .concern-examples {
+            font-size: 13px;
+            color: var(--unal-gris);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* Timeline mejorado */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 40px;
+            bottom: 40px;
+            width: 2px;
+            background: var(--unal-gris-claro);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: start;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 60px;
+            height: 60px;
+            background: var(--unal-verde);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 2;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .timeline-marker.current {
+            background: var(--unal-amarillo);
+            color: var(--unal-gris-oscuro);
+        }
+
+        .timeline-marker.pending {
+            background: var(--unal-gris);
+        }
+
+        .timeline-content {
+            flex: 1;
+            margin-left: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: var(--unal-gris);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--unal-gris-oscuro);
+            margin-bottom: 8px;
+        }
+
+        .timeline-description {
+            color: var(--unal-gris);
             font-size: 14px;
+        }
+
+        /* Infografía financiera */
+        .financial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .financial-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+            border-left: 4px solid var(--unal-verde);
+        }
+
+        .financial-card.warning {
+            border-left-color: var(--unal-amarillo);
+        }
+
+        .financial-card.critical {
+            border-left-color: var(--unal-rojo);
+        }
+
+        .financial-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--unal-gris-oscuro);
+            margin: 10px 0;
+        }
+
+        .financial-label {
+            color: var(--unal-gris);
+            font-size: 14px;
+        }
+
+        .financial-detail {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--unal-gris-claro);
+            font-size: 13px;
             color: var(--unal-gris);
         }
 
-        .kpi-icon {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            font-size: 40px;
-            opacity: 0.1;
-        }
-
-        /* Secciones principales */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .section-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: var(--sombra-suave);
-        }
-
-        .section-title {
-            font-size: 20px;
-            color: var(--unal-verde-oscuro);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--unal-verde);
-        }
-
-        /* Gráficos */
-        .chart-container {
-            position: relative;
-            height: 300px;
-            margin-bottom: 20px;
-        }
-
-        /* Análisis de comentarios */
-        .analysis-section {
-            margin-top: 30px;
-        }
-
-        .category-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--unal-gris-claro);
-            background: white;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: var(--transicion);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--unal-verde);
-            background: #f8f9fa;
-        }
-
-        .tab-btn.active {
-            background: var(--unal-verde);
-            color: white;
-            border-color: var(--unal-verde);
-        }
-
-        .tab-btn .badge {
-            background: rgba(0,0,0,0.1);
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .tab-btn.active .badge {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* Comentarios */
-        .comments-grid {
+        /* Comentarios destacados */
+        .comment-showcase {
             display: grid;
             gap: 15px;
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 10px;
+            margin-top: 20px;
         }
 
         .comment-card {
-            background: #f8f9fa;
+            background: var(--unal-gris-claro);
             padding: 20px;
             border-radius: 8px;
-            border-left: 4px solid var(--unal-gris-claro);
+            border-left: 4px solid var(--unal-gris);
+            font-style: italic;
+            color: var(--unal-gris-oscuro);
+            font-size: 14px;
+            line-height: 1.6;
             transition: var(--transicion);
         }
 
         .comment-card.negative {
             border-left-color: var(--unal-rojo);
-        }
-
-        .comment-card.neutral {
-            border-left-color: var(--unal-amarillo);
+            background: var(--unal-rojo-claro);
         }
 
         .comment-card.positive {
             border-left-color: var(--unal-verde);
+            background: var(--unal-verde-claro);
+        }
+
+        .comment-card.neutral {
+            border-left-color: var(--unal-amarillo);
+            background: var(--unal-amarillo-claro);
         }
 
         .comment-card:hover {
-            background: white;
-            box-shadow: var(--sombra-suave);
+            transform: translateX(5px);
         }
 
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .comment-category {
-            font-size: 12px;
-            padding: 4px 12px;
-            border-radius: 15px;
-            background: var(--unal-verde);
-            color: white;
-            font-weight: 600;
-        }
-
-        .comment-sentiment {
-            font-size: 12px;
-            color: var(--unal-gris);
-        }
-
-        .comment-text {
-            color: #333;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* Resumen ejecutivo */
-        .executive-summary {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: var(--sombra-suave);
-            margin-bottom: 30px;
-        }
-
-        .summary-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .summary-header i {
-            font-size: 30px;
-            color: var(--unal-verde);
-        }
-
-        .summary-content {
+        /* Comparación visual */
+        .comparison-grid {
             display: grid;
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
         }
 
-        .summary-item {
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
+        .comparison-card {
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
         }
 
-        .summary-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+        .comparison-card.current {
+            background: var(--unal-rojo-claro);
+            border: 2px solid rgba(184, 39, 45, 0.2);
         }
 
-        .summary-icon.alert {
-            background: #FEE;
-            color: var(--unal-rojo);
+        .comparison-card.required {
+            background: var(--unal-verde-claro);
+            border: 2px solid rgba(148, 180, 59, 0.2);
         }
 
-        .summary-icon.warning {
-            background: #FFF4E5;
-            color: #FF9800;
+        .comparison-value {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 15px 0;
         }
 
-        .summary-icon.info {
-            background: #E3F2FD;
-            color: #2196F3;
-        }
-
-        .summary-text h4 {
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 16px;
-        }
-
-        .summary-text p {
-            color: var(--unal-gris);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* Búsqueda */
-        .search-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: var(--sombra-suave);
-            margin-bottom: 30px;
-        }
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 12px 20px;
-            border: 2px solid var(--unal-gris-claro);
-            border-radius: 25px;
-            font-size: 14px;
-            transition: var(--transicion);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--unal-verde);
-        }
-
-        .search-btn {
-            background: var(--unal-verde);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: var(--transicion);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .search-btn:hover {
-            background: var(--unal-verde-oscuro);
-        }
-
-        /* Modal de filtros */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            color: var(--unal-verde-oscuro);
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--unal-gris);
-            transition: var(--transicion);
-        }
-
-        .close-btn:hover {
-            color: var(--unal-rojo);
-        }
-
-        /* Filtros */
-        .filter-group {
-            margin-bottom: 20px;
-        }
-
-        .filter-label {
+        .comparison-label {
+            font-size: 18px;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-            display: block;
+            color: var(--unal-gris-oscuro);
         }
 
-        .filter-options {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        /* Tablas mejoradas */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        .filter-option {
-            padding: 8px 16px;
-            border: 2px solid var(--unal-gris-claro);
-            background: white;
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--unal-gris-claro);
+        }
+
+        .data-table th {
+            background: var(--unal-gris-claro);
+            font-weight: 600;
+            color: var(--unal-gris-oscuro);
+            position: sticky;
+            top: 0;
+        }
+
+        .data-table tr:hover {
+            background: rgba(148, 180, 59, 0.05);
+        }
+
+        .data-table .highlight {
+            background: var(--unal-amarillo-claro);
+            font-weight: 600;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
             border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transicion);
-            font-size: 14px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
-        .filter-option:hover {
-            border-color: var(--unal-verde);
-        }
-
-        .filter-option.selected {
+        .badge.success {
             background: var(--unal-verde);
             color: white;
-            border-color: var(--unal-verde);
+        }
+
+        .badge.warning {
+            background: var(--unal-amarillo);
+            color: var(--unal-gris-oscuro);
+        }
+
+        .badge.danger {
+            background: var(--unal-rojo);
+            color: white;
         }
 
         /* Footer */
         .footer {
-            background: white;
+            background: var(--unal-gris-oscuro);
+            color: white;
             padding: 30px 0;
             margin-top: 50px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
             text-align: center;
-            color: var(--unal-gris);
+        }
+
+        .footer p {
+            opacity: 0.8;
             font-size: 14px;
-        }
-
-        /* Animaciones */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .main-content {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -586,320 +705,659 @@
                 text-align: center;
             }
 
-            .kpi-section {
+            .nav-tabs-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .alert-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .kpi-grid {
                 grid-template-columns: 1fr;
             }
 
-            .category-tabs {
-                justify-content: center;
+            .concern-categories {
+                grid-template-columns: 1fr;
             }
-        }
 
-        /* Scrollbar personalizada */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
+            .financial-grid {
+                grid-template-columns: 1fr;
+            }
 
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--unal-verde);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--unal-verde-oscuro);
-        }
-
-        /* Loading spinner */
-        .loading {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 3000;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--unal-verde);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Tooltips */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 10px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 12px;
-        }
-
-        .tooltip .tooltiptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #333 transparent transparent transparent;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
+            .tab-button {
+                padding: 15px 20px;
+                font-size: 14px;
+            }
         }
 
         /* Print styles */
         @media print {
-            .header, .footer, .nav-controls, .search-container, .filter-btn, .tab-btn {
+            .nav-tabs, .footer {
                 display: none;
             }
-
-            .dashboard-container {
-                max-width: 100%;
+            
+            .tab-content {
+                display: block !important;
+                page-break-after: always;
             }
-
-            .section-card {
-                break-inside: avoid;
+            
+            body {
+                background: white;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loading -->
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-    </div>
-
     <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <div class="logo-section">
-                <svg class="logo" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="10" y="10" width="40" height="40" fill="#94B43B"/>
-                    <text x="70" y="35" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#5A7A28">UNAL</text>
-                    <text x="70" y="48" font-family="Arial, sans-serif" font-size="10" fill="#666666">Sede Manizales</text>
-                </svg>
+            <div class="logo-container">
+                <div class="logo-unal">UNAL</div>
             </div>
-            <div class="header-title">
-                <h1>Dashboard de Análisis - Encuesta FCHS</h1>
-                <p>Resultados de la consulta sobre la creación de la Facultad de Ciencias Humanas y Sociales</p>
-            </div>
-            <div class="nav-controls">
-                <button class="filter-btn" onclick="toggleModal('filterModal')">
-                    <i class="fas fa-filter"></i>
-                    <span>Filtros</span>
-                </button>
-                <button class="filter-btn" onclick="exportData()">
-                    <i class="fas fa-download"></i>
-                    <span>Exportar</span>
-                </button>
+            <div class="header-text">
+                <h1>Dashboard de Viabilidad - Facultad de Ciencias Humanas y Sociales</h1>
+                <p>Análisis integral del proceso de creación FCHS - Universidad Nacional de Colombia Sede Manizales</p>
             </div>
         </div>
     </header>
 
-    <!-- Dashboard Container -->
-    <div class="dashboard-container">
-        <!-- Resumen Ejecutivo -->
-        <div class="executive-summary fade-in">
-            <div class="summary-header">
-                <i class="fas fa-chart-line"></i>
-                <h2>Resumen Ejecutivo</h2>
-            </div>
-            <div class="summary-content">
-                <div class="summary-item">
-                    <div class="summary-icon alert">
+    <!-- Navegación -->
+    <nav class="nav-tabs">
+        <div class="nav-tabs-container">
+            <button class="tab-button active" onclick="showTab('resumen')">Resumen Ejecutivo</button>
+            <button class="tab-button" onclick="showTab('viabilidad')">Análisis de Viabilidad</button>
+            <button class="tab-button" onclick="showTab('proceso')">Proceso y Participación</button>
+            <button class="tab-button" onclick="showTab('financiero')">Análisis Financiero</button>
+            <button class="tab-button" onclick="showTab('comparativo')">Análisis Comparativo</button>
+        </div>
+    </nav>
+
+    <!-- Contenido -->
+    <div class="container">
+        <!-- Tab 1: Resumen Ejecutivo -->
+        <div id="resumen" class="tab-content active">
+            <div class="main-grid">
+                <!-- Alerta principal -->
+                <div class="main-alert">
+                    <div class="alert-icon">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <div class="summary-text">
-                        <h4>Falta de Consenso Significativa</h4>
-                        <p>El 81.7% de los docentes encuestados no expresan un apoyo claro a la propuesta de creación de la FCHS, evidenciando la necesidad de mayor diálogo y clarificación antes de proceder.</p>
+                    <div class="alert-content">
+                        <h2>Consenso Insuficiente para Proceder</h2>
+                        <p style="font-size: 16px; margin-bottom: 15px;">
+                            El análisis integral revela discrepancias significativas entre la propuesta oficial y la percepción de la comunidad académica.
+                        </p>
+                        <div class="alert-stats">
+                            <div class="alert-stat">
+                                <div class="alert-stat-value">81.5%</div>
+                                <div class="alert-stat-label">Sin apoyo claro<br>(Encuesta independiente)</div>
+                            </div>
+                            <div class="alert-stat">
+                                <div class="alert-stat-value">13.3%</div>
+                                <div class="alert-stat-label">Participación docente<br>(Encuesta oficial)</div>
+                            </div>
+                            <div class="alert-stat">
+                                <div class="alert-stat-value">$321M</div>
+                                <div class="alert-stat-label">Costo por estudiante<br>nuevo (4 años)</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="summary-item">
-                    <div class="summary-icon warning">
+
+                <!-- KPIs principales -->
+                <div class="kpi-grid" style="grid-column: 1 / -1;">
+                    <div class="kpi-card negative">
+                        <i class="fas fa-times-circle kpi-icon"></i>
+                        <div class="kpi-label">En Desacuerdo</div>
+                        <div class="kpi-value">54.6%</div>
+                        <div class="kpi-detail">59 de 108 docentes</div>
+                    </div>
+                    <div class="kpi-card neutral">
+                        <i class="fas fa-question-circle kpi-icon"></i>
+                        <div class="kpi-label">Con Dudas</div>
+                        <div class="kpi-value">26.9%</div>
+                        <div class="kpi-detail">29 de 108 docentes</div>
+                    </div>
+                    <div class="kpi-card positive">
+                        <i class="fas fa-check-circle kpi-icon"></i>
+                        <div class="kpi-label">De Acuerdo</div>
+                        <div class="kpi-value">18.5%</div>
+                        <div class="kpi-detail">20 de 108 docentes</div>
+                    </div>
+                    <div class="kpi-card info">
+                        <i class="fas fa-users kpi-icon"></i>
+                        <div class="kpi-label">Participación</div>
+                        <div class="kpi-value">43.5%</div>
+                        <div class="kpi-detail">108 de 248 docentes</div>
+                    </div>
+                </div>
+
+                <!-- Análisis principal -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-chart-line"></i>
+                            Estado Actual vs. Consenso Requerido
+                        </h2>
+                        <p class="card-subtitle">Evaluación multidimensional de viabilidad</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="radarChart"></canvas>
+                        </div>
+                        <div class="chart-explanation">
+                            <strong>Interpretación:</strong> El gráfico radar compara el estado actual (rojo) contra los mínimos requeridos (verde) para una implementación exitosa. Las áreas donde el polígono rojo está más alejado del verde indican las mayores brechas a resolver.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preocupaciones principales -->
+                <div class="qualitative-section">
+                    <h2 class="card-title" style="margin-bottom: 20px;">
+                        <i class="fas fa-comments"></i>
+                        Análisis Cualitativo de Preocupaciones
+                    </h2>
+                    <div class="concern-categories">
+                        <div class="concern-card regional">
+                            <div class="concern-header">
+                                <span class="concern-title">Pertinencia Regional</span>
+                                <span class="concern-count">29</span>
+                            </div>
+                            <p class="concern-examples">
+                                "No existe un estudio de mercado que demuestre la demanda real... Otras universidades ya ofertan carreras similares"
+                            </p>
+                        </div>
+                        <div class="concern-card financial">
+                            <div class="concern-header">
+                                <span class="concern-title">Viabilidad Financiera</span>
+                                <span class="concern-count">26</span>
+                            </div>
+                            <p class="concern-examples">
+                                "Discrepancia entre 12.9 y 20 mil millones... No existe CDP concreto"
+                            </p>
+                        </div>
+                        <div class="concern-card academic">
+                            <div class="concern-header">
+                                <span class="concern-title">Rigor Académico</span>
+                                <span class="concern-count">25</span>
+                            </div>
+                            <p class="concern-examples">
+                                "Carece de rigor académico... No hay plan curricular detallado"
+                            </p>
+                        </div>
+                        <div class="concern-card process">
+                            <div class="concern-header">
+                                <span class="concern-title">Proceso</span>
+                                <span class="concern-count">9</span>
+                            </div>
+                            <p class="concern-examples">
+                                "Proceso apresurado... Participación limitada"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Análisis de Viabilidad -->
+        <div id="viabilidad" class="tab-content">
+            <div class="main-grid">
+                <!-- Comparación de consensos -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-balance-scale"></i>
+                            Comparación de Resultados: Oficial vs. Independiente
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="comparisonChart"></canvas>
+                        </div>
+                        <div class="chart-explanation">
+                            <strong>Nota crítica:</strong> La encuesta oficial tuvo solo 33 participantes (13.3% de docentes), mientras que la encuesta independiente logró 108 respuestas (43.5%). Esta diferencia en participación cuestiona la representatividad del "76.4% de apoyo" reportado oficialmente.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicadores de viabilidad -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Indicadores Críticos de Viabilidad
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="comparison-grid">
+                            <div class="comparison-card current">
+                                <div class="comparison-label">Apoyo Real</div>
+                                <div class="comparison-value">18.5%</div>
+                                <span class="badge danger">Crítico</span>
+                            </div>
+                            <div class="comparison-card required">
+                                <div class="comparison-label">Mínimo Requerido</div>
+                                <div class="comparison-value">60%</div>
+                                <span class="badge success">Objetivo</span>
+                            </div>
+                        </div>
+                        
+                        <table class="data-table" style="margin-top: 30px;">
+                            <thead>
+                                <tr>
+                                    <th>Aspecto</th>
+                                    <th>Estado Actual</th>
+                                    <th>Requerimiento</th>
+                                    <th>Brecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Consenso docente</td>
+                                    <td>18.5%</td>
+                                    <td>≥60%</td>
+                                    <td><span class="badge danger">-41.5%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Participación en consultas</td>
+                                    <td>13.3%</td>
+                                    <td>≥50%</td>
+                                    <td><span class="badge danger">-36.7%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CDP específico</td>
+                                    <td>No presentado</td>
+                                    <td>Requerido</td>
+                                    <td><span class="badge danger">Faltante</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Estudio de mercado</td>
+                                    <td>No incluido</td>
+                                    <td>Esencial</td>
+                                    <td><span class="badge danger">Ausente</span></td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>Costo por estudiante nuevo</td>
+                                    <td>$321.7M (4 años)</td>
+                                    <td>≤$50M</td>
+                                    <td><span class="badge danger">+543%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comentarios representativos -->
+            <div class="qualitative-section">
+                <h2 class="card-title" style="margin-bottom: 20px;">
+                    <i class="fas fa-quote-left"></i>
+                    Voces de la Comunidad Académica
+                </h2>
+                <div class="comment-showcase">
+                    <div class="comment-card negative">
+                        "La propuesta carece de rigor académico. No hace un análisis real de las necesidades de formación regionales ni en las áreas de ciencias humanas ni de ciencias sociales. Tampoco toma en cuenta los altos índices de desempleo que actualmente existen en dicho campo."
+                    </div>
+                    <div class="comment-card negative">
+                        "Es una propuesta inmediatista, llena de incongruencias y elaborada sin rigor académico y técnico. No se sabe de dónde van a sacar las plazas de profesores de tiempo completo que se requieren para ofrecer una docencia de calidad."
+                    </div>
+                    <div class="comment-card neutral">
+                        "Si bien la idea es interesante, faltan detalles sobre la integración con las facultades existentes y posibles sinergias académicas. Necesitamos más tiempo para analizar."
+                    </div>
+                    <div class="comment-card positive">
+                        "La sede necesita diversificar su oferta académica. Una facultad de humanidades fortalecería la formación integral de nuestros estudiantes."
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Proceso y Participación -->
+        <div id="proceso" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-history"></i>
+                        Timeline del Proceso FCHS
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker">1</div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Inicio 2025</div>
+                                <div class="timeline-title">Propuesta Inicial</div>
+                                <div class="timeline-description">
+                                    Departamento de Ciencias Humanas presenta la propuesta. 17 docentes involucrados, 15 a favor.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">2</div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Febrero 2025</div>
+                                <div class="timeline-title">Asambleas y Votaciones</div>
+                                <div class="timeline-description">
+                                    Asambleas del 7, 10 y 14 de febrero. Votación favorable pero con solicitud explícita de mejoras y garantías.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">3</div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Marzo-Mayo 2025</div>
+                                <div class="timeline-title">Cuestionamientos Sin Resolver</div>
+                                <div class="timeline-description">
+                                    Múltiples derechos de petición sobre viabilidad financiera. Respuestas consideradas "evasivas" por la representación profesoral.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker current">4</div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Junio 2025</div>
+                                <div class="timeline-title">Aval Consejo Académico</div>
+                                <div class="timeline-description">
+                                    Votación: 18 a favor, 6 abstenciones, 5 en contra. Pasa a CSU sin resolver inquietudes principales.
+                                    <br><br>
+                                    <strong>Encuesta oficial:</strong> Solo 33 de 248 docentes participan (13.3%)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">5</div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Julio 2025</div>
+                                <div class="timeline-title">Encuesta Independiente</div>
+                                <div class="timeline-description">
+                                    108 docentes participan (43.5%). Resultado: 81.5% sin apoyo claro.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker pending">CSU</div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Pendiente</div>
+                                <div class="timeline-title">Decisión Final CSU</div>
+                                <div class="timeline-description">
+                                    Consejo Superior Universitario debe decidir con base en la información presentada.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Análisis de participación -->
+            <div class="main-grid" style="margin-top: 30px;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-users"></i>
+                            Análisis de Participación
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="participationChart"></canvas>
+                        </div>
+                        <div class="chart-explanation">
+                            <strong>Problemática:</strong> La baja participación en consultas oficiales (13.3%) contrasta con la mayor respuesta a la encuesta independiente (43.5%), sugiriendo posibles problemas en los mecanismos de consulta institucional.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Respuestas Pospuestas o No Resueltas
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 15px; border-bottom: 1px solid var(--unal-gris-claro);">
+                                <strong>Códigos SNIES (Érika Marulanda):</strong>
+                                <p style="color: var(--unal-gris); margin-top: 5px;">
+                                    Respuesta: "Se proyectará después de crear la facultad" 
+                                    <span class="badge warning">POSPUESTO</span>
+                                </p>
+                            </li>
+                            <li style="padding: 15px; border-bottom: 1px solid var(--unal-gris-claro);">
+                                <strong>Programa de Filosofía (A. Satizábal):</strong>
+                                <p style="color: var(--unal-gris); margin-top: 5px;">
+                                    Respuesta: "Se tendrá presente a futuro"
+                                    <span class="badge warning">INDEFINIDO</span>
+                                </p>
+                            </li>
+                            <li style="padding: 15px; border-bottom: 1px solid var(--unal-gris-claro);">
+                                <strong>Normativa completa (U. Bustamante):</strong>
+                                <p style="color: var(--unal-gris); margin-top: 5px;">
+                                    Respuesta: "Será útil cuando la facultad esté creada"
+                                    <span class="badge danger">NO INCLUIDO</span>
+                                </p>
+                            </li>
+                            <li style="padding: 15px;">
+                                <strong>Certificado de Disponibilidad Presupuestal:</strong>
+                                <p style="color: var(--unal-gris); margin-top: 5px;">
+                                    Estado: No presentado específicamente para FCHS
+                                    <span class="badge danger">AUSENTE</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Análisis Financiero -->
+        <div id="financiero" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
                         <i class="fas fa-dollar-sign"></i>
+                        Proyección de Inversión vs. Retorno
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="financial-grid">
+                        <div class="financial-card">
+                            <div class="financial-label">Inversión Año 1</div>
+                            <div class="financial-value">$8,089M</div>
+                            <div class="financial-detail">
+                                Incluye infraestructura inicial y arranque de programas
+                            </div>
+                        </div>
+                        <div class="financial-card warning">
+                            <div class="financial-label">Inversión Total (4 años)</div>
+                            <div class="financial-value">$41,953M</div>
+                            <div class="financial-detail">
+                                Acumulado para implementación completa
+                            </div>
+                        </div>
+                        <div class="financial-card critical">
+                            <div class="financial-label">Estudiantes Nuevos</div>
+                            <div class="financial-value">40</div>
+                            <div class="financial-detail">
+                                20 en Ciencia Política + 20 en Filología e Idiomas
+                            </div>
+                        </div>
+                        <div class="financial-card critical">
+                            <div class="financial-label">Costo por Estudiante</div>
+                            <div class="financial-value">$321.7M</div>
+                            <div class="financial-detail">
+                                En 4 años por cada estudiante nuevo
+                            </div>
+                        </div>
                     </div>
-                    <div class="summary-text">
-                        <h4>Preocupaciones Financieras Predominantes</h4>
-                        <p>La viabilidad económica y sostenibilidad presupuestal son las principales inquietudes expresadas, requiriendo un plan financiero más detallado y transparente.</p>
+
+                    <div class="chart-container" style="margin-top: 30px;">
+                        <canvas id="costChart"></canvas>
                     </div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-icon info">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="summary-text">
-                        <h4>Oportunidad de Mejora en el Proceso</h4>
-                        <p>Los resultados sugieren la necesidad de fortalecer los espacios de participación y diálogo con la comunidad académica para construir una propuesta más robusta y consensuada.</p>
+                    <div class="chart-explanation">
+                        <strong>Análisis crítico:</strong> La inversión de casi 42 mil millones en 4 años para solo 40 estudiantes nuevos representa un costo extraordinariamente alto. Esto equivale a más de 800 millones por estudiante, cuestionando seriamente la eficiencia del uso de recursos públicos.
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- KPIs -->
-        <div class="kpi-section">
-            <div class="kpi-card negative fade-in">
-                <i class="fas fa-times-circle kpi-icon"></i>
-                <h3>En Desacuerdo</h3>
-                <div class="kpi-value">55%</div>
-                <div class="kpi-detail">60 docentes expresan oposición</div>
-            </div>
-            <div class="kpi-card neutral fade-in" style="animation-delay: 0.1s">
-                <i class="fas fa-question-circle kpi-icon"></i>
-                <h3>Con Dudas</h3>
-                <div class="kpi-value">26.6%</div>
-                <div class="kpi-detail">29 docentes sin posición definida</div>
-            </div>
-            <div class="kpi-card positive fade-in" style="animation-delay: 0.2s">
-                <i class="fas fa-check-circle kpi-icon"></i>
-                <h3>De Acuerdo</h3>
-                <div class="kpi-value">18.3%</div>
-                <div class="kpi-detail">20 docentes apoyan la propuesta</div>
-            </div>
-            <div class="kpi-card fade-in" style="animation-delay: 0.3s">
-                <i class="fas fa-chart-pie kpi-icon"></i>
-                <h3>Participación</h3>
-                <div class="kpi-value">109</div>
-                <div class="kpi-detail">Total de respuestas recibidas</div>
-            </div>
-        </div>
-
-        <!-- Búsqueda -->
-        <div class="search-container fade-in">
-            <div class="search-box">
-                <input type="text" class="search-input" id="searchInput" placeholder="Buscar en comentarios..." onkeyup="searchComments(event)">
-                <button class="search-btn" onclick="performSearch()">
-                    <i class="fas fa-search"></i>
-                    <span>Buscar</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Contenido Principal -->
-        <div class="main-content">
-            <!-- Distribución de Respuestas -->
-            <div class="section-card fade-in">
-                <h2 class="section-title">
-                    <i class="fas fa-chart-pie"></i>
-                    Distribución de Respuestas
-                </h2>
-                <div class="chart-container">
-                    <canvas id="distributionChart"></canvas>
+            <!-- Desglose detallado -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-list-alt"></i>
+                        Desglose de Costos Proyectados
+                    </h2>
                 </div>
-                <div style="margin-top: 20px;">
-                    <p style="color: var(--unal-gris); font-size: 14px; line-height: 1.6;">
-                        <strong>Interpretación:</strong> La mayoría significativa de los docentes (81.7%) no respalda claramente la propuesta actual, lo que sugiere la necesidad de revisar y fortalecer los aspectos fundamentales del proyecto antes de su implementación.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Análisis de Preocupaciones -->
-            <div class="section-card fade-in" style="animation-delay: 0.2s">
-                <h2 class="section-title">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Principales Preocupaciones
-                </h2>
-                <div class="chart-container">
-                    <canvas id="concernsChart"></canvas>
-                </div>
-                <div style="margin-top: 20px;">
-                    <p style="color: var(--unal-gris); font-size: 14px; line-height: 1.6;">
-                        <strong>Análisis:</strong> Las inquietudes se concentran en la viabilidad financiera (35%), seguida por la falta de rigor académico (25%) y la pertinencia regional (20%), aspectos que requieren atención prioritaria.
-                    </p>
+                <div class="card-body">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Año 1</th>
+                                <th>Año 2</th>
+                                <th>Año 3</th>
+                                <th>Año 4</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cargos administrativos</td>
+                                <td>$831M</td>
+                                <td>$906M</td>
+                                <td>$987M</td>
+                                <td>$1,076M</td>
+                            </tr>
+                            <tr>
+                                <td>Salarios docentes</td>
+                                <td>$6,138M</td>
+                                <td>$7,536M</td>
+                                <td>$8,955M</td>
+                                <td>$10,266M</td>
+                            </tr>
+                            <tr>
+                                <td>Servicios y gastos</td>
+                                <td>$417M</td>
+                                <td>$524M</td>
+                                <td>$605M</td>
+                                <td>$688M</td>
+                            </tr>
+                            <tr>
+                                <td>Bienestar universitario</td>
+                                <td>$533M</td>
+                                <td>$364M</td>
+                                <td>$252M</td>
+                                <td>$137M</td>
+                            </tr>
+                            <tr>
+                                <td>Infraestructura</td>
+                                <td>$2,645M</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>TOTAL</strong></td>
+                                <td><strong>$8,089M</strong></td>
+                                <td><strong>$9,656M</strong></td>
+                                <td><strong>$11,405M</strong></td>
+                                <td><strong>$12,908M</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <!-- Análisis de Comentarios -->
-        <div class="analysis-section">
-            <div class="section-card fade-in">
-                <h2 class="section-title">
-                    <i class="fas fa-comments"></i>
-                    Análisis Cualitativo de Comentarios
-                </h2>
-                
-                <div class="category-tabs">
-                    <button class="tab-btn active" onclick="filterComments('all')">
-                        <span>Todos</span>
-                        <span class="badge">109</span>
-                    </button>
-                    <button class="tab-btn" onclick="filterComments('financial')">
-                        <span>Viabilidad Financiera</span>
-                        <span class="badge">38</span>
-                    </button>
-                    <button class="tab-btn" onclick="filterComments('academic')">
-                        <span>Rigor Académico</span>
-                        <span class="badge">27</span>
-                    </button>
-                    <button class="tab-btn" onclick="filterComments('regional')">
-                        <span>Pertinencia Regional</span>
-                        <span class="badge">22</span>
-                    </button>
-                    <button class="tab-btn" onclick="filterComments('process')">
-                        <span>Proceso</span>
-                        <span class="badge">11</span>
-                    </button>
-                    <button class="tab-btn" onclick="filterComments('positive')">
-                        <span>Argumentos Positivos</span>
-                        <span class="badge">20</span>
-                    </button>
+        <!-- Tab 5: Análisis Comparativo -->
+        <div id="comparativo" class="tab-content">
+            <div class="main-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-chart-bar"></i>
+                            Brechas Identificadas
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="gapsChart"></canvas>
+                        </div>
+                        <div class="chart-explanation">
+                            <strong>Conclusión:</strong> Todas las dimensiones evaluadas muestran brechas significativas entre el estado actual y los requerimientos mínimos para una implementación exitosa. Las mayores deficiencias están en el consenso docente y la viabilidad financiera.
+                        </div>
+                    </div>
                 </div>
 
-                <div class="comments-grid" id="commentsContainer">
-                    <!-- Los comentarios se cargarán dinámicamente -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-balance-scale-right"></i>
+                            Resumen de Evidencias
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <h4 style="color: var(--unal-rojo); margin-bottom: 15px;">
+                            <i class="fas fa-times"></i> Evidencias en Contra
+                        </h4>
+                        <ul style="list-style: none; padding-left: 20px; margin-bottom: 30px;">
+                            <li style="margin-bottom: 10px;">• 81.5% sin apoyo claro (encuesta independiente)</li>
+                            <li style="margin-bottom: 10px;">• Solo 13.3% participó en consulta oficial</li>
+                            <li style="margin-bottom: 10px;">• Costo de $321.7M por estudiante nuevo</li>
+                            <li style="margin-bottom: 10px;">• Sin CDP específico presentado</li>
+                            <li style="margin-bottom: 10px;">• Sin estudio de mercado</li>
+                            <li style="margin-bottom: 10px;">• Inquietudes clave pospuestas</li>
+                            <li style="margin-bottom: 10px;">• Discrepancias presupuestales (12.9 vs 20 mil millones)</li>
+                        </ul>
+
+                        <h4 style="color: var(--unal-verde); margin-bottom: 15px;">
+                            <i class="fas fa-check"></i> Evidencias a Favor
+                        </h4>
+                        <ul style="list-style: none; padding-left: 20px;">
+                            <li style="margin-bottom: 10px;">• Apoyo del Dpto. Ciencias Humanas (15/17)</li>
+                            <li style="margin-bottom: 10px;">• Aval del Consejo de Sede (9-2-0)</li>
+                            <li style="margin-bottom: 10px;">• Aval del Consejo Académico (18-6-5)</li>
+                            <li style="margin-bottom: 10px;">• Necesidad de diversificación académica</li>
+                            <li style="margin-bottom: 10px;">• Potencial impacto social y cultural</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Análisis Comparativo -->
-        <div class="main-content" style="margin-top: 30px;">
-            <div class="section-card fade-in">
-                <h2 class="section-title">
-                    <i class="fas fa-balance-scale"></i>
-                    Balance de Argumentos
-                </h2>
-                <div class="chart-container">
-                    <canvas id="balanceChart"></canvas>
+            <!-- Recomendaciones finales -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Recomendaciones para la Toma de Decisiones
+                    </h2>
                 </div>
-            </div>
+                <div class="card-body">
+                    <div style="background: var(--unal-azul-claro); padding: 20px; border-radius: 8px; border-left: 4px solid var(--unal-azul);">
+                        <h4 style="color: var(--unal-azul); margin-bottom: 15px;">Acciones Prioritarias Sugeridas:</h4>
+                        <ol style="padding-left: 20px; line-height: 1.8;">
+                            <li><strong>Suspender el proceso actual</strong> hasta lograr un consenso mínimo del 60% de la comunidad docente</li>
+                            <li><strong>Realizar un estudio de mercado profesional</strong> sobre demanda y empleabilidad en la región</li>
+                            <li><strong>Presentar CDP específico</strong> con fuentes de financiación claramente identificadas</li>
+                            <li><strong>Revisar la relación costo-beneficio</strong> y buscar alternativas más eficientes</li>
+                            <li><strong>Implementar un proceso participativo real</strong> con al menos 50% de participación docente</li>
+                            <li><strong>Resolver las inquietudes pendientes</strong> antes de proceder con aprobaciones</li>
+                        </ol>
+                    </div>
 
-            <div class="section-card fade-in" style="animation-delay: 0.2s">
-                <h2 class="section-title">
-                    <i class="fas fa-chart-line"></i>
-                    Tendencias por Categoría
-                </h2>
-                <div class="chart-container">
-                    <canvas id="trendsChart"></canvas>
+                    <div style="margin-top: 20px; padding: 20px; background: var(--unal-amarillo-claro); border-radius: 8px; border-left: 4px solid var(--unal-amarillo);">
+                        <p style="font-weight: 600; color: var(--unal-gris-oscuro);">
+                            <i class="fas fa-exclamation-triangle" style="color: var(--unal-amarillo);"></i>
+                            La evidencia sugiere que proceder sin resolver estas brechas podría comprometer seriamente la viabilidad y legitimidad del proyecto.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -907,249 +1365,104 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2025 Universidad Nacional de Colombia - Sede Manizales | Dashboard Institucional de Análisis</p>
-            <p style="margin-top: 10px;">Datos actualizados al 11 de julio de 2025</p>
-        </div>
+        <p>&copy; 2025 Universidad Nacional de Colombia - Sede Manizales</p>
+        <p>Dashboard basado en análisis de encuesta independiente (108 respuestas) y documento oficial de creación FCHS</p>
     </footer>
 
-    <!-- Modal de Filtros -->
-    <div class="modal" id="filterModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Filtros Avanzados</h3>
-                <button class="close-btn" onclick="toggleModal('filterModal')">&times;</button>
-            </div>
-            
-            <div class="filter-group">
-                <label class="filter-label">Tipo de Respuesta</label>
-                <div class="filter-options">
-                    <div class="filter-option selected" onclick="toggleFilter(this)">Todas</div>
-                    <div class="filter-option" onclick="toggleFilter(this)">En Desacuerdo</div>
-                    <div class="filter-option" onclick="toggleFilter(this)">Con Dudas</div>
-                    <div class="filter-option" onclick="toggleFilter(this)">De Acuerdo</div>
-                </div>
-            </div>
-
-            <div class="filter-group">
-                <label class="filter-label">Categorías de Preocupación</label>
-                <div class="filter-options">
-                    <div class="filter-option selected" onclick="toggleFilter(this)">Todas</div>
-                    <div class="filter-option" onclick="toggleFilter(this)">Viabilidad Financiera</div>
-                    <div class="filter-option" onclick="toggleFilter(this)">Rigor Académico</div>
-                    <div class="filter-option" onclick="toggleFilter(this)">Pertinencia Regional</div>
-                    <div class="filter-option" onclick="toggleFilter(this)">Proceso</div>
-                </div>
-            </div>
-
-            <div style="margin-top: 30px; text-align: center;">
-                <button class="filter-btn" onclick="applyFilters()">
-                    <i class="fas fa-check"></i>
-                    <span>Aplicar Filtros</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Datos de la encuesta
-        const surveyData = {
-            total: 109,
-            distribution: {
-                disagree: 60,
+        // Datos actualizados
+        const data = {
+            survey: {
+                disagree: 59,
                 doubts: 29,
-                agree: 20
+                agree: 20,
+                total: 108,
+                totalProfessors: 248
+            },
+            official: {
+                participants: 33,
+                inFavor: 25,
+                totalProfessors: 248
+            },
+            financial: {
+                year1: 8089,
+                year2: 9656,
+                year3: 11405,
+                year4: 12908,
+                total: 42058,
+                newStudents: 40
             },
             concerns: {
-                financial: 38,
-                academic: 27,
-                regional: 22,
-                process: 11,
-                competition: 6,
-                infrastructure: 5
-            },
-            comments: [
-                // Comentarios en desacuerdo - Viabilidad Financiera
-                { category: 'financial', sentiment: 'negative', text: 'La propuesta carece de un estudio financiero detallado que garantice la sostenibilidad a largo plazo. No se especifican las fuentes de financiación ni el impacto en el presupuesto actual de la sede.' },
-                { category: 'financial', sentiment: 'negative', text: 'Preocupa la discrepancia entre los 12.9 mil millones mencionados en el documento técnico y los 20 mil millones del Plan de Acción. Esta inconsistencia genera desconfianza sobre la viabilidad económica.' },
-                { category: 'financial', sentiment: 'negative', text: 'No existe un CDP (Certificado de Disponibilidad Presupuestal) concreto. Los recursos mencionados provienen de partidas generales sin destinación específica garantizada.' },
-                { category: 'financial', sentiment: 'negative', text: 'La inversión propuesta representa un porcentaje muy alto del presupuesto de la sede. ¿Cómo afectará esto a las facultades existentes y sus programas?' },
-                { category: 'financial', sentiment: 'negative', text: 'Falta claridad sobre el retorno de inversión. Con solo 45 matrículas nuevas proyectadas, la relación costo-beneficio parece desproporcionada.' },
-                
-                // Comentarios en desacuerdo - Rigor Académico
-                { category: 'academic', sentiment: 'negative', text: 'El documento técnico presenta deficiencias metodológicas importantes. No hay un diagnóstico claro de necesidades académicas ni un plan curricular detallado.' },
-                { category: 'academic', sentiment: 'negative', text: 'La propuesta no incluye un análisis comparativo con otras facultades similares en el país. ¿Qué valor diferencial aportaría esta nueva facultad?' },
-                { category: 'academic', sentiment: 'negative', text: 'Preocupa la falta de definición sobre las líneas de investigación específicas y cómo se articularían con los grupos existentes.' },
-                { category: 'academic', sentiment: 'negative', text: 'No se evidencia un plan claro para la contratación de docentes especializados ni los perfiles requeridos para los nuevos programas.' },
-                
-                // Comentarios en desacuerdo - Pertinencia Regional
-                { category: 'regional', sentiment: 'negative', text: 'No existe un estudio de mercado que demuestre la demanda real de estos programas en la región. Otras universidades ya ofertan carreras similares.' },
-                { category: 'regional', sentiment: 'negative', text: 'La región del Eje Cafetero tiene características productivas específicas. ¿Cómo se articula una facultad de humanidades con las necesidades del territorio?' },
-                { category: 'regional', sentiment: 'negative', text: 'Universidades privadas como la de Manizales y la Católica ya tienen programas consolidados en estas áreas. ¿Cómo competiremos?' },
-                { category: 'regional', sentiment: 'negative', text: 'Falta evidencia sobre consultas con empleadores y sectores productivos de la región sobre la pertinencia de estos programas.' },
-                
-                // Comentarios con dudas
-                { category: 'process', sentiment: 'neutral', text: 'El proceso ha sido apresurado. Necesitamos más tiempo para analizar la propuesta y generar consensos antes de tomar una decisión definitiva.' },
-                { category: 'academic', sentiment: 'neutral', text: 'Si bien la idea es interesante, faltan detalles sobre la integración con las facultades existentes y posibles sinergias académicas.' },
-                { category: 'financial', sentiment: 'neutral', text: 'Me preocupa el tema presupuestal, pero reconozco que la sede necesita crecer. ¿No sería mejor fortalecer primero lo existente?' },
-                { category: 'process', sentiment: 'neutral', text: 'La participación docente ha sido limitada. Se requieren más espacios de diálogo y construcción colectiva de la propuesta.' },
-                { category: 'regional', sentiment: 'neutral', text: 'Tengo dudas sobre el impacto real en la región, pero podría ser una oportunidad si se hace bien. Necesitamos más información.' },
-                
-                // Comentarios a favor
-                { category: 'academic', sentiment: 'positive', text: 'La sede necesita diversificar su oferta académica. Una facultad de humanidades fortalecería la formación integral de nuestros estudiantes.' },
-                { category: 'regional', sentiment: 'positive', text: 'Es fundamental que la universidad pública lidere la formación humanística en la región, especialmente en contextos de construcción de paz.' },
-                { category: 'academic', sentiment: 'positive', text: 'Esta facultad permitiría consolidar los esfuerzos dispersos en humanidades y crear sinergias importantes para la investigación interdisciplinaria.' },
-                { category: 'infrastructure', sentiment: 'positive', text: 'El crecimiento de la planta docente beneficiaría a toda la sede y permitiría fortalecer la presencia de la UNAL en la región.' },
-                { category: 'regional', sentiment: 'positive', text: 'Los programas propuestos responden a necesidades sociales evidentes: gestión cultural, comunicación y ciencias sociales son fundamentales para el desarrollo regional.' },
-                
-                // Más comentarios críticos específicos
-                { category: 'competition', sentiment: 'negative', text: 'La UTP ya tiene programas similares y está mejor posicionada en estos campos. No veo cómo podríamos competir sin una propuesta diferenciadora clara.' },
-                { category: 'infrastructure', sentiment: 'negative', text: 'No se menciona dónde funcionaría físicamente la nueva facultad. ¿Tenemos la infraestructura necesaria o implicaría más inversiones?' },
-                { category: 'process', sentiment: 'negative', text: 'La representación profesoral ha señalado múltiples inconsistencias que no han sido resueltas. Se está ignorando el mandato de la asamblea.' },
-                { category: 'financial', sentiment: 'negative', text: 'En un contexto de recursos limitados, ¿no sería más prudente fortalecer las facultades existentes antes de crear nuevas?' },
-                { category: 'academic', sentiment: 'negative', text: 'La fragmentación del Departamento de Ciencias Humanas podría debilitar los procesos académicos ya consolidados.' }
-            ]
+                regional: 29,
+                financial: 26,
+                academic: 25,
+                process: 9,
+                infrastructure: 6,
+                competition: 3
+            }
         };
 
-        // Configuración de colores institucionales
+        // Configuración de colores
         const colors = {
-            disagree: '#B8272D',
-            doubts: '#F4D03F', 
-            agree: '#94B43B',
-            primary: '#94B43B',
-            secondary: '#5A7A28',
-            gray: '#666666'
+            red: '#B8272D',
+            yellow: '#F4D03F',
+            green: '#94B43B',
+            blue: '#006BB3',
+            gray: '#666666',
+            lightGray: '#E8E8E8',
+            darkGray: '#333333'
         };
 
-        // Inicialización de gráficos
-        let distributionChart, concernsChart, balanceChart, trendsChart;
-
-        // Función para inicializar los gráficos
-        function initCharts() {
-            // Gráfico de distribución
-            const ctxDistribution = document.getElementById('distributionChart').getContext('2d');
-            distributionChart = new Chart(ctxDistribution, {
-                type: 'doughnut',
-                data: {
-                    labels: ['En Desacuerdo', 'Con Dudas', 'De Acuerdo'],
-                    datasets: [{
-                        data: [
-                            surveyData.distribution.disagree,
-                            surveyData.distribution.doubts,
-                            surveyData.distribution.agree
-                        ],
-                        backgroundColor: [colors.disagree, colors.doubts, colors.agree],
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const label = context.label || '';
-                                    const value = context.parsed;
-                                    const percentage = ((value / surveyData.total) * 100).toFixed(1);
-                                    return `${label}: ${value} (${percentage}%)`;
-                                }
-                            }
-                        }
-                    }
-                }
+        // Función para cambiar pestañas
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
-
-            // Gráfico de preocupaciones
-            const ctxConcerns = document.getElementById('concernsChart').getContext('2d');
-            concernsChart = new Chart(ctxConcerns, {
-                type: 'bar',
-                data: {
-                    labels: [
-                        'Viabilidad Financiera',
-                        'Rigor Académico',
-                        'Pertinencia Regional',
-                        'Proceso',
-                        'Competencia',
-                        'Infraestructura'
-                    ],
-                    datasets: [{
-                        label: 'Menciones',
-                        data: Object.values(surveyData.concerns),
-                        backgroundColor: colors.primary,
-                        borderColor: colors.secondary,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 5
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const value = context.parsed.y;
-                                    const percentage = ((value / surveyData.total) * 100).toFixed(1);
-                                    return `Menciones: ${value} (${percentage}% del total)`;
-                                }
-                            }
-                        }
-                    }
-                }
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
             });
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
 
-            // Gráfico de balance
-            const ctxBalance = document.getElementById('balanceChart').getContext('2d');
-            balanceChart = new Chart(ctxBalance, {
+        // Inicializar gráficos cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+        });
+
+        function initializeCharts() {
+            // Gráfico Radar - Estado actual vs. Requerido
+            const radarCtx = document.getElementById('radarChart').getContext('2d');
+            new Chart(radarCtx, {
                 type: 'radar',
                 data: {
                     labels: [
-                        'Apoyo Claro',
+                        'Consenso Docente',
+                        'Participación',
                         'Viabilidad Financiera',
                         'Rigor Académico',
                         'Pertinencia Regional',
-                        'Proceso Participativo',
-                        'Consenso Docente'
+                        'Transparencia Proceso',
+                        'Documentación Completa'
                     ],
                     datasets: [{
                         label: 'Estado Actual',
-                        data: [18.3, 25, 30, 35, 40, 18.3],
+                        data: [18.5, 43.5, 15, 25, 20, 30, 20],
                         backgroundColor: 'rgba(184, 39, 45, 0.2)',
-                        borderColor: colors.disagree,
-                        pointBackgroundColor: colors.disagree,
+                        borderColor: colors.red,
+                        pointBackgroundColor: colors.red,
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: colors.disagree
+                        pointHoverBorderColor: colors.red
                     }, {
-                        label: 'Objetivo Mínimo',
-                        data: [60, 70, 75, 70, 80, 60],
+                        label: 'Mínimo Requerido',
+                        data: [60, 50, 70, 75, 70, 80, 90],
                         backgroundColor: 'rgba(148, 180, 59, 0.2)',
-                        borderColor: colors.agree,
-                        pointBackgroundColor: colors.agree,
+                        borderColor: colors.green,
+                        pointBackgroundColor: colors.green,
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: colors.agree
+                        pointHoverBorderColor: colors.green
                     }]
                 },
                 options: {
@@ -1166,30 +1479,130 @@
                     },
                     plugins: {
                         legend: {
-                            position: 'bottom'
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: { size: 14 }
+                            }
                         }
                     }
                 }
             });
 
-            // Gráfico de tendencias
-            const ctxTrends = document.getElementById('trendsChart').getContext('2d');
-            trendsChart = new Chart(ctxTrends, {
+            // Gráfico de comparación - Oficial vs. Independiente
+            const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+            new Chart(comparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Encuesta Oficial', 'Encuesta Independiente'],
+                    datasets: [{
+                        label: 'A favor / De acuerdo',
+                        data: [76.4, 18.5],
+                        backgroundColor: colors.green
+                    }, {
+                        label: 'En contra / Desacuerdo',
+                        data: [23.6, 54.6],
+                        backgroundColor: colors.red
+                    }, {
+                        label: 'Sin posición / Dudas',
+                        data: [0, 26.9],
+                        backgroundColor: colors.yellow
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de participación
+            const participationCtx = document.getElementById('participationChart').getContext('2d');
+            new Chart(participationCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Participaron en oficial (13.3%)',
+                        'Participaron solo en independiente (30.2%)',
+                        'No participaron (56.5%)'
+                    ],
+                    datasets: [{
+                        data: [33, 75, 140],
+                        backgroundColor: [colors.green, colors.yellow, colors.lightGray],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: { size: 14 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    const total = 248;
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return context.label + ': ' + value + ' docentes';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de costos
+            const costCtx = document.getElementById('costChart').getContext('2d');
+            new Chart(costCtx, {
                 type: 'line',
                 data: {
-                    labels: ['Viabilidad Financiera', 'Rigor Académico', 'Pertinencia Regional', 'Proceso', 'Otros'],
+                    labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4'],
                     datasets: [{
-                        label: 'Preocupaciones',
-                        data: [38, 27, 22, 11, 11],
-                        borderColor: colors.disagree,
+                        label: 'Inversión Anual (Millones COP)',
+                        data: [8089, 9656, 11405, 12908],
+                        borderColor: colors.red,
                         backgroundColor: 'rgba(184, 39, 45, 0.1)',
-                        tension: 0.4
+                        tension: 0.4,
+                        fill: true
                     }, {
-                        label: 'Aspectos Positivos',
-                        data: [3, 8, 6, 2, 1],
-                        borderColor: colors.agree,
-                        backgroundColor: 'rgba(148, 180, 59, 0.1)',
-                        tension: 0.4
+                        label: 'Inversión Acumulada (Millones COP)',
+                        data: [8089, 17745, 29150, 42058],
+                        borderColor: colors.blue,
+                        backgroundColor: 'rgba(0, 107, 179, 0.1)',
+                        tension: 0.4,
+                        fill: true
                     }]
                 },
                 options: {
@@ -1197,388 +1610,81 @@
                     maintainAspectRatio: false,
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
                         }
                     },
                     plugins: {
                         legend: {
                             position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': $' + context.parsed.y.toLocaleString() + 'M';
+                                }
+                            }
                         }
                     }
                 }
             });
-        }
 
-        // Función para cargar comentarios
-        function loadComments(filter = 'all') {
-            const container = document.getElementById('commentsContainer');
-            container.innerHTML = '';
-            
-            let filteredComments = surveyData.comments;
-            if (filter !== 'all') {
-                filteredComments = surveyData.comments.filter(comment => 
-                    comment.category === filter || 
-                    (filter === 'positive' && comment.sentiment === 'positive')
-                );
-            }
-            
-            filteredComments.forEach((comment, index) => {
-                const commentCard = document.createElement('div');
-                commentCard.className = `comment-card ${comment.sentiment} fade-in`;
-                commentCard.style.animationDelay = `${index * 0.05}s`;
-                
-                commentCard.innerHTML = `
-                    <div class="comment-header">
-                        <span class="comment-category">${getCategoryLabel(comment.category)}</span>
-                        <span class="comment-sentiment">${getSentimentLabel(comment.sentiment)}</span>
-                    </div>
-                    <p class="comment-text">${comment.text}</p>
-                `;
-                
-                container.appendChild(commentCard);
-            });
-        }
-
-        // Función para obtener etiqueta de categoría
-        function getCategoryLabel(category) {
-            const labels = {
-                'financial': 'Viabilidad Financiera',
-                'academic': 'Rigor Académico',
-                'regional': 'Pertinencia Regional',
-                'process': 'Proceso',
-                'competition': 'Competencia',
-                'infrastructure': 'Infraestructura'
-            };
-            return labels[category] || category;
-        }
-
-        // Función para obtener etiqueta de sentimiento
-        function getSentimentLabel(sentiment) {
-            const labels = {
-                'negative': 'En desacuerdo',
-                'neutral': 'Con dudas',
-                'positive': 'De acuerdo'
-            };
-            return labels[sentiment] || sentiment;
-        }
-
-        // Función para filtrar comentarios
-        function filterComments(category) {
-            // Actualizar botones activos
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.closest('.tab-btn').classList.add('active');
-            
-            // Cargar comentarios filtrados
-            loadComments(category);
-        }
-
-        // Función para buscar comentarios
-        function searchComments(event) {
-            if (event.key === 'Enter') {
-                performSearch();
-            }
-        }
-
-        function performSearch() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const container = document.getElementById('commentsContainer');
-            container.innerHTML = '';
-            
-            if (!searchTerm) {
-                loadComments();
-                return;
-            }
-            
-            const filteredComments = surveyData.comments.filter(comment => 
-                comment.text.toLowerCase().includes(searchTerm)
-            );
-            
-            if (filteredComments.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--unal-gris); padding: 40px;">No se encontraron comentarios que coincidan con la búsqueda.</p>';
-                return;
-            }
-            
-            filteredComments.forEach((comment, index) => {
-                const commentCard = document.createElement('div');
-                commentCard.className = `comment-card ${comment.sentiment} fade-in`;
-                commentCard.style.animationDelay = `${index * 0.05}s`;
-                
-                // Resaltar término de búsqueda
-                const highlightedText = comment.text.replace(
-                    new RegExp(searchTerm, 'gi'),
-                    match => `<mark style="background: #FFE082; padding: 2px;">${match}</mark>`
-                );
-                
-                commentCard.innerHTML = `
-                    <div class="comment-header">
-                        <span class="comment-category">${getCategoryLabel(comment.category)}</span>
-                        <span class="comment-sentiment">${getSentimentLabel(comment.sentiment)}</span>
-                    </div>
-                    <p class="comment-text">${highlightedText}</p>
-                `;
-                
-                container.appendChild(commentCard);
-            });
-        }
-
-        // Función para toggle de modal
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.toggle('active');
-        }
-
-        // Función para toggle de filtros
-        function toggleFilter(element) {
-            const siblings = element.parentElement.querySelectorAll('.filter-option');
-            
-            if (element.textContent === 'Todas' || element.textContent === 'Todos') {
-                siblings.forEach(sibling => sibling.classList.remove('selected'));
-                element.classList.add('selected');
-            } else {
-                const allOption = Array.from(siblings).find(s => 
-                    s.textContent === 'Todas' || s.textContent === 'Todos'
-                );
-                if (allOption) allOption.classList.remove('selected');
-                element.classList.toggle('selected');
-                
-                // Si no hay ningún filtro seleccionado, seleccionar "Todas"
-                const hasSelected = Array.from(siblings).some(s => s.classList.contains('selected'));
-                if (!hasSelected && allOption) {
-                    allOption.classList.add('selected');
-                }
-            }
-        }
-
-        // Función para aplicar filtros
-        function applyFilters() {
-            // Aquí implementarías la lógica para aplicar los filtros seleccionados
-            showNotification('Filtros aplicados correctamente');
-            toggleModal('filterModal');
-        }
-
-        // Función para exportar datos
-        function exportData() {
-            // Preparar datos para exportación
-            const exportData = {
-                resumen: {
-                    total_respuestas: surveyData.total,
-                    en_desacuerdo: surveyData.distribution.disagree,
-                    con_dudas: surveyData.distribution.doubts,
-                    de_acuerdo: surveyData.distribution.agree
+            // Gráfico de brechas
+            const gapsCtx = document.getElementById('gapsChart').getContext('2d');
+            new Chart(gapsCtx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: [
+                        'Consenso Docente',
+                        'Participación en Consultas',
+                        'Viabilidad Financiera',
+                        'Documentación Completa',
+                        'Pertinencia Regional',
+                        'Rigor Académico'
+                    ],
+                    datasets: [{
+                        label: 'Brecha (%)',
+                        data: [-41.5, -36.7, -55, -70, -50, -50],
+                        backgroundColor: colors.red,
+                        borderColor: colors.red,
+                        borderWidth: 1
+                    }]
                 },
-                preocupaciones: surveyData.concerns,
-                comentarios: surveyData.comments
-            };
-            
-            // Convertir a JSON
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            // Crear enlace de descarga
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = `analisis_fchs_${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            
-            showNotification('Datos exportados correctamente');
-        }
-
-        // Función para mostrar notificaciones
-        function showNotification(message) {
-            // Crear notificación
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--unal-verde);
-                color: white;
-                padding: 15px 25px;
-                border-radius: 5px;
-                box-shadow: var(--sombra-suave);
-                z-index: 3000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = message;
-            
-            document.body.appendChild(notification);
-            
-            // Remover después de 3 segundos
-            setTimeout(() => {
-                notification.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        // Animaciones CSS adicionales
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes fadeOut {
-                from {
-                    opacity: 1;
-                }
-                to {
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Función para actualizar gráficos con animación
-        function updateCharts() {
-            if (distributionChart) distributionChart.update();
-            if (concernsChart) concernsChart.update();
-            if (balanceChart) balanceChart.update();
-            if (trendsChart) trendsChart.update();
-        }
-
-        // Función para el modo de presentación
-        function togglePresentationMode() {
-            document.body.classList.toggle('presentation-mode');
-            
-            if (document.body.classList.contains('presentation-mode')) {
-                // Ocultar elementos no esenciales
-                document.querySelector('.search-container').style.display = 'none';
-                document.querySelector('.footer').style.display = 'none';
-                
-                // Aumentar tamaños de fuente
-                document.querySelectorAll('.kpi-value').forEach(el => {
-                    el.style.fontSize = '48px';
-                });
-                
-                showNotification('Modo presentación activado');
-            } else {
-                // Restaurar elementos
-                document.querySelector('.search-container').style.display = 'block';
-                document.querySelector('.footer').style.display = 'block';
-                
-                // Restaurar tamaños
-                document.querySelectorAll('.kpi-value').forEach(el => {
-                    el.style.fontSize = '36px';
-                });
-                
-                showNotification('Modo presentación desactivado');
-            }
-        }
-
-        // Event listeners para atajos de teclado
-        document.addEventListener('keydown', function(e) {
-            // Ctrl/Cmd + P para modo presentación
-            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-                e.preventDefault();
-                togglePresentationMode();
-            }
-            
-            // Ctrl/Cmd + E para exportar
-            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
-                e.preventDefault();
-                exportData();
-            }
-            
-            // Esc para cerrar modales
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal.active').forEach(modal => {
-                    modal.classList.remove('active');
-                });
-            }
-        });
-
-        // Función para animar números
-        function animateValue(element, start, end, duration) {
-            const range = end - start;
-            const increment = range / (duration / 16);
-            let current = start;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-                    current = end;
-                    clearInterval(timer);
-                }
-                element.textContent = Math.round(current);
-            }, 16);
-        }
-
-        // Función para inicializar animaciones de entrada
-        function initAnimations() {
-            // Animar valores KPI
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const kpiValue = entry.target.querySelector('.kpi-value');
-                        if (kpiValue && !kpiValue.animated) {
-                            kpiValue.animated = true;
-                            const finalValue = parseFloat(kpiValue.textContent);
-                            animateValue(kpiValue, 0, finalValue, 1000);
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 0,
+                            min: -80,
+                            ticks: {
+                                callback: function(value) {
+                                    return Math.abs(value) + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Déficit: ' + Math.abs(context.parsed.x) + '%';
+                                }
+                            }
                         }
                     }
-                });
-            });
-            
-            document.querySelectorAll('.kpi-card').forEach(card => {
-                observer.observe(card);
+                }
             });
         }
-
-        // Función para detectar el tema del sistema
-        function detectSystemTheme() {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                // Aquí podrías implementar un tema oscuro si lo deseas
-                console.log('Sistema en modo oscuro detectado');
-            }
-        }
-
-        // Inicialización cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mostrar loading
-            document.getElementById('loading').style.display = 'block';
-            
-            // Simular carga de datos
-            setTimeout(() => {
-                // Ocultar loading
-                document.getElementById('loading').style.display = 'none';
-                
-                // Inicializar componentes
-                initCharts();
-                loadComments();
-                initAnimations();
-                detectSystemTheme();
-                
-                // Mostrar notificación de bienvenida
-                showNotification('Dashboard cargado correctamente');
-            }, 1000);
-        });
-
-        // Manejar cambios de tamaño de ventana
-        window.addEventListener('resize', function() {
-            updateCharts();
-        });
-
-        // Función para imprimir dashboard
-        function printDashboard() {
-            window.print();
-        }
-
-        // Agregar botón de impresión al header
-        document.addEventListener('DOMContentLoaded', function() {
-            const navControls = document.querySelector('.nav-controls');
-            const printBtn = document.createElement('button');
-            printBtn.className = 'filter-btn';
-            printBtn.innerHTML = '<i class="fas fa-print"></i><span>Imprimir</span>';
-            printBtn.onclick = printDashboard;
-            navControls.appendChild(printBtn);
-        });
     </script>
 </body>
 </html>
