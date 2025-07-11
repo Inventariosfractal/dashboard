@@ -15,7 +15,7 @@
 
 @layer components {
   .card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all duration-300 hover:shadow-md;
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 transition-all duration-300 hover:shadow-md;
   }
   
   .card-header {
@@ -23,19 +23,23 @@
   }
   
   .section-title {
-    @apply text-2xl font-bold text-gray-900 mb-6;
+    @apply text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6;
   }
   
   .metric-card {
-    @apply bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300;
+    @apply bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 sm:p-6 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300;
+  }
+  
+  .chart-container {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 transition-all duration-300 hover:shadow-md;
   }
   
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200;
+    @apply bg-primary-600 hover:bg-primary-700 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-sm sm:text-base;
   }
   
   .btn-secondary {
-    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors duration-200;
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-sm sm:text-base;
   }
 }
 
@@ -50,6 +54,7 @@
   filter: blur(0px);
 }
 
+/* Responsive improvements */
 @media (max-width: 768px) {
   .responsive-grid {
     grid-template-columns: 1fr !important;
@@ -61,5 +66,155 @@
   
   .mobile-padding {
     padding: 1rem !important;
+  }
+  
+  /* Better mobile navigation */
+  nav .flex {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  nav .flex::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Mobile-friendly cards */
+  .metric-card {
+    @apply p-3;
+  }
+  
+  .chart-container {
+    @apply p-3;
+  }
+  
+  /* Better mobile typography */
+  h1 {
+    @apply text-xl;
+  }
+  
+  h2 {
+    @apply text-lg;
+  }
+  
+  h3 {
+    @apply text-base;
+  }
+  
+  /* Mobile table improvements */
+  table {
+    @apply text-xs;
+  }
+  
+  /* Mobile spacing */
+  .space-y-6 > * + * {
+    @apply mt-4;
+  }
+  
+  .space-y-4 > * + * {
+    @apply mt-3;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Extra small screens */
+  .metric-card .text-3xl {
+    @apply text-2xl;
+  }
+  
+  .metric-card .text-2xl {
+    @apply text-xl;
+  }
+  
+  /* Smaller padding for very small screens */
+  .chart-container,
+  .metric-card {
+    @apply p-2;
+  }
+  
+  /* Stack navigation items on very small screens */
+  nav .flex {
+    @apply flex-col space-y-1;
+  }
+  
+  nav button {
+    @apply w-full text-center;
+  }
+}
+
+/* Improved animations for mobile */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .animate-pulse-subtle {
+    animation: pulseSubtle 2s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  '0%': { opacity: '0' },
+  '100%': { opacity: '1' },
+}
+
+@keyframes slideUp {
+  '0%': { transform: 'translateY(20px)', opacity: '0' },
+  '100%': { transform: 'translateY(0)', opacity: '1' },
+}
+
+@keyframes pulseSubtle {
+  '0%, 100%': { opacity: '1' },
+  '50%': { opacity: '0.8' },
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .metric-card,
+  .chart-container,
+  .card {
+    @apply border-2 border-gray-800;
+  }
+  
+  .bg-gray-50 {
+    @apply bg-white;
+  }
+}
+
+/* Focus improvements for accessibility */
+button:focus-visible,
+a:focus-visible {
+  @apply outline-2 outline-offset-2 outline-blue-600;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .chart-container,
+  .metric-card {
+    @apply shadow-none border border-gray-300;
+  }
+  
+  body {
+    @apply text-black bg-white;
   }
 }

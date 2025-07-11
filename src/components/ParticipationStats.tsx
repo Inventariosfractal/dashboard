@@ -12,7 +12,7 @@ const ParticipationStats: React.FC = () => {
     { name: 'Gestión Cultural', responses: 22, percentage: 17.3 }
   ];
 
-  // Datos de apoyo a la propuesta
+  // Datos de apoyo a la propuesta - corregidos según el documento
   const supportData = [
     { name: 'A favor', value: 100, color: '#10B981', percentage: 78.7 },
     { name: 'En contra', value: 15, color: '#EF4444', percentage: 11.8 },
@@ -77,7 +77,11 @@ const ParticipationStats: React.FC = () => {
         variants={itemVariants}
         className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"
       >
-        <div className="metric-card bg-gradient-to-br from-blue-50 to-blue-100">
+        <motion.div 
+          className="metric-card bg-gradient-to-br from-blue-50 to-blue-100"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-blue-700">Total Respuestas</p>
@@ -88,9 +92,13 @@ const ParticipationStats: React.FC = () => {
               <Users className="w-6 h-6 text-blue-700" />
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="metric-card bg-gradient-to-br from-green-50 to-green-100">
+        <motion.div 
+          className="metric-card bg-gradient-to-br from-green-50 to-green-100"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-green-700">Apoyo a la Propuesta</p>
@@ -101,9 +109,13 @@ const ParticipationStats: React.FC = () => {
               <TrendingUp className="w-6 h-6 text-green-700" />
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="metric-card bg-gradient-to-br from-purple-50 to-purple-100">
+        <motion.div 
+          className="metric-card bg-gradient-to-br from-purple-50 to-purple-100"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-purple-700">Representatividad</p>
@@ -114,7 +126,7 @@ const ParticipationStats: React.FC = () => {
               <Info className="w-6 h-6 text-purple-700" />
             </div>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

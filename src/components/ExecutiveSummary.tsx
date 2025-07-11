@@ -19,10 +19,13 @@ const ExecutiveSummary: React.FC = () => {
   };
 
   // Datos corregidos basados en el documento
-  const totalMatriculasCuatroAnos = 45 * 8; // 45 por semestre x 8 semestres
+  const matriculasPorSemestre = 45; // 15 por cada carrera
+  const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 por semestre x 8 semestres = 360
   const costoTotalProyecto = 12908; // millones COP
   const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // en pesos
   const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual en universidad pública colombiana
+  const docentesActualesDCH = 15; // Corregido: 15 docentes actuales (no 17)
+  const totalDocentesPlantaFCHS = 248;
 
   return (
     <motion.section 
@@ -37,7 +40,7 @@ const ExecutiveSummary: React.FC = () => {
 
       {/* Separación clara entre datos oficiales y encuesta propia */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Datos Oficiales */}
+        {/* Datos Oficiales del DCH */}
         <motion.div variants={itemVariants} className="space-y-4">
           <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
             <h3 className="text-lg font-semibold text-blue-900 mb-3 flex items-center gap-2">
@@ -46,22 +49,22 @@ const ExecutiveSummary: React.FC = () => {
             </h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between items-center">
-                <span className="text-blue-800">Docentes actuales:</span>
-                <span className="font-semibold text-blue-900">15 profesores</span>
+                <span className="text-blue-800">Docentes actuales DCH:</span>
+                <span className="font-semibold text-blue-900">{docentesActualesDCH} profesores</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-blue-800">Matrículas por semestre:</span>
-                <span className="font-semibold text-blue-900">45 nuevas</span>
+                <span className="text-blue-800">Matrículas nuevas por semestre:</span>
+                <span className="font-semibold text-blue-900">{matriculasPorSemestre}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-blue-800">Total docentes planta FCHS:</span>
-                <span className="font-semibold text-blue-900">248 profesores</span>
+                <span className="font-semibold text-blue-900">{totalDocentesPlantaFCHS} profesores</span>
               </div>
               <div className="text-xs text-blue-700 bg-blue-100 p-2 rounded">
-                <strong>Distribución:</strong> 15 por carrera (Ciencias Políticas, Filosofía, Gestión Cultural)
+                <strong>Distribución por carrera:</strong> 15 Ciencias Políticas + 15 Filosofía + 15 Gestión Cultural = {matriculasPorSemestre} nuevas matrículas/semestre
               </div>
               <div className="text-xs text-blue-700">
-                <strong>Nota:</strong> 3 profesores fueron trasladados a otros programas
+                <strong>Nota:</strong> 3 profesores fueron trasladados a otros programas (de 18 a {docentesActualesDCH})
               </div>
             </div>
           </div>
@@ -80,11 +83,11 @@ const ExecutiveSummary: React.FC = () => {
                 <span className="font-semibold text-green-900">127</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-green-800">A favor inicial:</span>
+                <span className="text-green-800">A favor (consulta inicial):</span>
                 <span className="font-semibold text-green-900">15 docentes</span>
               </div>
               <div className="text-xs text-green-700 bg-green-100 p-2 rounded">
-                <strong>Aclaración:</strong> Los 15 a favor corresponden a una consulta inicial realizada previamente
+                <strong>Aclaración:</strong> Los 15 a favor corresponden a una consulta inicial realizada previamente al proceso actual
               </div>
             </div>
           </div>
@@ -112,9 +115,9 @@ const ExecutiveSummary: React.FC = () => {
         <div className="metric-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Matrículas 4 años</p>
+              <p className="text-sm font-medium text-gray-600">Estudiantes 4 años</p>
               <p className="text-2xl font-bold text-green-600">{totalMatriculasCuatroAnos}</p>
-              <p className="text-xs text-gray-500">estudiantes total</p>
+              <p className="text-xs text-gray-500">total proyectado</p>
             </div>
             <div className="p-3 bg-green-100 rounded-full">
               <TrendingUp className="w-6 h-6 text-green-600" />
@@ -140,7 +143,7 @@ const ExecutiveSummary: React.FC = () => {
             <div>
               <p className="text-sm font-medium text-gray-600">Costo/Estudiante</p>
               <p className="text-2xl font-bold text-orange-600">${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)}M</p>
-              <p className="text-xs text-gray-500">4 años/estudiante</p>
+              <p className="text-xs text-gray-500">4 años completos</p>
             </div>
             <div className="p-3 bg-orange-100 rounded-full">
               <AlertTriangle className="w-6 h-6 text-orange-600" />
@@ -154,7 +157,7 @@ const ExecutiveSummary: React.FC = () => {
         <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
           <h3 className="text-lg font-semibold text-purple-900 mb-2 flex items-center gap-2">
             <Info className="w-5 h-5" />
-            Comparación con Universidades Públicas
+            Comparación con Universidades Públicas Colombianas
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
@@ -178,13 +181,14 @@ const ExecutiveSummary: React.FC = () => {
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
           <h3 className="text-lg font-semibold text-amber-900 mb-2 flex items-center gap-2">
             <AlertTriangle className="w-5 h-5" />
-            Datos Corregidos
+            Datos Corregidos y Aclarados
           </h3>
           <ul className="text-sm text-amber-800 space-y-1">
-            <li>• <strong>Gestión Cultural SÍ genera matrículas nuevas</strong> (15 por semestre)</li>
-            <li>• <strong>Docentes DCH actuales:</strong> 15 (no 17, debido a traslados)</li>
-            <li>• <strong>Matrículas por semestre:</strong> 45 nuevas (15 por carrera)</li>
-            <li>• <strong>Total estudiantes en 4 años:</strong> {totalMatriculasCuatroAnos}</li>
+            <li>• <strong>Gestión Cultural SÍ genera matrículas nuevas:</strong> 15 por semestre</li>
+            <li>• <strong>Docentes DCH actuales:</strong> {docentesActualesDCH} (reducción de 18 a {docentesActualesDCH} por traslados)</li>
+            <li>• <strong>Matrículas nuevas por semestre:</strong> {matriculasPorSemestre} (15 por cada carrera)</li>
+            <li>• <strong>Total estudiantes proyectados en 4 años:</strong> {totalMatriculasCuatroAnos}</li>
+            <li>• <strong>Costo por estudiante en 4 años:</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</li>
           </ul>
         </div>
       </motion.div>

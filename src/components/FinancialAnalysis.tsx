@@ -12,7 +12,8 @@ const FinancialAnalysis: React.FC = () => {
   ];
 
   const totalBudget = 12908; // Costo real corregido
-  const totalMatriculasCuatroAnos = 45 * 8; // 45 por semestre x 8 semestres
+  const matriculasPorSemestre = 45; // 15 por cada carrera
+  const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 por semestre x 8 semestres = 360
   const costoPorEstudianteCuatroAnos = totalBudget * 1000000 / totalMatriculasCuatroAnos;
   const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual
 
@@ -55,7 +56,11 @@ const FinancialAnalysis: React.FC = () => {
         variants={itemVariants}
         className="grid grid-cols-1 md:grid-cols-3 gap-4"
       >
-        <div className="metric-card bg-gradient-to-br from-green-50 to-green-100">
+        <motion.div 
+          className="metric-card bg-gradient-to-br from-green-50 to-green-100"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-green-700">Costo Total Proyecto</p>
@@ -68,9 +73,13 @@ const FinancialAnalysis: React.FC = () => {
               <DollarSign className="w-6 h-6 text-green-700" />
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="metric-card bg-gradient-to-br from-blue-50 to-blue-100">
+        <motion.div 
+          className="metric-card bg-gradient-to-br from-blue-50 to-blue-100"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-blue-700">Costo por Estudiante</p>
@@ -83,9 +92,13 @@ const FinancialAnalysis: React.FC = () => {
               <TrendingUp className="w-6 h-6 text-blue-700" />
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="metric-card bg-gradient-to-br from-purple-50 to-purple-100">
+        <motion.div 
+          className="metric-card bg-gradient-to-br from-purple-50 to-purple-100"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-purple-700">Estudiantes 4 años</p>
@@ -96,7 +109,7 @@ const FinancialAnalysis: React.FC = () => {
               <TrendingUp className="w-6 h-6 text-purple-700" />
             </div>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* Comparación con universidades públicas */}
@@ -183,21 +196,20 @@ const FinancialAnalysis: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Aclaración sobre el error anterior */}
+      {/* Detalles adicionales */}
       <motion.div 
-        className="bg-red-50 border border-red-200 rounded-lg p-4"
+        className="bg-green-50 border border-green-200 rounded-lg p-4"
         variants={itemVariants}
       >
-        <h3 className="text-lg font-semibold text-red-900 mb-2 flex items-center gap-2">
-          <AlertCircle className="w-5 h-5" />
-          Corrección de Error Anterior
+        <h3 className="text-lg font-semibold text-green-900 mb-2 flex items-center gap-2">
+          <Info className="w-5 h-5" />
+          Detalles del Cálculo
         </h3>
-        <div className="text-sm text-red-800">
-          <p><strong>Error identificado:</strong> En versiones anteriores se mostraba un total incorrecto</p>
-          <p><strong>Corrección:</strong> El costo real del proyecto es de ${totalBudget.toLocaleString()} millones COP</p>
-          <p className="text-xs text-red-700 mt-2">
-            <em>Los valores individuales por categoría eran correctos, pero el total estaba mal calculado.</em>
-          </p>
+        <div className="text-sm text-green-800 space-y-2">
+          <p><strong>Matrículas por semestre:</strong> {matriculasPorSemestre} (15 por cada carrera)</p>
+          <p><strong>Total estudiantes en 4 años:</strong> {totalMatriculasCuatroAnos} estudiantes</p>
+          <p><strong>Costo por estudiante (4 años):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</p>
+          <p><strong>Costo anual por estudiante:</strong> ${(costoPorEstudianteCuatroAnos/4).toLocaleString()} COP</p>
         </div>
       </motion.div>
     </motion.section>

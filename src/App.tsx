@@ -26,15 +26,15 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Navigation */}
-        <nav className="mb-8">
-          <div className="flex flex-wrap gap-2 sm:gap-4 bg-white rounded-xl p-2 shadow-sm border border-gray-100">
+        <nav className="mb-6 sm:mb-8">
+          <div className="flex flex-wrap gap-1 sm:gap-2 bg-white rounded-xl p-2 shadow-sm border border-gray-100 overflow-x-auto">
             {sections.map((section) => (
               <button
                 key={section.id}
                 onClick={() => setActiveSection(section.id)}
-                className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base ${
+                className={`px-2 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm whitespace-nowrap ${
                   activeSection === section.id
                     ? 'bg-primary-600 text-white shadow-sm'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
