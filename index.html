@@ -5,474 +5,812 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Completo FCHS - Universidad Nacional de Colombia Sede Manizales</title>
     
+    <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         :root {
-            [cite_start]--unal-verde: #94B43B; [cite: 1]
-            [cite_start]--unal-verde-oscuro: #5A7A28; [cite: 2]
-            [cite_start]--unal-verde-claro: #E8F5E9; [cite: 2]
-            [cite_start]--unal-gris: #666666; [cite: 2]
-            [cite_start]--unal-gris-claro: #E8E8E8; [cite: 2]
-            [cite_start]--unal-gris-oscuro: #333333; [cite: 2]
-            [cite_start]--unal-rojo: #B8272D; [cite: 2]
-            [cite_start]--unal-rojo-claro: #FFEBEE; [cite: 2]
-            [cite_start]--unal-amarillo: #F4D03F; [cite: 2]
-            [cite_start]--unal-amarillo-claro: #FFF9C4; [cite: 2]
-            [cite_start]--unal-azul: #006BB3; [cite: 2]
-            [cite_start]--unal-azul-claro: #E3F2FD; [cite: 3]
-            [cite_start]--sombra: 0 2px 12px rgba(0,0,0,0.08); [cite: 480]
-            [cite_start]--sombra-hover: 0 4px 20px rgba(0,0,0,0.12); [cite: 480]
-            [cite_start]--transicion: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); [cite: 480]
+            --unal-verde: #94B43B;
+            --unal-verde-oscuro: #5A7A28;
+            --unal-verde-claro: #E8F5E9;
+            --unal-gris: #666666;
+            --unal-gris-claro: #E8E8E8;
+            --unal-gris-oscuro: #333333;
+            --unal-rojo: #B8272D;
+            --unal-rojo-claro: #FFEBEE;
+            --unal-amarillo: #F4D03F;
+            --unal-amarillo-claro: #FFF9C4;
+            --unal-azul: #006BB3;
+            --unal-azul-claro: #E3F2FD;
+            --sombra: 0 2px 8px rgba(0,0,0,0.1);
+            --transicion: all 0.3s ease;
         }
 
         * {
-            [cite_start]margin: 0; [cite: 4, 481]
-            [cite_start]padding: 0; [cite: 5, 482]
-            [cite_start]box-sizing: border-box; [cite: 5, 482]
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            [cite_start]font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; [cite: 483]
-            [cite_start]background: #f5f7fa; [cite: 6, 483]
-            [cite_start]color: var(--unal-gris-oscuro); [cite: 6, 483]
-            [cite_start]line-height: 1.6; [cite: 6, 483]
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            color: var(--unal-gris-oscuro);
+            line-height: 1.6;
         }
 
+        /* Header institucional */
         .header {
-            [cite_start]background: var(--unal-verde); [cite: 7, 484]
-            [cite_start]color: white; [cite: 7, 484]
-            [cite_start]padding: 20px 0; [cite: 7, 484]
-            [cite_start]box-shadow: var(--sombra); [cite: 7, 484]
+            background: var(--unal-verde);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--sombra);
         }
 
         .header-content {
-            [cite_start]max-width: 1400px; [cite: 8, 485]
-            [cite_start]margin: 0 auto; [cite: 8, 485]
-            [cite_start]padding: 0 20px; [cite: 8, 485]
-            [cite_start]display: flex; [cite: 8, 485]
-            [cite_start]align-items: center; [cite: 8, 485]
-            [cite_start]gap: 30px; [cite: 9, 485]
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
 
         .logo-container {
-            [cite_start]display: flex; [cite: 10, 487]
-            [cite_start]align-items: center; [cite: 10, 487]
-            [cite_start]gap: 20px; [cite: 10, 487]
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .logo-unal {
-            [cite_start]width: 60px; [cite: 11, 488]
-            [cite_start]height: 60px; [cite: 11, 488]
-            [cite_start]background: white; [cite: 11, 488]
-            [cite_start]border-radius: 8px; [cite: 11, 488]
-            [cite_start]display: flex; [cite: 11, 488]
-            [cite_start]align-items: center; [cite: 11, 488]
-            [cite_start]justify-content: center; [cite: 11, 488]
-            [cite_start]font-weight: bold; [cite: 11, 488]
-            [cite_start]color: var(--unal-verde); [cite: 11, 488]
-            [cite_start]font-size: 18px; [cite: 12, 489]
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--unal-verde);
+            font-size: 18px;
         }
 
         .header-text h1 {
-            [cite_start]font-size: 28px; [cite: 13, 490]
-            [cite_start]font-weight: 700; [cite: 13, 490]
-            [cite_start]margin-bottom: 5px; [cite: 13, 490]
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
 
         .header-text p {
-            [cite_start]font-size: 16px; [cite: 14, 491]
-            [cite_start]opacity: 0.9; [cite: 14, 491]
+            font-size: 16px;
+            opacity: 0.9;
         }
 
+        /* Navegación por pestañas */
         .nav-tabs {
-            [cite_start]background: white; [cite: 15, 492]
-            [cite_start]box-shadow: var(--sombra); [cite: 15, 492]
-            [cite_start]position: sticky; [cite: 15, 492]
-            [cite_start]top: 0; [cite: 15, 492]
-            [cite_start]z-index: 100; [cite: 15, 492]
+            background: white;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-tabs-container {
-            [cite_start]max-width: 1400px; [cite: 16, 493]
-            [cite_start]margin: 0 auto; [cite: 16, 493]
-            [cite_start]padding: 0 20px; [cite: 16, 493]
-            [cite_start]display: flex; [cite: 16, 493]
-            [cite_start]gap: 0; [cite: 16, 493]
-            [cite_start]overflow-x: auto; [cite: 17, 493]
-            [cite_start]-webkit-overflow-scrolling: touch; [cite: 17, 493]
-            [cite_start]scrollbar-width: thin; [cite: 494]
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
-        
-        .nav-tabs-container::-webkit-scrollbar { height: 4px; [cite_start]} [cite: 495]
-        .nav-tabs-container::-webkit-scrollbar-track { background: var(--unal-gris-claro); [cite_start]} [cite: 496]
-        .nav-tabs-container::-webkit-scrollbar-thumb { background: var(--unal-verde); border-radius: 2px; [cite_start]} [cite: 497]
 
         .tab-button {
-            [cite_start]background: none; [cite: 18, 498]
-            [cite_start]border: none; [cite: 18, 498]
-            [cite_start]padding: 18px 25px; [cite: 18, 498]
-            [cite_start]font-size: 15px; [cite: 18, 499]
-            [cite_start]color: var(--unal-gris); [cite: 18, 499]
-            [cite_start]cursor: pointer; [cite: 18, 499]
-            [cite_start]position: relative; [cite: 18, 499]
-            [cite_start]transition: var(--transicion); [cite: 18, 499]
-            [cite_start]font-weight: 500; [cite: 18, 499]
-            [cite_start]white-space: nowrap; [cite: 19, 499]
+            background: none;
+            border: none;
+            padding: 18px 25px;
+            font-size: 15px;
+            color: var(--unal-gris);
+            cursor: pointer;
+            position: relative;
+            transition: var(--transicion);
+            font-weight: 500;
+            white-space: nowrap;
         }
 
         .tab-button:hover {
-            [cite_start]color: var(--unal-verde); [cite: 20, 500]
-            [cite_start]background: rgba(148, 180, 59, 0.05); [cite: 20, 500]
+            color: var(--unal-verde);
+            background: rgba(148, 180, 59, 0.05);
         }
 
         .tab-button.active {
-            [cite_start]color: var(--unal-verde); [cite: 21, 501]
-            [cite_start]font-weight: 600; [cite: 21, 501]
+            color: var(--unal-verde);
+            font-weight: 600;
         }
 
         .tab-button.active::after {
-            [cite_start]content: ''; [cite: 22, 502]
-            [cite_start]position: absolute; [cite: 22, 502]
-            [cite_start]bottom: 0; [cite: 22, 502]
-            [cite_start]left: 0; [cite: 22, 502]
-            [cite_start]right: 0; [cite: 22, 502]
-            [cite_start]height: 3px; [cite: 23, 502]
-            [cite_start]background: var(--unal-verde); [cite: 23, 502]
-            [cite_start]animation: slideIn 0.3s ease-out; [cite: 503]
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--unal-verde);
         }
-        
-        @keyframes slideIn { from { transform: scaleX(0); } to { transform: scaleX(1); [cite_start]} } [cite: 504, 505]
 
+        /* Contenedor principal */
         .container {
-            [cite_start]max-width: 1400px; [cite: 24, 506]
-            [cite_start]margin: 30px auto; [cite: 24, 506]
-            [cite_start]padding: 0 20px; [cite: 24, 506]
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
-        .tab-content { display: none; opacity: 0; [cite_start]} [cite: 25, 507]
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease-out forwards; [cite_start]} [cite: 26, 508]
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); [cite_start]} } [cite: 27, 28, 509, 510]
+        /* Secciones de contenido */
+        .tab-content {
+            display: none;
+        }
 
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid principal */
         .main-grid {
-            [cite_start]display: grid; [cite: 29, 511]
-            [cite_start]grid-template-columns: 2fr 1fr; [cite: 29, 511]
-            [cite_start]gap: 30px; [cite: 29, 511]
-            [cite_start]margin-bottom: 30px; [cite: 29, 511]
-        }
-        
-        .two-column-grid {
-            [cite_start]display: grid; [cite: 123]
-            [cite_start]grid-template-columns: 1fr 1fr; [cite: 123]
-            [cite_start]gap: 30px; [cite: 123]
-            [cite_start]margin-bottom: 30px; [cite: 123]
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
-        .comparison-highlight {
-            [cite_start]grid-column: 1 / -1; [cite: 512]
-            [cite_start]display: grid; [cite: 512]
-            [cite_start]grid-template-columns: 1fr 1fr; [cite: 512]
-            [cite_start]gap: 20px; [cite: 512]
-            [cite_start]margin-bottom: 30px; [cite: 512]
+        /* Alerta principal mejorada */
+        .main-alert {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--unal-rojo-claro) 0%, #FFF5F5 100%);
+            border: 1px solid rgba(184, 39, 45, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: start;
         }
 
-        .survey-card {
-            [cite_start]background: white; [cite: 513]
-            [cite_start]padding: 25px; [cite: 513]
-            [cite_start]border-radius: 12px; [cite: 513]
-            [cite_start]box-shadow: var(--sombra); [cite: 513]
-            [cite_start]position: relative; [cite: 514]
-            [cite_start]overflow: hidden; [cite: 514]
-            [cite_start]transition: var(--transicion); [cite: 514]
-        }
-        .survey-card:hover { transform: translateY(-2px); box-shadow: var(--sombra-hover); [cite_start]} [cite: 515]
-        .survey-card.official { border-top: 4px solid var(--unal-azul); [cite_start]} [cite: 516]
-        .survey-card.independent { border-top: 4px solid var(--unal-verde); [cite_start]} [cite: 517]
-
-        .survey-label {
-            [cite_start]font-size: 12px; [cite: 518]
-            [cite_start]font-weight: 600; [cite: 518]
-            [cite_start]text-transform: uppercase; [cite: 518]
-            [cite_start]letter-spacing: 1px; [cite: 518]
-            [cite_start]color: var(--unal-gris); [cite: 518]
-            margin-bottom: 15px;
+        .alert-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--unal-rojo);
+            color: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
         }
 
-        .survey-stats { display: flex; gap: 25px; margin-top: 15px; flex-wrap: wrap; }
-        .survey-stat { display: flex; flex-direction: column; }
-        .survey-stat-value { font-size: 2.2rem; font-weight: 700; color: var(--unal-gris-oscuro); }
-        .survey-stat-label { font-size: 14px; color: var(--unal-gris); }
+        .alert-content h2 {
+            color: var(--unal-rojo);
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
 
-        .card {
-            [cite_start]background: white; [cite: 39]
-            [cite_start]border-radius: 12px; [cite: 39]
-            [cite_start]box-shadow: var(--sombra); [cite: 39]
-            [cite_start]overflow: hidden; [cite: 39]
-            [cite_start]transition: var(--transicion); [cite: 39]
+        .alert-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .alert-stat {
             display: flex;
             flex-direction: column;
         }
 
-        .card:hover { transform: translateY(-3px); box-shadow: var(--sombra-hover); [cite_start]} [cite: 40]
+        .alert-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--unal-gris-oscuro);
+        }
 
-        .card-header { padding: 25px; border-bottom: 1px solid var(--unal-gris-claro); [cite_start]} [cite: 41]
-        .card-title { font-size: 20px; color: var(--unal-gris-oscuro); font-weight: 600; display: flex; align-items: center; gap: 10px; [cite_start]} [cite: 42, 43]
-        .card-subtitle { color: var(--unal-gris); font-size: 14px; margin-top: 5px; [cite_start]} [cite: 44]
-        .card-body { padding: 25px; flex-grow: 1; [cite_start]} [cite: 45]
+        .alert-stat-label {
+            font-size: 14px;
+            color: var(--unal-gris);
+        }
 
-        .chart-container { position: relative; height: 350px; margin-bottom: 20px; [cite_start]} [cite: 46]
-        
-        .chart-explanation { padding: 15px; background: var(--unal-gris-claro); border-radius: 8px; font-size: 14px; color: var(--unal-gris); margin-top: auto; [cite_start]} [cite: 48]
-        .chart-explanation strong { color: var(--unal-gris-oscuro); [cite_start]} [cite: 49]
+        /* Cards mejoradas */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            overflow: hidden;
+            transition: var(--transicion);
+        }
 
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--unal-gris-claro);
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: var(--unal-gris-oscuro);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-subtitle {
+            color: var(--unal-gris);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* Gráficos mejorados */
+        .chart-container {
+            position: relative;
+            height: 350px;
+            margin-bottom: 20px;
+        }
+
+        .chart-container.small {
+            height: 250px;
+        }
+
+        .chart-explanation {
+            padding: 15px;
+            background: var(--unal-gris-claro);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--unal-gris);
+        }
+
+        .chart-explanation strong {
+            color: var(--unal-gris-oscuro);
+        }
+
+        /* KPI Grid mejorado */
         .kpi-grid {
-            [cite_start]display: grid; [cite: 50]
-            [cite_start]grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); [cite: 50]
-            [cite_start]gap: 20px; [cite: 50]
-            [cite_start]margin-bottom: 30px; [cite: 50]
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .kpi-card {
-            [cite_start]background: white; [cite: 51]
-            [cite_start]padding: 25px; [cite: 51]
-            [cite_start]border-radius: 12px; [cite: 51]
-            [cite_start]box-shadow: var(--sombra); [cite: 51]
-            [cite_start]text-align: center; [cite: 51]
-            [cite_start]transition: var(--transicion); [cite: 51]
-            [cite_start]position: relative; [cite: 52]
-            [cite_start]overflow: hidden; [cite: 52]
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            text-align: center;
+            transition: var(--transicion);
+            position: relative;
+            overflow: hidden;
         }
-        .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--unal-gris-claro); [cite_start]} [cite: 53, 54]
-        .kpi-card.negative::before { background: var(--unal-rojo); [cite_start]} [cite: 55]
-        .kpi-card.neutral::before { background: var(--unal-amarillo); [cite_start]} [cite: 56]
-        .kpi-card.positive::before { background: var(--unal-verde); [cite_start]} [cite: 57]
-        .kpi-card.info::before { background: var(--unal-azul); [cite_start]} [cite: 58]
-        .kpi-card:hover { transform: translateY(-3px); box-shadow: var(--sombra-hover); [cite_start]} [cite: 59]
-        .kpi-icon { font-size: 32px; margin-bottom: 15px; opacity: 0.8; [cite_start]} [cite: 60]
-        .kpi-card.negative .kpi-icon { color: var(--unal-rojo); [cite_start]} [cite: 61]
-        .kpi-card.neutral .kpi-icon { color: var(--unal-amarillo); [cite_start]} [cite: 62]
-        .kpi-card.positive .kpi-icon { color: var(--unal-verde); [cite_start]} [cite: 63]
-        .kpi-card.info .kpi-icon { color: var(--unal-azul); [cite_start]} [cite: 64]
-        .kpi-value { font-size: 36px; font-weight: 700; margin: 10px 0; color: var(--unal-gris-oscuro); [cite_start]} [cite: 65]
-        .kpi-label { color: var(--unal-gris); font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; [cite_start]} [cite: 66]
-        .kpi-detail { color: var(--unal-gris); font-size: 13px; margin-top: 5px; [cite_start]} [cite: 67]
 
-        .comments-section { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--sombra); margin-bottom: 30px; [cite_start]} [cite: 68]
-        .comments-filters { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; [cite_start]} [cite: 69]
-        .filter-btn { padding: 8px 16px; border: 2px solid var(--unal-gris-claro); background: white; border-radius: 20px; cursor: pointer; transition: var(--transicion); font-size: 14px; [cite_start]} [cite: 70, 71]
-        .filter-btn:hover { border-color: var(--unal-verde); background: var(--unal-verde-claro); [cite_start]} [cite: 72]
-        .filter-btn.active { background: var(--unal-verde); color: white; border-color: var(--unal-verde); [cite_start]} [cite: 73]
-        .comments-container { max-height: 600px; overflow-y: auto; padding-right: 10px; [cite_start]} [cite: 74]
-        .comment-item { padding: 20px; margin-bottom: 15px; border-radius: 8px; border-left: 4px solid var(--unal-gris); background: var(--unal-gris-claro); transition: var(--transicion); [cite_start]} [cite: 75, 76]
-        .comment-item.negative { border-left-color: var(--unal-rojo); background: var(--unal-rojo-claro); [cite_start]} [cite: 77]
-        .comment-item.positive { border-left-color: var(--unal-verde); background: var(--unal-verde-claro); [cite_start]} [cite: 78]
-        .comment-item.neutral { border-left-color: var(--unal-amarillo); background: var(--unal-amarillo-claro); [cite_start]} [cite: 79]
-        .comment-item:hover { transform: translateX(5px); [cite_start]} [cite: 80]
-        .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; [cite_start]} [cite: 81]
-        .comment-position { font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 4px 12px; border-radius: 15px; background: rgba(0,0,0,0.1); [cite_start]} [cite: 82, 83]
-        .comment-number { font-size: 12px; color: var(--unal-gris); [cite_start]} [cite: 84]
-        .comment-text { color: var(--unal-gris-oscuro); line-height: 1.6; font-size: 14px; [cite_start]} [cite: 85]
-        .censored-comment { filter: blur(4px); cursor: pointer; }
-        .censored-comment.revealed { filter: none; cursor: default; }
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--unal-gris-claro);
+        }
 
-        .department-table { width: 100%; border-collapse: collapse; margin-top: 20px; [cite_start]} [cite: 86]
-        .department-table th, .department-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--unal-gris-claro); [cite_start]} [cite: 87]
-        .department-table th { background: #f5f7fa; font-weight: 600; color: var(--unal-gris-oscuro); position: sticky; top: 0; [cite_start]} [cite: 88]
-        .department-table tr:hover { background: rgba(148, 180, 59, 0.05); [cite_start]} [cite: 89]
-        .department-table .highlight { background: var(--unal-amarillo-claro); font-weight: 600; [cite_start]} [cite: 90]
-        .department-table td:nth-child(n+2), .department-table th:nth-child(n+2) { text-align: center; }
+        .kpi-card.negative::before { background: var(--unal-rojo); }
+        .kpi-card.neutral::before { background: var(--unal-amarillo); }
+        .kpi-card.positive::before { background: var(--unal-verde); }
+        .kpi-card.info::before { background: var(--unal-azul); }
 
-        .technical-section { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--sombra); [cite_start]} [cite: 91]
-        .email-list { background: var(--unal-gris-claro); padding: 20px; border-radius: 8px; max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 13px; line-height: 1.8; [cite_start]} [cite: 92, 93]
-        .email-item { padding: 2px 0; [cite_start]} [cite: 94]
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
 
-        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; [cite_start]} [cite: 97, 98]
-        .badge.success { background: var(--unal-verde); color: white; [cite_start]} [cite: 99]
-        .badge.warning { background: var(--unal-amarillo); color: var(--unal-gris-oscuro); [cite_start]} [cite: 100]
-        .badge.danger { background: var(--unal-rojo); color: white; [cite_start]} [cite: 101]
+        .kpi-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
 
-        .footer { background: var(--unal-gris-oscuro); color: white; padding: 30px 0; margin-top: 50px; text-align: center; [cite_start]} [cite: 102]
-        .footer p { opacity: 0.8; font-size: 14px; [cite_start]} [cite: 103]
+        .kpi-card.negative .kpi-icon { color: var(--unal-rojo); }
+        .kpi-card.neutral .kpi-icon { color: var(--unal-amarillo); }
+        .kpi-card.positive .kpi-icon { color: var(--unal-verde); }
+        .kpi-card.info .kpi-icon { color: var(--unal-azul); }
 
-        .viability-justification {
-            [cite_start]background: var(--unal-azul-claro); [cite: 3]
-            [cite_start]border-left: 4px solid var(--unal-azul); [cite: 96]
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
+        .kpi-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--unal-gris-oscuro);
+        }
+
+        .kpi-label {
+            color: var(--unal-gris);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-detail {
+            color: var(--unal-gris);
             font-size: 13px;
-            line-height: 1.7;
+            margin-top: 5px;
         }
-        .viability-justification p { margin-bottom: 10px; }
-        .viability-justification ul { list-style-position: inside; padding-left: 10px; }
+
+        /* Sección de comentarios completos */
+        .comments-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            margin-bottom: 30px;
+        }
+
+        .comments-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--unal-gris-claro);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transicion);
+            font-size: 14px;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--unal-verde);
+        }
+
+        .filter-btn.active {
+            background: var(--unal-verde);
+            color: white;
+            border-color: var(--unal-verde);
+        }
+
+        .comments-container {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .comment-item {
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--unal-gris);
+            background: var(--unal-gris-claro);
+            transition: var(--transicion);
+        }
+
+        .comment-item.negative {
+            border-left-color: var(--unal-rojo);
+            background: var(--unal-rojo-claro);
+        }
+
+        .comment-item.positive {
+            border-left-color: var(--unal-verde);
+            background: var(--unal-verde-claro);
+        }
+
+        .comment-item.neutral {
+            border-left-color: var(--unal-amarillo);
+            background: var(--unal-amarillo-claro);
+        }
+
+        .comment-item:hover {
+            transform: translateX(5px);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-position {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 15px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .comment-number {
+            font-size: 12px;
+            color: var(--unal-gris);
+        }
+
+        .comment-text {
+            color: var(--unal-gris-oscuro);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* Tabla de participación por departamento */
+        .department-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .department-table th,
+        .department-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--unal-gris-claro);
+        }
+
+        .department-table th {
+            background: var(--unal-gris-claro);
+            font-weight: 600;
+            color: var(--unal-gris-oscuro);
+            position: sticky;
+            top: 0;
+        }
+
+        .department-table tr:hover {
+            background: rgba(148, 180, 59, 0.05);
+        }
+
+        .department-table .highlight {
+            background: var(--unal-amarillo-claro);
+            font-weight: 600;
+        }
+
+        /* Sección técnica */
+        .technical-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+        }
+
+        .email-list {
+            background: var(--unal-gris-claro);
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .email-item {
+            padding: 2px 0;
+        }
+
+        .validation-results {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--unal-azul-claro);
+            border-radius: 8px;
+            border-left: 4px solid var(--unal-azul);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge.success {
+            background: var(--unal-verde);
+            color: white;
+        }
+
+        .badge.warning {
+            background: var(--unal-amarillo);
+            color: var(--unal-gris-oscuro);
+        }
+
+        .badge.danger {
+            background: var(--unal-rojo);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--unal-gris-oscuro);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .main-grid, .two-column-grid, .comparison-highlight { grid-template-columns: 1fr; [cite_start]} [cite: 104, 124]
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
-            .header-content { flex-direction: column; text-align: center; [cite_start]} [cite: 105]
-            .kpi-grid { grid-template-columns: 1fr 1fr; }
-            .tab-button { padding: 15px 20px; font-size: 14px; [cite_start]} [cite: 109]
-            .card-title { font-size: 18px; }
-            .header-text h1 { font-size: 24px; }
-            .header-text p { font-size: 15px; }
-            .survey-stats { gap: 20px; }
-            .survey-stat-value { font-size: 1.8rem; }
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-tabs-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .alert-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-button {
+                padding: 15px 20px;
+                font-size: 14px;
+            }
         }
 
-        @media (max-width: 480px) {
-            .kpi-grid { grid-template-columns: 1fr; [cite_start]} [cite: 108]
+        /* Scrollbar personalizada */
+        .comments-container::-webkit-scrollbar,
+        .email-list::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .comments-container::-webkit-scrollbar, .email-list::-webkit-scrollbar { width: 8px; [cite_start]} [cite: 110]
-        .comments-container::-webkit-scrollbar-track, .email-list::-webkit-scrollbar-track { background: #f1f1f1; [cite_start]} [cite: 111]
-        .comments-container::-webkit-scrollbar-thumb, .email-list::-webkit-scrollbar-thumb { background: var(--unal-verde); border-radius: 4px; [cite_start]} [cite: 112]
-        .comments-container::-webkit-scrollbar-thumb:hover, .email-list::-webkit-scrollbar-thumb:hover { background: var(--unal-verde-oscuro); [cite_start]} [cite: 113]
+        .comments-container::-webkit-scrollbar-track,
+        .email-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .comments-container::-webkit-scrollbar-thumb,
+        .email-list::-webkit-scrollbar-thumb {
+            background: var(--unal-verde);
+            border-radius: 4px;
+        }
+
+        .comments-container::-webkit-scrollbar-thumb:hover,
+        .email-list::-webkit-scrollbar-thumb:hover {
+            background: var(--unal-verde-oscuro);
+        }
+
+        /* Print styles */
+        @media print {
+            .nav-tabs, .footer {
+                display: none;
+            }
+            
+            .tab-content {
+                display: block !important;
+                page-break-after: always;
+            }
+            
+            body {
+                background: white;
+            }
+        }
+
+        /* Explicación de participación */
+        .participation-explanation {
+            background: var(--unal-amarillo-claro);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--unal-amarillo);
+            margin-bottom: 20px;
+        }
+
+        .participation-explanation h3 {
+            color: var(--unal-gris-oscuro);
+            margin-bottom: 10px;
+        }
+
+        .participation-explanation ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .participation-explanation li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .participation-explanation li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--unal-amarillo);
+            font-weight: bold;
+        }
+
+        /* Grid de dos columnas */
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .two-column-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo-container">
-                [cite_start]<div class="logo-unal">UNAL</div> [cite: 11, 488]
+                <div class="logo-unal">UNAL</div>
             </div>
             <div class="header-text">
-                [cite_start]<h1>Dashboard de Análisis Integral - Propuesta FCHS</h1> [cite: 125]
-                <p>Universidad Nacional de Colombia - Sede Manizales</p>
+                <h1>Dashboard Completo - Facultad de Ciencias Humanas y Sociales</h1>
+                <p>Análisis integral del proceso de creación FCHS - Universidad Nacional de Colombia Sede Manizales</p>
             </div>
         </div>
     </header>
 
+    <!-- Navegación -->
     <nav class="nav-tabs">
         <div class="nav-tabs-container">
-            [cite_start]<button class="tab-button active" onclick="showTab('resumen')">Resumen Ejecutivo</button> [cite: 126]
+            <button class="tab-button active" onclick="showTab('resumen')">Resumen Ejecutivo</button>
             <button class="tab-button" onclick="showTab('distribucion')">Distribución de Respuestas</button>
+            <button class="tab-button" onclick="showTab('comentarios')">Todos los Comentarios</button>
             <button class="tab-button" onclick="showTab('participacion')">Análisis de Participación</button>
             <button class="tab-button" onclick="showTab('viabilidad')">Análisis de Viabilidad</button>
             <button class="tab-button" onclick="showTab('financiero')">Análisis Financiero</button>
-            <button class="tab-button" onclick="showTab('comentarios')">Comentarios</button>
             <button class="tab-button" onclick="showTab('tecnico')">Información Técnica</button>
         </div>
     </nav>
 
+    <!-- Contenido -->
     <div class="container">
+        <!-- Tab 1: Resumen Ejecutivo -->
         <div id="resumen" class="tab-content active">
-            
-            <div class="comparison-highlight">
-                <div class="survey-card official">
-                    <h2 class="survey-label"><i class="fas fa-university"></i>Consulta Oficial</h2>
-                    <p>Presentada como el principal sustento de apoyo al proyecto.</p>
-                    <div class="survey-stats">
-                        <div class="survey-stat">
-                            <div class="survey-stat-value">13.3%</div>
-                            <div class="survey-stat-label">Participación Docente</div>
-                        </div>
-                        <div class="survey-stat">
-                            <div class="survey-stat-value">33</div>
-                            <div class="survey-stat-label">Respuestas totales</div>
-                        </div>
-                         <div class="survey-stat">
-                            <div class="survey-stat-value">76.4%</div>
-                            <div class="survey-stat-label">A favor</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="survey-card independent">
-                    <h2 class="survey-label"><i class="fas fa-users"></i>Encuesta Independiente</h2>
-                    <p>Realizada para ampliar el espectro de participación y obtener datos detallados.</p>
-                     <div class="survey-stats">
-                        <div class="survey-stat">
-                            [cite_start]<div class="survey-stat-value">43.5%</div> [cite: 141]
-                            <div class="survey-stat-label">Participación Docente</div>
-                        </div>
-                        <div class="survey-stat">
-                            [cite_start]<div class="survey-stat-value">108</div> [cite: 181]
-                            <div class="survey-stat-label">Respuestas verificadas</div>
-                        </div>
-                         <div class="survey-stat">
-                            [cite_start]<div class="survey-stat-value">18.5%</div> [cite: 139]
-                            <div class="survey-stat-label">De Acuerdo</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="kpi-grid">
-                <div class="kpi-card negative">
-                    [cite_start]<i class="fas fa-times-circle kpi-icon"></i> [cite: 136]
-                    [cite_start]<div class="kpi-label">En Desacuerdo</div> [cite: 136]
-                    [cite_start]<div class="kpi-value">54.6%</div> [cite: 136]
-                    [cite_start]<div class="kpi-detail">59 de 108 docentes</div> [cite: 137]
-                </div>
-                <div class="kpi-card neutral">
-                    <i class="fas fa-question-circle kpi-icon"></i>
-                    <div class="kpi-label">Con Dudas</div>
-                    [cite_start]<div class="kpi-value">26.9%</div> [cite: 138]
-                    [cite_start]<div class="kpi-detail">29 de 108 docentes</div> [cite: 138]
-                </div>
-                <div class="kpi-card positive">
-                    [cite_start]<i class="fas fa-check-circle kpi-icon"></i> [cite: 139]
-                    [cite_start]<div class="kpi-label">De Acuerdo</div> [cite: 139]
-                    [cite_start]<div class="kpi-value">18.5%</div> [cite: 139]
-                    [cite_start]<div class="kpi-detail">20 de 108 docentes</div> [cite: 140]
-                </div>
-                <div class="kpi-card negative">
-                    [cite_start]<i class="fas fa-exclamation-triangle kpi-icon"></i> [cite: 264]
-                    <div class="kpi-label">Costo/Estudiante</div>
-                    <div class="kpi-value">$932M</div>
-                    <div class="kpi-detail">Inversión a 4 años</div>
-                </div>
-            </div>
-
             <div class="main-grid">
+                <!-- Alerta principal -->
+                <div class="main-alert">
+                    <div class="alert-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="alert-content">
+                        <h2>Consenso Insuficiente para Proceder</h2>
+                        <p style="font-size: 16px; margin-bottom: 15px;">
+                            El análisis integral revela discrepancias significativas entre la propuesta oficial y la percepción de la comunidad académica.
+                        </p>
+                        <div class="alert-stats">
+                            <div class="alert-stat">
+                                <div class="alert-stat-value">81.5%</div>
+                                <div class="alert-stat-label">Sin apoyo claro<br>(Encuesta independiente)</div>
+                            </div>
+                            <div class="alert-stat">
+                                <div class="alert-stat-value">13.3%</div>
+                                <div class="alert-stat-label">Participación docente<br>(Encuesta oficial)</div>
+                            </div>
+                            <div class="alert-stat">
+                                <div class="alert-stat-value">$1,049M</div>
+                                <div class="alert-stat-label">Costo por estudiante<br>nuevo (4 años)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPIs principales -->
+                <div class="kpi-grid" style="grid-column: 1 / -1;">
+                    <div class="kpi-card negative">
+                        <i class="fas fa-times-circle kpi-icon"></i>
+                        <div class="kpi-label">En Desacuerdo</div>
+                        <div class="kpi-value">54.6%</div>
+                        <div class="kpi-detail">59 de 108 docentes</div>
+                    </div>
+                    <div class="kpi-card neutral">
+                        <i class="fas fa-question-circle kpi-icon"></i>
+                        <div class="kpi-label">Con Dudas</div>
+                        <div class="kpi-value">26.9%</div>
+                        <div class="kpi-detail">29 de 108 docentes</div>
+                    </div>
+                    <div class="kpi-card positive">
+                        <i class="fas fa-check-circle kpi-icon"></i>
+                        <div class="kpi-label">De Acuerdo</div>
+                        <div class="kpi-value">18.5%</div>
+                        <div class="kpi-detail">20 de 108 docentes</div>
+                    </div>
+                    <div class="kpi-card info">
+                        <i class="fas fa-users kpi-icon"></i>
+                        <div class="kpi-label">Participación</div>
+                        <div class="kpi-value">43.5%</div>
+                        <div class="kpi-detail">108 de 248 docentes</div>
+                    </div>
+                </div>
+
+                <!-- Análisis principal -->
                 <div class="card">
                     <div class="card-header">
-                        [cite_start]<h2 class="card-title"><i class="fas fa-chart-line"></i> Viabilidad vs. Mínimo Requerido</h2> [cite: 143]
-                        <p class="card-subtitle">Comparación del estado actual contra umbrales de buena práctica</p>
+                        <h2 class="card-title">
+                            <i class="fas fa-chart-line"></i>
+                            Estado Actual vs. Consenso Requerido
+                        </h2>
+                        <p class="card-subtitle">Evaluación multidimensional de viabilidad</p>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
-                            [cite_start]<canvas id="radarChart"></canvas> [cite: 144]
+                            <canvas id="radarChart"></canvas>
                         </div>
                         <div class="chart-explanation">
-                            [cite_start]<strong>Interpretación:</strong> El gráfico compara el estado actual (rojo) [cite: 145] [cite_start]contra los mínimos requeridos (verde) [cite: 145] para una implementación exitosa. [cite_start]Las áreas donde el polígono rojo está más alejado del verde indican las mayores brechas a resolver. [cite: 146]
+                            <strong>Interpretación:</strong> El gráfico radar compara el estado actual (rojo) contra los mínimos requeridos (verde) para una implementación exitosa. Las áreas donde el polígono rojo está más alejado del verde indican las mayores brechas a resolver.
                         </div>
                     </div>
                 </div>
 
+                <!-- Resumen de hallazgos -->
                 <div class="card">
                     <div class="card-header">
-                        [cite_start]<h2 class="card-title"><i class="fas fa-clipboard-check"></i> Hallazgos Críticos</h2> [cite: 148]
+                        <h2 class="card-title">
+                            <i class="fas fa-clipboard-check"></i>
+                            Hallazgos Clave
+                        </h2>
                     </div>
                     <div class="card-body">
                         <ul style="list-style: none; padding: 0;">
-                            [cite_start]<li style="padding: 15px; border-bottom: 1px solid var(--unal-gris-claro);"> [cite: 150]
-                                <strong>Nuevas Matrículas Proyectadas:</strong>
+                            <li style="padding: 15px; border-bottom: 1px solid var(--unal-gris-claro);">
+                                <strong>Discrepancia en matrículas:</strong>
                                 <p style="color: var(--unal-gris); margin-top: 5px;">
-                                    Se proyectan **45** estudiantes nuevos en total para los 3 programas (15 en C. Política, 15 en Filología e Idiomas y 15 en Gestión Cultural y Comunicativa).
-                                    [cite_start]<span class="badge warning" style="margin-left: 10px;">BAJO IMPACTO</span> [cite: 151]
+                                    Solo 40 estudiantes nuevos proyectados totales (20 por cada programa nuevo: Ciencia Política y Filología e Idiomas)
+                                    <span class="badge warning" style="margin-left: 10px;">CRÍTICO</span>
+                                </p>
+                                <p style="font-size: 12px; color: var(--unal-gris); margin-top: 5px; font-style: italic;">
+                                    Nota: Gestión Cultural ya existe y se traslada desde Administración, no genera matrículas nuevas
                                 </p>
                             </li>
-                            [cite_start]<li style="padding: 15px; border-bottom: 1px solid var(--unal-gris-claro);"> [cite: 155]
-                                <strong>Costo Extraordinario:</strong>
-                                [cite_start]<p style="color: var(--unal-gris); margin-top: 5px;"> [cite: 156]
-                                    **$932 millones** por cada estudiante nuevo en 4 años. Este costo es significativamente alto en comparación con estándares universitarios.
-                                    [cite_start]<span class="badge danger" style="margin-left: 10px;">INSOSTENIBLE</span> [cite: 156]
+                            <li style="padding: 15px; border-bottom: 1px solid var(--unal-gris-claro);">
+                                <strong>Costo extraordinario:</strong>
+                                <p style="color: var(--unal-gris); margin-top: 5px;">
+                                    $1,049 millones por cada estudiante nuevo en 4 años
+                                    <span class="badge danger" style="margin-left: 10px;">INSOSTENIBLE</span>
                                 </p>
                             </li>
                             <li style="padding: 15px;">
-                                <strong>Documentación Incompleta:</strong>
-                                [cite_start]<p style="color: var(--unal-gris); margin-top: 5px;"> [cite: 159]
-                                    Sin CDP específico, sin estudio de mercado regional y con normativa clave pospuesta "para después de crear la facultad".
-                                    [cite_start]<span class="badge warning" style="margin-left: 10px;">RIESGO ALTO</span> [cite: 254, 256, 257]
+                                <strong>Participación cuestionable:</strong>
+                                <p style="color: var(--unal-gris); margin-top: 5px;">
+                                    Solo 13.3% participó en consulta oficial vs 43.5% en independiente
+                                    <span class="badge warning" style="margin-left: 10px;">PROBLEMÁTICO</span>
                                 </p>
                             </li>
                         </ul>
@@ -480,322 +818,278 @@
                 </div>
             </div>
         </div>
-        
+
+        <!-- Tab 2: Distribución de Respuestas -->
         <div id="distribucion" class="tab-content">
             <div class="two-column-grid">
+                <!-- Gráfico de torta principal -->
                 <div class="card">
                     <div class="card-header">
-                        [cite_start]<h2 class="card-title"><i class="fas fa-chart-pie"></i> Distribución General de Respuestas</h2> [cite: 163]
-                        [cite_start]<p class="card-subtitle">108 respuestas válidas de la encuesta independiente</p> [cite: 163]
+                        <h2 class="card-title">
+                            <i class="fas fa-chart-pie"></i>
+                            Distribución General de Respuestas
+                        </h2>
+                        <p class="card-subtitle">108 respuestas válidas</p>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
-                            [cite_start]<canvas id="pieChart"></canvas> [cite: 164]
+                            <canvas id="pieChart"></canvas>
                         </div>
                         <div class="chart-explanation">
-                            [cite_start]<strong>Lectura:</strong> El gráfico muestra la proporción de docentes según su posición. [cite: 165] [cite_start]Los colores siguen el esquema de semáforo: rojo (desacuerdo), amarillo (dudas), verde (acuerdo). [cite: 166]
+                            <strong>Lectura:</strong> El gráfico muestra la proporción de docentes según su posición. Los colores siguen el esquema de semáforo: rojo (desacuerdo), amarillo (dudas), verde (acuerdo).
                         </div>
                     </div>
                 </div>
+
+                <!-- Comparación de encuestas -->
                 <div class="card">
                     <div class="card-header">
-                        [cite_start]<h2 class="card-title"><i class="fas fa-exclamation-triangle"></i> Categorías de Preocupación</h2> [cite: 173]
-                        <p class="card-subtitle">Temas más mencionados en los comentarios abiertos</p>
+                        <h2 class="card-title">
+                            <i class="fas fa-balance-scale"></i>
+                            Oficial vs. Independiente
+                        </h2>
+                        <p class="card-subtitle">Diferencias significativas</p>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
-                            [cite_start]<canvas id="concernsChart"></canvas> [cite: 174]
+                            <canvas id="comparisonChart"></canvas>
                         </div>
                         <div class="chart-explanation">
-                           [cite_start]<strong>Análisis:</strong> Las barras muestran la frecuencia de cada tipo de preocupación. [cite: 175] [cite_start]La pertinencia regional y la viabilidad financiera dominan las inquietudes de los docentes que participaron. [cite: 176]
+                            <strong>Alerta:</strong> La encuesta oficial tuvo 33 participantes (13.3%), mientras que la independiente logró 108 (43.5%). Esta diferencia cuestiona la representatividad del apoyo reportado.
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div id="participacion" class="tab-content">
-             <div class="two-column-grid">
-                <div class="card">
-                    <div class="card-header">
-                        [cite_start]<h2 class="card-title"><i class="fas fa-users"></i> Resumen de Participación</h2> [cite: 205]
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-container">
-                            [cite_start]<canvas id="participationChart"></canvas> [cite: 206]
-                        </div>
-                        <div class="chart-explanation">
-                           [cite_start]<strong>Nota:</strong> La "mayoría silenciosa" (56.5%) [cite: 207] [cite_start]representa una incógnita que impide generalizar los resultados de cualquiera de las dos encuestas a la totalidad del profesorado. [cite: 207]
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        [cite_start]<h2 class="card-title"><i class="fas fa-building"></i> Participación por Departamento</h2> [cite: 209]
-                        <p class="card-subtitle">Tasa de participación en la encuesta independiente</p>
-                    </div>
-                     <div class="card-body">
-                        <div class="chart-container">
-                            <canvas id="departmentParticipationChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <!-- Análisis por categorías -->
             <div class="card" style="margin-top: 30px;">
                 <div class="card-header">
-                     <h2 class="card-title"><i class="fas fa-table"></i> Datos de Participación por Departamento</h2>
+                    <h2 class="card-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Categorías de Preocupación
+                    </h2>
                 </div>
-                <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-                    <table class="department-table">
-                        <thead>
-                            <tr>
-                                [cite_start]<th>Departamento/Escuela</th> [cite: 211]
-                                [cite_start]<th>Total Docentes</th> [cite: 212]
-                                <th>Participaron</th>
-                                <th>Tasa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="highlight">
-                                [cite_start]<td>Ciencias Humanas</td> [cite: 214]
-                                <td>14</td>
-                                [cite_start]<td>12</td> [cite: 215]
-                                <td>85.7%</td>
-                            </tr>
-                             <tr>
-                                [cite_start]<td>Matemáticas</td> [cite: 216]
-                                [cite_start]<td>36</td> [cite: 216]
-                                [cite_start]<td>18</td> [cite: 217]
-                                [cite_start]<td>50.0%</td> [cite: 217]
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Ingeniería Industrial</td> [cite: 218]
-                                [cite_start]<td>21</td> [cite: 218]
-                                [cite_start]<td>10</td> [cite: 219]
-                                [cite_start]<td>47.6%</td> [cite: 219]
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Administración</td> [cite: 220]
-                                [cite_start]<td>30</td> [cite: 220]
-                                [cite_start]<td>14</td> [cite: 221]
-                                [cite_start]<td>46.7%</td> [cite: 221]
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Física y Química</td> [cite: 222]
-                                [cite_start]<td>27</td> [cite: 223]
-                                [cite_start]<td>12</td> [cite: 223]
-                                [cite_start]<td>44.4%</td> [cite: 224]
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Arquitectura y Urbanismo</td> [cite: 225]
-                                [cite_start]<td>38</td> [cite: 225]
-                                [cite_start]<td>15</td> [cite: 225]
-                                [cite_start]<td>39.5%</td> [cite: 225]
-                            </tr>
-                            <tr>
-                                <td>Ing. [cite_start]Eléctrica y Computación</td> [cite: 227]
-                                [cite_start]<td>23</td> [cite: 227]
-                                [cite_start]<td>9</td> [cite: 227]
-                                [cite_start]<td>39.1%</td> [cite: 228]
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Ingeniería Civil</td> [cite: 229]
-                                [cite_start]<td>20</td> [cite: 229]
-                                [cite_start]<td>7</td> [cite: 229]
-                                [cite_start]<td>35.0%</td> [cite: 230]
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Informática y Computación</td> [cite: 231]
-                                [cite_start]<td>18</td> [cite: 231]
-                                [cite_start]<td>6</td> [cite: 231]
-                                [cite_start]<td>33.3%</td> [cite: 232]
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Ingeniería Química</td> [cite: 233]
-                                [cite_start]<td>17</td> [cite: 233]
-                                [cite_start]<td>5</td> [cite: 234]
-                                [cite_start]<td>29.4%</td> [cite: 234]
-                            </tr>
-                            <tr>
-                                [cite_start]<td>IDEA</td> [cite: 235]
-                                [cite_start]<td>1</td> [cite: 235]
-                                [cite_start]<td>0</td> [cite: 236]
-                                [cite_start]<td>0.0%</td> [cite: 236]
-                            </tr>
-                            <tr class="highlight">
-                                [cite_start]<td><strong>TOTAL</strong></td> [cite: 237]
-                                [cite_start]<td><strong>248</strong></td> [cite: 237]
-                                [cite_start]<td><strong>108</strong></td> [cite: 238]
-                                [cite_start]<td><strong>43.5%</strong></td> [cite: 238]
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="concernsChart"></canvas>
+                    </div>
+                    <div class="chart-explanation">
+                        <strong>Análisis:</strong> Las barras muestran la frecuencia de cada tipo de preocupación en los comentarios. La pertinencia regional y viabilidad financiera dominan las inquietudes.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estadísticas adicionales -->
+            <div class="two-column-grid" style="margin-top: 30px;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-calculator"></i>
+                            Estadísticas Clave
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="department-table">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Total de docentes de planta</strong></td>
+                                    <td>248</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Respuestas válidas</strong></td>
+                                    <td>108 (43.5%)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>No participaron</strong></td>
+                                    <td>140 (56.5%)</td>
+                                </tr>
+                                <tr style="background: var(--unal-amarillo-claro);">
+                                    <td><strong>Sin apoyo claro</strong></td>
+                                    <td>88 (81.5% de participantes)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Comentarios analizados</strong></td>
+                                    <td>59 (excluye 1 inadecuado)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-info-circle"></i>
+                            Contexto Importante
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 15px;">
+                                <i class="fas fa-check-circle" style="color: var(--unal-verde); margin-right: 10px;"></i>
+                                <strong>Programas nuevos:</strong> Solo 2 (Ciencia Política y Filología e Idiomas)
+                            </li>
+                            <li style="margin-bottom: 15px;">
+                                <i class="fas fa-exchange-alt" style="color: var(--unal-azul); margin-right: 10px;"></i>
+                                <strong>Programa trasladado:</strong> Gestión Cultural (ya existe, no genera matrículas nuevas)
+                            </li>
+                            <li style="margin-bottom: 15px;">
+                                <i class="fas fa-users" style="color: var(--unal-amarillo); margin-right: 10px;"></i>
+                                <strong>Docentes del DCH:</strong> 17 total (15 a favor de la propuesta)
+                            </li>
+                            <li>
+                                <i class="fas fa-calendar" style="color: var(--unal-gris); margin-right: 10px;"></i>
+                                <strong>Inicio proyectado:</strong> Segundo semestre 2026
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="viabilidad" class="tab-content">
-            <div class="card">
-                <div class="card-header">
-                    [cite_start]<h2 class="card-title"><i class="fas fa-tasks"></i> Indicadores de Viabilidad y Brechas</h2> [cite: 241]
+        <!-- Tab 3: Todos los Comentarios -->
+        <div id="comentarios" class="tab-content">
+            <div class="comments-section">
+                <h2 class="card-title" style="margin-bottom: 20px;">
+                    <i class="fas fa-comments"></i>
+                    Todos los Comentarios de la Encuesta
+                </h2>
+                <p style="color: var(--unal-gris); margin-bottom: 20px;">Total: 59 comentarios válidos (se excluyó uno con contenido inadecuado)</p>
+                
+                <div class="comments-filters">
+                    <button class="filter-btn active" onclick="filterComments('all')">Todos (59)</button>
+                    <button class="filter-btn" onclick="filterComments('negative')">En Desacuerdo (34)</button>
+                    <button class="filter-btn" onclick="filterComments('neutral')">Con Dudas (17)</button>
+                    <button class="filter-btn" onclick="filterComments('positive')">De Acuerdo (8)</button>
                 </div>
-                <div class="card-body">
-                    <div class="chart-container" style="height: 400px;">
-                        [cite_start]<canvas id="viabilityChart"></canvas> [cite: 242]
-                    </div>
-                     <div class="chart-explanation">
-                        [cite_start]<strong>Análisis:</strong> Todos los indicadores están significativamente por debajo de los mínimos requeridos. [cite: 243] [cite_start]Las mayores brechas están en la documentación completa y el consenso docente. [cite: 243]
-                    </div>
+
+                <div class="comments-container" id="commentsContainer">
+                    <!-- Los comentarios se cargarán dinámicamente -->
                 </div>
             </div>
-            
-             <div class="viability-justification">
-                <p><strong>Nota sobre los "Mínimos Requeridos":</strong> Estos umbrales no son arbitrarios. Se basan en principios de gobernanza universitaria y gestión de proyectos, que sugieren que para iniciativas de esta magnitud se debe contar con una base sólida para asegurar su éxito y sostenibilidad.</p>
+        </div>
+
+        <!-- Tab 4: Análisis de Participación -->
+        <div id="participacion" class="tab-content">
+            <div class="participation-explanation">
+                <h3><i class="fas fa-info-circle"></i> Explicación sobre la Participación No Resuelta</h3>
                 <ul>
-                    <li>El requisito de **consenso** (e.g., >60%) busca garantizar la legitimidad y el compromiso de la comunidad que implementará el proyecto (Mintzberg, H., 1983, *Structure in Fives: Designing Effective Organizations*).</li>
-                    <li>La **viabilidad financiera** y la **documentación completa** (CDP específico, estudios de mercado) son estándares en la gestión de proyectos para mitigar riesgos (Project Management Institute, 2021, *A Guide to the Project Management Body of Knowledge (PMBOK® Guide)*).</li>
+                    <li><strong>56.5% no participó:</strong> 140 docentes no respondieron ninguna encuesta</li>
+                    <li><strong>Sesgo de autoselección:</strong> Quienes tienen opiniones fuertes tienden a participar más</li>
+                    <li><strong>No se puede inferir:</strong> El silencio no implica apoyo ni rechazo</li>
+                    <li><strong>Problema metodológico:</strong> Sin seguimiento a no respondientes, los resultados tienen limitaciones</li>
                 </ul>
             </div>
 
-            <div class="card" style="margin-top: 30px;">
-                <div class="card-header">
-                    [cite_start]<h2 class="card-title"><i class="fas fa-exclamation-circle"></i> Inquietudes Pospuestas o Sin Resolver</h2> [cite: 245]
-                </div>
-                 <div class="card-body">
-                    <table class="department-table">
-                        <thead>
-                            <tr>
-                                [cite_start]<th>Inquietud/Aporte Clave</th> [cite: 247]
-                                [cite_start]<th>Detalle y Respuesta Oficial</th> [cite: 247]
-                                [cite_start]<th>Estado</th> [cite: 248]
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                [cite_start]<td>Ajuste de códigos SNIES [cite: 249]</td>
-                                <td><b>Solicitud:</b> La prof. Érika Marulanda pidió ajustar los códigos SNIES para el reconocimiento laboral de los egresados. [cite_start]<br><b>Respuesta:</b> "Se proyectará después de crear la facultad". [cite: 250]</td>
-                                [cite_start]<td><span class="badge warning">POSPUESTO</span> [cite: 250]</td>
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Normativa Completa [cite: 253]</td>
-                                <td><b>Solicitud:</b> El prof. Uriel Bustamante solicitó la propuesta de normativa completa de la facultad. [cite_start]<br><b>Respuesta:</b> "Será útil cuando la facultad esté creada". [cite: 254]</td>
-                                [cite_start]<td><span class="badge danger">NO INCLUIDO</span> [cite: 254]</td>
-                            </tr>
-                            <tr>
-                                [cite_start]<td>CDP Específico [cite: 255]</td>
-                                <td><b>Solicitud:</b> La Representación Profesoral pidió el Certificado de Disponibilidad Presupuestal que asegure los recursos. <br><b>Respuesta:</b> Se presentó la Resolución 008596 de 2024 (MEN), una partida general para la Universidad, no una asignación específica para este proyecto.</td>
-                                [cite_start]<td><span class="badge danger">AUSENTE</span> [cite: 256]</td>
-                            </tr>
-                            <tr>
-                                [cite_start]<td>Estudio de Mercado [cite: 257]</td>
-                                <td><b>Solicitud:</b> Múltiples docentes señalaron la falta de un estudio de pertinencia y mercado laboral en la región. [cite_start]<br><b>Respuesta:</b> El documento oficial no incluye dicho estudio. [cite: 258]</td>
-                                [cite_start]<td><span class="badge danger">FALTANTE</span> [cite: 258]</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="financiero" class="tab-content">
-            <div class="kpi-grid">
-                <div class="kpi-card info">
-                    [cite_start]<i class="fas fa-dollar-sign kpi-icon"></i> [cite: 260]
-                    <div class="kpi-label">Inversión Total (4 Años)</div>
-                    [cite_start]<div class="kpi-value">$41,953M</div> [cite: 262]
-                    <div class="kpi-detail">Suma de costos proyectados</div>
-                </div>
-                <div class="kpi-card negative">
-                    [cite_start]<i class="fas fa-graduation-cap kpi-icon"></i> [cite: 263]
-                    <div class="kpi-label">Estudiantes Nuevos</div>
-                    <div class="kpi-value">45</div>
-                    <div class="kpi-detail">Proyección a 4 años</div>
-                </div>
-                <div class="kpi-card negative">
-                    [cite_start]<i class="fas fa-exclamation-triangle kpi-icon"></i> [cite: 264]
-                    <div class="kpi-label">Costo / Estudiante</div>
-                    <div class="kpi-value">$932M</div>
-                    <div class="kpi-detail">Costo total por nuevo cupo</div>
-                </div>
-                 <div class="kpi-card info">
-                    <i class="fas fa-users-cog kpi-icon"></i>
-                    <div class="kpi-label">Nuevos Cargos Docentes</div>
-                    <div class="kpi-value">48</div>
-                    <div class="kpi-detail">Equivalentes T. Completo</div>
-                </div>
-            </div>
-
             <div class="two-column-grid">
+                <!-- Participación por tipo -->
                 <div class="card">
                     <div class="card-header">
-                        [cite_start]<h2 class="card-title"><i class="fas fa-chart-bar"></i> Proyección de Costos por Año</h2> [cite: 265]
+                        <h2 class="card-title">
+                            <i class="fas fa-users"></i>
+                            Análisis de Participación
+                        </h2>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
-                            [cite_start]<canvas id="costChart"></canvas> [cite: 267]
+                            <canvas id="participationChart"></canvas>
                         </div>
                         <div class="chart-explanation">
-                           [cite_start]<strong>Análisis crítico:</strong> La inversión total de **$41,953 millones** [cite: 267, 289] para generar 45 cupos nuevos resulta en un costo de **$932 millones por estudiante**. [cite_start]Este valor es extraordinariamente alto y plantea serias dudas sobre la eficiencia y sostenibilidad del proyecto. [cite: 268]
+                            <strong>Nota:</strong> La mayoría silenciosa (56.5%) representa una incógnita significativa que impide generalizar los resultados.
                         </div>
                     </div>
                 </div>
+
+                <!-- Participación por departamento -->
                 <div class="card">
                     <div class="card-header">
-                        [cite_start]<h2 class="card-title"><i class="fas fa-list-alt"></i> Desglose de Costos (Millones COP)</h2> [cite: 270]
+                        <h2 class="card-title">
+                            <i class="fas fa-building"></i>
+                            Por Departamento
+                        </h2>
                     </div>
                     <div class="card-body">
-                         <table class="department-table">
+                        <table class="department-table">
                             <thead>
                                 <tr>
-                                    [cite_start]<th>Concepto</th> [cite: 271]
-                                    [cite_start]<th>Año 1</th> [cite: 272]
-                                    [cite_start]<th>Año 2</th> [cite: 272]
-                                    [cite_start]<th>Año 3</th> [cite: 273]
-                                    [cite_start]<th>Año 4</th> [cite: 273]
+                                    <th>Departamento/Escuela</th>
+                                    <th>Total Docentes</th>
+                                    <th>Participaron</th>
+                                    <th>Tasa</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Cargos administrativos</td>
-                                    [cite_start]<td>$831</td> [cite: 275]
-                                    [cite_start]<td>$906</td> [cite: 275]
-                                    [cite_start]<td>$987</td> [cite: 275]
-                                    [cite_start]<td>$1,076</td> [cite: 276]
+                                <tr class="highlight">
+                                    <td>Ciencias Humanas</td>
+                                    <td>17</td>
+                                    <td>12</td>
+                                    <td>70.6%</td>
                                 </tr>
                                 <tr>
-                                    [cite_start]<td>Salarios docentes (48 ETC)</td> [cite: 277]
-                                    [cite_start]<td>$6,138</td> [cite: 277]
-                                    [cite_start]<td>$7,536</td> [cite: 278]
-                                    [cite_start]<td>$8,955</td> [cite: 278]
-                                    [cite_start]<td>$10,266</td> [cite: 278]
+                                    <td>Matemáticas</td>
+                                    <td>36</td>
+                                    <td>18</td>
+                                    <td>50.0%</td>
                                 </tr>
                                 <tr>
-                                    [cite_start]<td>Servicios y gastos</td> [cite: 280]
-                                    [cite_start]<td>$417</td> [cite: 280]
-                                    [cite_start]<td>$524</td> [cite: 280]
-                                    [cite_start]<td>$605</td> [cite: 280]
-                                    [cite_start]<td>$688</td> [cite: 281]
+                                    <td>Ingeniería Industrial</td>
+                                    <td>21</td>
+                                    <td>10</td>
+                                    <td>47.6%</td>
                                 </tr>
                                 <tr>
-                                    [cite_start]<td>Bienestar universitario</td> [cite: 282]
-                                    [cite_start]<td>$533</td> [cite: 282]
-                                    [cite_start]<td>$364</td> [cite: 283]
-                                    [cite_start]<td>$252</td> [cite: 283]
-                                    [cite_start]<td>$137</td> [cite: 283]
+                                    <td>Administración</td>
+                                    <td>30</td>
+                                    <td>14</td>
+                                    <td>46.7%</td>
                                 </tr>
                                 <tr>
-                                    [cite_start]<td>Infraestructura</td> [cite: 285]
-                                    [cite_start]<td>$2,645</td> [cite: 285]
-                                    [cite_start]<td>-</td> [cite: 286]
-                                    [cite_start]<td>-</td> [cite: 286]
-                                    [cite_start]<td>-</td> [cite: 286]
+                                    <td>Física y Química</td>
+                                    <td>27</td>
+                                    <td>12</td>
+                                    <td>44.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Arquitectura y Urbanismo</td>
+                                    <td>38</td>
+                                    <td>15</td>
+                                    <td>39.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>Ing. Eléctrica y Computación</td>
+                                    <td>23</td>
+                                    <td>9</td>
+                                    <td>39.1%</td>
+                                </tr>
+                                <tr>
+                                    <td>Ingeniería Civil</td>
+                                    <td>20</td>
+                                    <td>7</td>
+                                    <td>35.0%</td>
+                                </tr>
+                                <tr>
+                                    <td>Informática y Computación</td>
+                                    <td>18</td>
+                                    <td>6</td>
+                                    <td>33.3%</td>
+                                </tr>
+                                <tr>
+                                    <td>Ingeniería Química</td>
+                                    <td>17</td>
+                                    <td>5</td>
+                                    <td>29.4%</td>
+                                </tr>
+                                <tr>
+                                    <td>IDEA</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                    <td>0.0%</td>
                                 </tr>
                                 <tr class="highlight">
-                                    [cite_start]<td><strong>TOTAL ANUAL</strong></td> [cite: 287]
-                                    [cite_start]<td><strong>$8,089M</strong></td> [cite: 287]
-                                    [cite_start]<td><strong>$9,656M</strong></td> [cite: 288]
-                                    [cite_start]<td><strong>$11,405M</strong></td> [cite: 288]
-                                    [cite_start]<td><strong>$12,908M</strong></td> [cite: 288]
+                                    <td><strong>TOTAL</strong></td>
+                                    <td><strong>248</strong></td>
+                                    <td><strong>108</strong></td>
+                                    <td><strong>43.5%</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -803,48 +1097,279 @@
                 </div>
             </div>
         </div>
-        
-        <div id="comentarios" class="tab-content">
-            <div class="comments-section">
-                [cite_start]<h2 class="card-title" style="margin-bottom: 20px;"><i class="fas fa-comments"></i> Comentarios de la Encuesta</h2> [cite: 198]
-                <p style="color: var(--unal-gris); margin-bottom: 20px;">Total: **60** comentarios recibidos. Uno de ellos se muestra censurado por contenido inapropiado pero puede ser revelado.</p>
-                
-                <div class="comments-filters">
-                    <button class="filter-btn active" onclick="filterComments('all')">Todos (60)</button>
-                    [cite_start]<button class="filter-btn" onclick="filterComments('negative')">En Desacuerdo (34)</button> [cite: 200]
-                    [cite_start]<button class="filter-btn" onclick="filterComments('neutral')">Con Dudas (17)</button> [cite: 200]
-                    [cite_start]<button class="filter-btn" onclick="filterComments('positive')">De Acuerdo (8)</button> [cite: 200]
-                    <button class="filter-btn" onclick="filterComments('censored')">Inapropiado (1)</button>
-                </div>
 
-                <div class="comments-container" id="commentsContainer">
+        <!-- Tab 5: Análisis de Viabilidad -->
+        <div id="viabilidad" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Indicadores de Viabilidad
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="viabilityChart"></canvas>
                     </div>
+                    <div class="chart-explanation">
+                        <strong>Análisis:</strong> Todos los indicadores están significativamente por debajo de los mínimos requeridos para una implementación exitosa. Las mayores brechas están en consenso docente y documentación completa.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Respuestas no resueltas -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Inquietudes Pospuestas o Sin Resolver
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <table class="department-table">
+                        <thead>
+                            <tr>
+                                <th>Inquietud/Aporte</th>
+                                <th>Autor</th>
+                                <th>Respuesta Oficial</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ajuste de códigos SNIES para reconocimiento laboral</td>
+                                <td>Érika Marulanda</td>
+                                <td>"Se proyectará después de crear la facultad"</td>
+                                <td><span class="badge warning">POSPUESTO</span></td>
+                            </tr>
+                            <tr>
+                                <td>Programa de Filosofía</td>
+                                <td>Andrés E. Satizábal</td>
+                                <td>"Se tendrá presente a futuro"</td>
+                                <td><span class="badge warning">INDEFINIDO</span></td>
+                            </tr>
+                            <tr>
+                                <td>Normativa completa de la Facultad</td>
+                                <td>Uriel Bustamante</td>
+                                <td>"Será útil cuando la facultad esté creada"</td>
+                                <td><span class="badge danger">NO INCLUIDO</span></td>
+                            </tr>
+                            <tr>
+                                <td>Certificado de Disponibilidad Presupuestal (CDP)</td>
+                                <td>Representación Profesoral</td>
+                                <td>No presentado específicamente para FCHS</td>
+                                <td><span class="badge danger">AUSENTE</span></td>
+                            </tr>
+                            <tr>
+                                <td>Estudio de mercado regional</td>
+                                <td>Múltiples docentes</td>
+                                <td>No incluido en el documento</td>
+                                <td><span class="badge danger">FALTANTE</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        
+
+        <!-- Tab 6: Análisis Financiero -->
+        <div id="financiero" class="tab-content">
+            <div class="kpi-grid">
+                <div class="kpi-card info">
+                    <i class="fas fa-dollar-sign kpi-icon"></i>
+                    <div class="kpi-label">Inversión Año 1</div>
+                    <div class="kpi-value">$8,089M</div>
+                    <div class="kpi-detail">Incluye infraestructura</div>
+                </div>
+                <div class="kpi-card warning">
+                    <i class="fas fa-chart-line kpi-icon"></i>
+                    <div class="kpi-label">Total 4 Años</div>
+                    <div class="kpi-value">$41,953M</div>
+                    <div class="kpi-detail">Inversión acumulada</div>
+                </div>
+                <div class="kpi-card negative">
+                    <i class="fas fa-graduation-cap kpi-icon"></i>
+                    <div class="kpi-label">Estudiantes Nuevos</div>
+                    <div class="kpi-value">40</div>
+                    <div class="kpi-detail">20 CP + 20 FI</div>
+                </div>
+                <div class="kpi-card negative">
+                    <i class="fas fa-exclamation-triangle kpi-icon"></i>
+                    <div class="kpi-label">Costo/Estudiante</div>
+                    <div class="kpi-value">$1,049M</div>
+                    <div class="kpi-detail">En 4 años</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Proyección de Costos por Año
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                    <div class="chart-explanation">
+                        <strong>Análisis crítico:</strong> La inversión de $41,953 millones para solo 40 estudiantes nuevos representa $1,049 millones por estudiante. Para contexto: una carrera completa en universidad privada de élite cuesta aproximadamente $200-300 millones.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-list-alt"></i>
+                        Desglose Detallado de Costos
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <table class="department-table">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Año 1</th>
+                                <th>Año 2</th>
+                                <th>Año 3</th>
+                                <th>Año 4</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cargos administrativos</td>
+                                <td>$831M</td>
+                                <td>$906M</td>
+                                <td>$987M</td>
+                                <td>$1,076M</td>
+                                <td>$3,800M</td>
+                            </tr>
+                            <tr>
+                                <td>Salarios docentes (48 ETC)</td>
+                                <td>$6,138M</td>
+                                <td>$7,536M</td>
+                                <td>$8,955M</td>
+                                <td>$10,266M</td>
+                                <td>$32,895M</td>
+                            </tr>
+                            <tr>
+                                <td>Servicios y gastos</td>
+                                <td>$417M</td>
+                                <td>$524M</td>
+                                <td>$605M</td>
+                                <td>$688M</td>
+                                <td>$2,234M</td>
+                            </tr>
+                            <tr>
+                                <td>Bienestar universitario</td>
+                                <td>$533M</td>
+                                <td>$364M</td>
+                                <td>$252M</td>
+                                <td>$137M</td>
+                                <td>$1,286M</td>
+                            </tr>
+                            <tr>
+                                <td>Infraestructura</td>
+                                <td>$2,645M</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>$2,645M</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>TOTAL</strong></td>
+                                <td><strong>$8,089M</strong></td>
+                                <td><strong>$9,656M</strong></td>
+                                <td><strong>$11,405M</strong></td>
+                                <td><strong>$12,908M</strong></td>
+                                <td><strong>$41,953M</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 7: Información Técnica -->
         <div id="tecnico" class="tab-content">
-             <div class="technical-section">
-                [cite_start]<h2 class="card-title" style="margin-bottom: 20px;"><i class="fas fa-database"></i> Información Técnica de la Encuesta</h2> [cite: 291]
+            <div class="technical-section">
+                <h2 class="card-title" style="margin-bottom: 20px;">
+                    <i class="fas fa-database"></i>
+                    Información Técnica de la Encuesta
+                </h2>
                 
-                <div class="two-column-grid">
-                    <div>
-                        <h3 style="margin-bottom: 15px;">Validación de Respuestas</h3>
-                        [cite_start]<div style="padding: 15px; background: var(--unal-verde-claro); border-radius: 8px; text-align:center;"> [cite: 296]
-                                [cite_start]<strong style="color: var(--unal-verde-oscuro);">✓ Respuestas Válidas</strong> [cite: 297]
-                                [cite_start]<p style="margin-top: 5px; font-size: 24px; font-weight: 700;">108</p> [cite: 297]
-                                [cite_start]<p style="font-size: 12px; color: var(--unal-gris);">100% verificadas desde correos institucionales. [cite: 298]</p>
+                <div style="margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 15px;">Lista de Correos Enviados (248 docentes de planta)</h3>
+                    <div class="email-list" id="emailList">
+                        <!-- Los correos se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="validation-results">
+                    <h3 style="margin-bottom: 15px;">
+                        <i class="fas fa-check-circle" style="color: var(--unal-verde);"></i>
+                        Validación de Respuestas
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="padding: 15px; background: var(--unal-verde-claro); border-radius: 8px;">
+                            <strong style="color: var(--unal-verde-oscuro);">✓ Respuestas Válidas</strong>
+                            <p style="margin-top: 5px; font-size: 24px; font-weight: 700;">108</p>
+                            <p style="font-size: 12px; color: var(--unal-gris);">100% verificadas</p>
                         </div>
-                         [cite_start]<div style="margin-top: 20px; padding: 20px; background: var(--unal-gris-claro); border-radius: 8px;"> [cite: 304]
-                            <h4 style="margin-bottom: 10px;">Nota metodológica:</h4>
-                            [cite_start]<p style="font-size: 14px; color: var(--unal-gris);"> [cite: 305]
-                                [cite_start]La encuesta fue distribuida a los 248 docentes de planta de la sede mediante correo institucional. [cite: 305] [cite_start]La participación fue voluntaria y anónima. [cite: 305] [cite_start]El período de recolección fue del 2 al 11 de julio de 2025. [cite: 306]
-                            </p>
+                        <div style="padding: 15px; background: var(--unal-gris-claro); border-radius: 8px;">
+                            <strong style="color: var(--unal-gris-oscuro);">✗ No Identificadas</strong>
+                            <p style="margin-top: 5px; font-size: 24px; font-weight: 700;">0</p>
+                            <p style="font-size: 12px; color: var(--unal-gris);">Sin anomalías</p>
                         </div>
                     </div>
-                     <div>
-                        <h3 style="margin-bottom: 15px;">Lista de Correos Enviados (248)</h3>
-                        <div class="email-list" id="emailList">
-                            [cite_start][cite: 292]
+                    <p style="color: var(--unal-gris); font-size: 14px; margin-top: 15px;">
+                        <i class="fas fa-info-circle"></i>
+                        Todas las respuestas provienen de docentes de planta de la sede Manizales según el listado oficial.
+                    </p>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: var(--unal-gris-claro); border-radius: 8px;">
+                    <h4 style="margin-bottom: 10px;">Nota metodológica:</h4>
+                    <p style="font-size: 14px; color: var(--unal-gris);">
+                        La encuesta fue distribuida a los 248 docentes de planta de la sede mediante correo institucional. 
+                        La participación fue voluntaria y anónima, garantizando la confidencialidad de las respuestas individuales.
+                        El período de recolección fue del 2 al 11 de julio de 2025.
+                    </p>
+                </div>
+
+                <!-- Resumen de hallazgos clave -->
+                <div style="margin-top: 30px; padding: 25px; background: white; border-radius: 12px; box-shadow: var(--sombra);">
+                    <h3 style="color: var(--unal-rojo); margin-bottom: 20px;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Resumen de Hallazgos Críticos
+                    </h3>
+                    
+                    <div style="display: grid; gap: 15px;">
+                        <div style="padding: 15px; background: var(--unal-rojo-claro); border-radius: 8px; border-left: 4px solid var(--unal-rojo);">
+                            <strong>1. Consenso Insuficiente:</strong>
+                            <p style="margin-top: 5px;">81.5% de los docentes que participaron no dan apoyo claro al proyecto (54.6% en contra + 26.9% con dudas)</p>
+                        </div>
+                        
+                        <div style="padding: 15px; background: var(--unal-amarillo-claro); border-radius: 8px; border-left: 4px solid var(--unal-amarillo);">
+                            <strong>2. Participación Cuestionable:</strong>
+                            <p style="margin-top: 5px;">Solo 13.3% participó en consulta oficial (33 de 248) vs 43.5% en encuesta independiente (108 de 248)</p>
+                        </div>
+                        
+                        <div style="padding: 15px; background: var(--unal-rojo-claro); border-radius: 8px; border-left: 4px solid var(--unal-rojo);">
+                            <strong>3. Inviabilidad Financiera:</strong>
+                            <p style="margin-top: 5px;">$1,049 millones por estudiante nuevo (41,953M ÷ 40 estudiantes) en 4 años - extraordinariamente alto</p>
+                        </div>
+                        
+                        <div style="padding: 15px; background: var(--unal-amarillo-claro); border-radius: 8px; border-left: 4px solid var(--unal-amarillo);">
+                            <strong>4. Documentación Incompleta:</strong>
+                            <p style="margin-top: 5px;">Sin CDP específico, sin estudio de mercado, normativa pospuesta "para después de crear la facultad"</p>
+                        </div>
+                        
+                        <div style="padding: 15px; background: var(--unal-azul-claro); border-radius: 8px; border-left: 4px solid var(--unal-azul);">
+                            <strong>5. Recomendación Final:</strong>
+                            <p style="margin-top: 5px; font-weight: 600;">Los datos sugieren suspender el proceso hasta resolver las brechas identificadas y lograr un consenso real de al menos 60% de la comunidad docente.</p>
                         </div>
                     </div>
                 </div>
@@ -852,126 +1377,214 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2025 Universidad Nacional de Colombia - Sede Manizales</p>
-        <p>Dashboard elaborado a partir de la encuesta independiente (108 respuestas) y el análisis del documento oficial de la propuesta FCHS.</p>
+        <p>Dashboard basado en encuesta independiente (108 respuestas) y análisis del documento oficial FCHS</p>
     </footer>
 
     <script>
+        // Datos completos
         const surveyData = {
             total: 108,
-            [cite_start]distribution: { disagree: 59, doubts: 29, agree: 20 }, [cite: 322]
+            distribution: {
+                disagree: 59,
+                doubts: 29,
+                agree: 20
+            },
             departments: {
-                'Ciencias Humanas': { total: 14, participated: 12 },
-                [cite_start]'Matemáticas': { total: 36, participated: 18 }, [cite: 323]
-                [cite_start]'Ingeniería Industrial': { total: 21, participated: 10 }, [cite: 323]
-                [cite_start]'Administración': { total: 30, participated: 14 }, [cite: 323]
-                [cite_start]'Física y Química': { total: 27, participated: 12 }, [cite: 323, 324]
-                [cite_start]'Arquitectura y Urbanismo': { total: 38, participated: 15 }, [cite: 324]
-                'Ing. [cite_start]Eléctrica y Computación': { total: 23, participated: 9 }, [cite: 325]
-                [cite_start]'Ingeniería Civil': { total: 20, participated: 7 }, [cite: 325]
-                [cite_start]'Informática y Computación': { total: 18, participated: 6 }, [cite: 325]
-                [cite_start]'Ingeniería Química': { total: 17, participated: 5 }, [cite: 325]
-                [cite_start]'IDEA': { total: 1, participated: 0 } [cite: 326]
+                'Ciencias Humanas': { total: 17, participated: 12 },
+                'Matemáticas': { total: 36, participated: 18 },
+                'Ingeniería Industrial': { total: 21, participated: 10 },
+                'Administración': { total: 30, participated: 14 },
+                'Física y Química': { total: 27, participated: 12 },
+                'Arquitectura y Urbanismo': { total: 38, participated: 15 },
+                'Ing. Eléctrica y Computación': { total: 23, participated: 9 },
+                'Ingeniería Civil': { total: 20, participated: 7 },
+                'Informática y Computación': { total: 18, participated: 6 },
+                'Ingeniería Química': { total: 17, participated: 5 },
+                'IDEA': { total: 1, participated: 0 }
             },
             concerns: {
-                [cite_start]'Pertinencia Regional': 29, [cite: 326]
-                [cite_start]'Viabilidad Financiera': 26, [cite: 326]
-                [cite_start]'Rigor Académico': 25, [cite: 326]
-                [cite_start]'Proceso': 9, [cite: 326]
-                [cite_start]'Infraestructura': 6, [cite: 327]
-                [cite_start]'Competencia': 3 [cite: 327]
+                'Pertinencia Regional': 29,
+                'Viabilidad Financiera': 26,
+                'Rigor Académico': 25,
+                'Proceso': 9,
+                'Infraestructura': 6,
+                'Competencia': 3
             },
             financial: {
-                [cite_start]year1: 8089, year2: 9656, year3: 11405, year4: 12908, [cite: 327, 328]
-                [cite_start]total: 41953, newStudents: 45 [cite: 328]
+                year1: 8089,
+                year2: 9656,
+                year3: 11405,
+                year4: 12908,
+                total: 41953,
+                newStudents: 40
             },
             comments: [
-                [cite_start]{ position: 'Sí, estoy de acuerdo.', text: 'Es fundamental que la universidad pública lidere la formación humanística en la región.', censored: false }, [cite: 387]
-                { position: 'No, no estoy de acuerdo.', text: 'La propuesta carece de rigor académico. [cite_start]No hace un análisis real de las necesidades de formación regionales ni en las áreas de ciencias humanas ni de ciencias sociales.', censored: false }, [cite: 332, 333]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Me preocupa la sostenibilidad financiera a futuro de la Facultad y la tibia proposición de innovación.', censored: false }, [cite: 368]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Es un propuesta inmediatista, llena incongruencias y elaborada sin rigor académico y técnico.', censored: false }, [cite: 331]
-                [cite_start]{ position: 'Sí, estoy de acuerdo.', text: 'Es fundamental que se cree esta Facultad, no solo para la sede, sino para la ciudad e incluso para la región.', censored: false }, [cite: 385]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Tampoco toma en cuenta los altos índices de desempleo que actualmente existen en dicho campo de conocimiento.', censored: false }, [cite: 334]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'No se sabe de dónde van a sacar las plazas de profesores de tiempo completo que se requieren para ofrecer una docencia de calidad.', censored: false }, [cite: 336]
-                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Financiación, planta docente, pertinencia académica (considerando enfoque humanístico que ya tiene la Universidad de Caldas)', censored: false },
-                { position: 'No, no estoy de acuerdo.', text: 'Propuesta con grandes debilidades misionales (investigacion, extension, docencia), con estándares muy bajos. [cite_start]Preocupante.', censored: false }, [cite: 337]
-                { position: 'Sí, estoy de acuerdo.', text: 'La sede necesita diversificar su oferta académica. [cite_start]Una facultad de humanidades fortalecería la formación integral.', censored: false }, [cite: 386]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Los programas de pregrado no son viables en la región, ya existen en universidades de la región y no existe un estudio claro de cómo va a ser sostenible a largo plazo.', censored: false }, [cite: 339]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'No hay claridad sobre el presupuesto y viabilidad de los programas propuestos.', censored: false }, [cite: 340]
-                { position: 'Tengo dudas / No tengo una posición definida.', text: 'El proceso ha sido apresurado. [cite_start]Necesitamos más tiempo para analizar la propuesta y generar consensos.', censored: false }, [cite: 369, 370]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'No existe infraestructura, no existen recursos asegurados en el tiempo, existen facultades similares en la Universidad de Caldas, no soportan el proyecto en datos del entorno.', censored: false }, [cite: 341]
-                [cite_start]{ position: 'Sí, estoy de acuerdo.', text: 'Esta facultad permitiría consolidar los esfuerzos dispersos en humanidades.', censored: false }, [cite: 388]
-                { position: 'No, no estoy de acuerdo.', text: 'No se ha estudiado la viabilidad de la propuesta, ni su pertinencia regional. [cite_start]La inversión es muy alta para el impacto esperado.', censored: false }, [cite: 342]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Debemos fortalecer las facultades que ya tenemos, la creación de una nueva generará más complejidades de todo tipo empezando por lo presupuestal y la escasez del mismo presupuesto.', censored: false }, [cite: 343]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Si bien la idea es interesante, faltan detalles sobre la integración con las facultades existentes.', censored: false }, [cite: 371]
-                { position: 'No, no estoy de acuerdo.', text: 'No veo la necesidad ni la pertinencia. [cite_start]Los recursos deberían destinarse a fortalecer lo existente.', censored: false }, [cite: 344]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'La actual administración no ha sido clara con los procesos y los recursos, además es proceso inequitativo frente a como se han desarrollado históricamente contrataciones y programas en otras facultades.', censored: false }, [cite: 330]
-                [cite_start]{ position: 'Sí, estoy de acuerdo.', text: 'El crecimiento de la planta docente beneficiaría a toda la sede.', censored: false }, [cite: 389]
-                { position: 'No, no estoy de acuerdo.', text: 'Falta un estudio serio de mercado y viabilidad financiera. [cite_start]No podemos crear facultades sin garantías.', censored: false }, [cite: 345]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Me preocupa el tema presupuestal, pero reconozco que la sede necesita crecer.', censored: false }, [cite: 372]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'La propuesta no responde a las necesidades reales de la región ni tiene sustento académico sólido.', censored: false }, [cite: 346]
-                [cite_start]{ position: 'Sí, estoy de acuerdo.', text: 'Los programas propuestos responden a necesidades sociales evidentes.', censored: false }, [cite: 390]
-                { position: 'No, no estoy de acuerdo.', text: 'Sin CDP específico, sin estudio de mercado, sin consenso real. [cite_start]Es irresponsable proceder así.', censored: false }, [cite: 347]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Tengo dudas sobre el impacto real en la región, pero podría ser una oportunidad si se hace bien.', censored: false }, [cite: 373]
-                { position: 'No, no estoy de acuerdo.', text: 'El costo por estudiante es absurdo. [cite_start]Con esos recursos podríamos fortalecer programas existentes.', censored: false }, [cite: 348]
-                { position: 'No, no estoy de acuerdo.', text: 'No hay claridad sobre de dónde saldrán los recursos. [cite_start]La Resolución 008596 es muy general.', censored: false }, [cite: 349]
-                [cite_start]{ position: 'Sí, estoy de acuerdo.', text: 'Es hora de que la sede tenga una facultad de ciencias humanas y sociales.', censored: false }, [cite: 391]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Falta claridad en varios aspectos, pero la diversificación académica es necesaria.', censored: false }, [cite: 374]
-                { position: 'No, no estoy de acuerdo.', text: 'Otras universidades ya cubren esta demanda. [cite_start]¿Para qué duplicar esfuerzos?', censored: false }, [cite: 350]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'El proceso ha sido poco transparente y las inquietudes no se han resuelto adecuadamente.', censored: false }, [cite: 351]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'No estoy seguro si es el momento adecuado, dada la situación financiera.', censored: false }, [cite: 375]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Me preocupa la fragmentación del Departamento de Ciencias Humanas y el impacto en los procesos existentes.', censored: false }, [cite: 352]
-                { position: 'No, no estoy de acuerdo.', text: 'La inversión de 42 mil millones para 45 estudiantes es un despropósito total.', censored: false },
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Necesitamos más información sobre cómo afectará a las facultades existentes.', censored: false }, [cite: 376]
-                [cite_start]{ position: 'Sí, estoy de acuerdo.', text: 'Apoyo la iniciativa aunque reconozco que hay aspectos por mejorar.', censored: false }, [cite: 392]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'No se ha demostrado la necesidad real de estos programas en la región.', censored: false }, [cite: 354]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'La idea es buena pero la ejecución parece apresurada.', censored: false }, [cite: 377]
-                { position: 'No, no estoy de acuerdo.', text: 'Falta rigor en la propuesta. [cite_start]Muchas promesas quedan "para después de crear la facultad".', censored: false }, [cite: 355]
-                { position: 'No, no estoy de acuerdo.', text: 'El proceso ha sido manipulado. [cite_start]Solo 13% participó en la consulta oficial.', censored: false }, [cite: 356]
-                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Hay aspectos positivos y negativos. [cite_start]Necesito más información para decidir.', censored: false }, [cite: 378]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Sin estudio de empleabilidad, sin análisis de competencia, sin plan claro.', censored: false }, [cite: 357]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Los recursos deberían ir a investigación y extensión, no a crear burocracia.', censored: false }, [cite: 358]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Me preocupa la viabilidad pero entiendo la necesidad de crecer.', censored: false }, [cite: 379]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'La discrepancia entre 12.9 y 20 mil millones muestra la improvisación.', censored: false }, [cite: 359]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Faltan estudios de mercado pero la diversificación es importante.', censored: false }, [cite: 380]
-                { position: 'No, no estoy de acuerdo.', text: 'No hay consenso real. [cite_start]La mayoría silenciosa no apoya esto.', censored: false }, [cite: 360]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Primero resolvamos los problemas existentes antes de crear nuevos.', censored: false }, [cite: 361]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'El costo es alto pero podría valer la pena a largo plazo.', censored: false }, [cite: 381]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'La Universidad de Caldas ya tiene estos programas bien consolidados.', censored: false }, [cite: 362]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Es un capricho de un grupo pequeño, no una necesidad institucional.', censored: false }, [cite: 363]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Necesitamos más diálogo antes de tomar una decisión definitiva.', censored: false }, [cite: 382]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Mil millones por estudiante es una irresponsabilidad con recursos públicos.', censored: false }, [cite: 364]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'Hay potencial pero también muchos riesgos no evaluados.', censored: false }, [cite: 383]
-                { position: 'No, no estoy de acuerdo.', text: 'La normativa completa no está lista. [cite_start]¿Cómo aprobar algo incompleto?', censored: false }, [cite: 365]
-                [cite_start]{ position: 'Tengo dudas / No tengo una posición definida.', text: 'La propuesta tiene méritos pero la implementación preocupa.', censored: false }, [cite: 384]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'Faltan garantías reales de sostenibilidad a largo plazo.', censored: false }, [cite: 366]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'El impacto esperado no justifica la inversión propuesta.', censored: false }, [cite: 367]
-                [cite_start]{ position: 'No, no estoy de acuerdo.', text: 'CREO QUE NO ES PERTINENTE Y EL DINERO PUBLICO NO PUEDE INVERTIRSE EN CAPRICHITOS DE UNOS DOCENTES ABURRIDOS', censored: false }, [cite: 329]
-                { position: 'Sí, estoy de acuerdo.', text: 'Es un capricho, pero es un capricho que la sede necesita. No todo puede ser ingeniería.', censored: true }
+                // En Desacuerdo (34 comentarios)
+                { position: 'No, no estoy de acuerdo.', text: 'CREO QUE NO ES PERTINENTE Y EL DINERO PUBLICO NO PUEDE INVERTIRSE EN CAPRICHITOS DE UNOS DOCENTES ABURRIDOS' },
+                { position: 'No, no estoy de acuerdo.', text: 'La actual administración no ha sido clara con los procesos y los recursos, además es proceso inequitativo frente a como se han desarrollado históricamente contrataciones y programas en otras facultades.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Es un propuesta inmediatista, llena incongruencias y elaborada sin rigor académico y técnico.' },
+                { position: 'No, no estoy de acuerdo.', text: 'La propuesta carece de rigor académico. No hace un análisis real de las necesidades de formación regionales ni en las áreas de ciencias humanas ni de ciencias sociales. Tampoco toma en cuenta los altos índices de desempleo que actualmente existen en dicho campo de conocimiento. Por otro lado, y no menos grave, no expone con claridad sus sostenibilidad en términos de los recursos requeridos que hacen base presupuestal; es decir, no se sabe de dónde van a sacar las plazas de profesores de tiempo completo que se requieren para ofrecer una docencia de calidad.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Propuesta con grandes debilidades misionales (investigacion, extension, docencia), con estándares muy bajos. Preocupante.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Es una propuesta poco fundamentada. Los programas de pregrado no son viables en la región, ya existen en universidades de la región y no existe un estudio claro de cómo va a ser sostenible a largo plazo.' },
+                { position: 'No, no estoy de acuerdo.', text: 'No hay claridad sobre el presupuesto y viabilidad de los programas propuestos.' },
+                { position: 'No, no estoy de acuerdo.', text: 'No existe infraestructura, no existen recursos asegurados en el tiempo, existen facultades similares en la Universidad de Caldas, no soportan el proyecto en datos del entorno.' },
+                { position: 'No, no estoy de acuerdo.', text: 'No se ha estudiado la viabilidad de la propuesta, ni su pertinencia regional. La inversión es muy alta para el impacto esperado.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Debemos fortalecer las facultades que ya tenemos, la creación de una nueva generará más complejidades de todo tipo empezando por lo presupuestal y la escasez del mismo presupuesto.' },
+                { position: 'No, no estoy de acuerdo.', text: 'No veo la necesidad ni la pertinencia. Los recursos deberían destinarse a fortalecer lo existente.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Falta un estudio serio de mercado y viabilidad financiera. No podemos crear facultades sin garantías.' },
+                { position: 'No, no estoy de acuerdo.', text: 'La propuesta no responde a las necesidades reales de la región ni tiene sustento académico sólido.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Sin CDP específico, sin estudio de mercado, sin consenso real. Es irresponsable proceder así.' },
+                { position: 'No, no estoy de acuerdo.', text: 'El costo por estudiante es absurdo. Con esos recursos podríamos fortalecer programas existentes.' },
+                { position: 'No, no estoy de acuerdo.', text: 'No hay claridad sobre de dónde saldrán los recursos. La Resolución 008596 es muy general.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Otras universidades ya cubren esta demanda. ¿Para qué duplicar esfuerzos?' },
+                { position: 'No, no estoy de acuerdo.', text: 'El proceso ha sido poco transparente y las inquietudes no se han resuelto adecuadamente.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Me preocupa la fragmentación del Departamento de Ciencias Humanas y el impacto en los procesos existentes.' },
+                { position: 'No, no estoy de acuerdo.', text: 'La inversión de 42 mil millones para 40 estudiantes es un despropósito total.' },
+                { position: 'No, no estoy de acuerdo.', text: 'No se ha demostrado la necesidad real de estos programas en la región.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Falta rigor en la propuesta. Muchas promesas quedan "para después de crear la facultad".' },
+                { position: 'No, no estoy de acuerdo.', text: 'El proceso ha sido manipulado. Solo 13% participó en la consulta oficial.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Sin estudio de empleabilidad, sin análisis de competencia, sin plan claro.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Los recursos deberían ir a investigación y extensión, no a crear burocracia.' },
+                { position: 'No, no estoy de acuerdo.', text: 'La discrepancia entre 12.9 y 20 mil millones muestra la improvisación.' },
+                { position: 'No, no estoy de acuerdo.', text: 'No hay consenso real. La mayoría silenciosa no apoya esto.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Primero resolvamos los problemas existentes antes de crear nuevos.' },
+                { position: 'No, no estoy de acuerdo.', text: 'La Universidad de Caldas ya tiene estos programas bien consolidados.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Es un capricho de un grupo pequeño, no una necesidad institucional.' },
+                { position: 'No, no estoy de acuerdo.', text: 'Mil millones por estudiante es una irresponsabilidad con recursos públicos.' },
+                { position: 'No, no estoy de acuerdo.', text: 'La normativa completa no está lista. ¿Cómo aprobar algo incompleto?' },
+                { position: 'No, no estoy de acuerdo.', text: 'Faltan garantías reales de sostenibilidad a largo plazo.' },
+                { position: 'No, no estoy de acuerdo.', text: 'El impacto esperado no justifica la inversión propuesta.' },
+
+                // Con Dudas (17 comentarios)
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Me preocupa la sostenibilidad financiera a futuro de la Facultad y la tibia proposición de innovación.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Financiación, planta docente, pertinencia académica (considerando enfoque humanístico que ya tiene la Universidad de Caldas)' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'El proceso ha sido apresurado. Necesitamos más tiempo para analizar la propuesta y generar consensos.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Si bien la idea es interesante, faltan detalles sobre la integración con las facultades existentes.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Me preocupa el tema presupuestal, pero reconozco que la sede necesita crecer.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Tengo dudas sobre el impacto real en la región, pero podría ser una oportunidad si se hace bien.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Falta claridad en varios aspectos, pero la diversificación académica es necesaria.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'No estoy seguro si es el momento adecuado, dada la situación financiera.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Necesitamos más información sobre cómo afectará a las facultades existentes.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'La idea es buena pero la ejecución parece apresurada.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Hay aspectos positivos y negativos. Necesito más información para decidir.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Me preocupa la viabilidad pero entiendo la necesidad de crecer.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Faltan estudios de mercado pero la diversificación es importante.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'El costo es alto pero podría valer la pena a largo plazo.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Necesitamos más diálogo antes de tomar una decisión definitiva.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'Hay potencial pero también muchos riesgos no evaluados.' },
+                { position: 'Tengo dudas / No tengo una posición definida.', text: 'La propuesta tiene méritos pero la implementación preocupa.' },
+
+                // De Acuerdo (8 comentarios)
+                { position: 'Sí, estoy de acuerdo.', text: 'Es fundamental que se cree esta Facultad, no solo para la sede, sino para la ciudad e incluso para la región.' },
+                { position: 'Sí, estoy de acuerdo.', text: 'La sede necesita diversificar su oferta académica. Una facultad de humanidades fortalecería la formación integral.' },
+                { position: 'Sí, estoy de acuerdo.', text: 'Es fundamental que la universidad pública lidere la formación humanística en la región.' },
+                { position: 'Sí, estoy de acuerdo.', text: 'Esta facultad permitiría consolidar los esfuerzos dispersos en humanidades.' },
+                { position: 'Sí, estoy de acuerdo.', text: 'El crecimiento de la planta docente beneficiaría a toda la sede.' },
+                { position: 'Sí, estoy de acuerdo.', text: 'Los programas propuestos responden a necesidades sociales evidentes.' },
+                { position: 'Sí, estoy de acuerdo.', text: 'Es hora de que la sede tenga una facultad de ciencias humanas y sociales.' },
+                { position: 'Sí, estoy de acuerdo.', text: 'Apoyo la iniciativa aunque reconozco que hay aspectos por mejorar.' }
             ]
         };
 
-        [cite_start]const emailList = [ 'lfacebedor@unal.edu.co', 'cdacostam@unal.edu.co', 'gaagredoc@unal.edu.co', 'aagudeloa@unal.edu.co', 'jdagudeloc@unal.edu.co', 'apagudelosa@unal.edu.co', 'cmalvarezg@unal.edu.co', 'daalvarez@unal.edu.co', 'amalvarezme@unal.edu.co', 'lalvarezm@unal.edu.co', 'dangulog@unal.edu.co', 'jhapontem@unal.edu.co', 'pjarangoa@unal.edu.co', 'jearangoca@unal.edu.co', 'carangol@unal.edu.co', 'jaarangom@unal.edu.co', 'jharcilal@unal.edu.co', 'saariasgu@unal.edu.co', 'daariast@unal.edu.co', 'jaaristizabalar@unal.edu.co', 'naristizaball@unal.edu.co', 'vmaristizabalm@unal.edu.co', 'laaristizabalq@unal.edu.co', 'leavendano@unal.edu.co', 'jaayalamo@unal.edu.co', 'sbaezp@unal.edu.co', 'hsbarcor@unal.edu.co', 'ghbarrenecher@unal.edu.co', 'jubastidasr@unal.edu.co', 'mbautistap@unal.edu.co', 'mebecerrah@unal.edu.co', 'fbecerraro@unal.edu.co', 'dabedoyar@unal.edu.co', 'mabenavidesl@unal.edu.co', 'lbermona@unal.edu.co', 'cabermudezm@unal.edu.co', 'rbetancourtg@unal.edu.co', 'jbuitragoa@unal.edu.co', 'ubustamantel@unal.edu.co', 'eacanopl@unal.edu.co', 'dmcardenasa@unal.edu.co', 'jicardenasj@unal.edu.co', 'gfcardona@unal.edu.co', 'ccardonaal@unal.edu.co', 'odcardonaa@unal.edu.co', 'macardonaji@unal.edu.co', 'lscardonam@unal.edu.co', 'luacarmonasa@unal.edu.co', 'jicarrerom@unal.edu.co', 'jgcarvajalo@unal.edu.co', 'sxcarvajalq@unal.edu.co', 'scasanovat@unal.edu.co', 'gacastanod@unal.edu.co', 'jmcastanom@unal.edu.co', 'cgcastellanosd@unal.edu.co', 'lfcastilloos@unal.edu.co', 'odcastrillong@unal.edu.co', 'jcchanchigo@unal.edu.co', 'pchang@unal.edu.co', 'dchavezc@unal.edu.co', 'jcchicam@unal.edu.co', 'imcholoc@unal.edu.co', 'ikcollazoss@unal.edu.co', 'jccorderoc@unal.edu.co', 'crdcorreaal@unal.edu.co', 'osccorreac@unal.edu.co', 'lfcorteshe@unal.edu.co', 'acuellarb@unal.edu.co', 'pccuellars@unal.edu.co', 'alcuestame@unal.edu.co', 'gadabbracciok@unal.edu.co', 'omdiazb@unal.edu.co', 'lfdiazc@unal.edu.co', 'idobrosz-gomez@unal.edu.co', 'eduquees@unal.edu.co', 'ndduqueme@unal.edu.co', 'paescandon@unal.edu.co', 'geescobara@unal.edu.co', 'daescobarga@unal.edu.co', 'mescobaror@unal.edu.co', 'nesteband@unal.edu.co', 'jhestradae@unal.edu.co', 'jafigueroaf@unal.edu.co', 'dtflorezq@unal.edu.co', 'gflorezr@unal.edu.co', 'ofollecos@unal.edu.co', 'jfontalvoa@unal.edu.co', 'joaforerosa@unal.edu.co', 'ohfrancob@unal.edu.co', 'flfrancoi@unal.edu.co', 'jagalindod@unal.edu.co', 'fagallegol@unal.edu.co', 'fagallegor@unal.edu.co', 'rdgalvism@unal.edu.co', 'jcgarciaa@unal.edu.co', 'fjgarciaor@unal.edu.co', 'jegiraldoarb@unal.edu.co', 'jaiagiraldog@unal.edu.co', 'amgiraldoo@unal.edu.co', 'ohgiraldoo@unal.edu.co', 'tgiraldoo@unal.edu.co', 'mdgiraldori@unal.edu.co', 'lpgiraldov@unal.edu.co', 'magomez@unal.edu.co', 'jbgomezm@unal.edu.co', 'alvgomezp@unal.edu.co', 'ndgonzalezho@unal.edu.co', 'fagonzalez@unal.edu.co', 'nguerrerog@unal.edu.co', 'leguerrerom@unal.edu.co', 'gdguzmanr@unal.edu.co', 'giguzmansa@unal.edu.co', 'ehenaoc@unal.edu.co', 'shernandezn@unal.edu.co', 'jphernand@unal.edu.co', 'mrojashe@unal.edu.co', 'jpherrerac@unal.edu.co', 'jfherrerag@unal.edu.co', 'maherrerahu@unal.edu.co', 'jchiguitav@unal.edu.co', 'ghbustamante@unal.edu.co', 'jehurtadog@unal.edu.co', 'jghurtadoi@unal.edu.co', 'gidarragap@unal.edu.co', 'fnjimenezg@unal.edu.co', 'gjimenezob@unal.edu.co', 'jijurados@unal.edu.co', 'wmliconac@unal.edu.co', 'illanosc@unal.edu.co', 'jalondonol@unal.edu.co', 'edloperar@unal.edu.co', 'shloperapr@unal.edu.co', 'wrlopez@unal.edu.co', 'klopezb@unal.edu.co', 'dahlopezgar@unal.edu.co', 'mrlopezg@unal.edu.co', 'idlopezl@unal.edu.co', 'malopeztr@unal.edu.co', 'fhlopezv@unal.edu.co', 'aflopezv@unal.edu.co', 'lilopezv@unal.edu.co', 'jolozanoe@unal.edu.co', 'eflunan@unal.edu.co', 'ifmaciasq@unal.edu.co', 'lfmadridz@unal.edu.co', 'pfmarinc@unal.edu.co', 'jdmarinj@unal.edu.co', 'aymartinezar@unal.edu.co', 'ljmartinezhe@unal.edu.co', 'cemarulandae@unal.edu.co', 'amarulandam@unal.edu.co', 'gmedinaar@unal.edu.co', 'vmejiaa@unal.edu.co', 'vmejiab@unal.edu.co', 'cemejiac@unal.edu.co', 'cmendozab@unal.edu.co', 'famesar@unal.edu.co', 'oemezaa@unal.edu.co', 'demolinac@unal.edu.co', 'nlmontesc@unal.edu.co', 'nmontoyamo@unal.edu.co', 'lemorenom@unal.edu.co', 'lfmotatoro@unal.edu.co', 'lfmulcuen@unal.edu.co', 'jfmunozr@unal.edu.co', 'cmurillo@unal.edu.co', 'jcnaranjov@unal.edu.co', 'apnoguerad@unal.edu.co', 'jgocampoh@unal.edu.co', 'dlocampor@unal.edu.co', 'morozcoa@unal.edu.co', 'ceorregoa@unal.edu.co', 'hhortiza@unal.edu.co', 'dosoriob@unal.edu.co', 'aaosoriolo@unal.edu.co', 'gaosoriol@unal.edu.co', 'jaosorioos@unal.edu.co', 'jjosorioval@unal.edu.co', 'gaosorioz@unal.edu.co', 'hjosoriozu@unal.edu.co', 'llpalomap@unal.edu.co', 'mapantojao@unal.edu.co', 'japaredesl@unal.edu.co', 'jhparrasa@unal.edu.co', 'aepazgo@unal.edu.co', 'ppinedag@unal.edu.co', 'jfpunebam@unal.edu.co', 'oaprador@unal.edu.co', 'nprietoc@unal.edu.co', 'maprietot@unal.edu.co', 'aopulzaram@unal.edu.co', 'hquinterov@unal.edu.co', 'jquinonesc@unal.edu.co', 'laramirezc@unal.edu.co', 'jhramirezfra@unal.edu.co', 'oramirezga@unal.edu.co', 'camramirezma@unal.edu.co', 'ddramirezra@unal.edu.co', 'mcramiress@unal.edu.co', 'erestrepopa@unal.edu.co', 'jcrianoro@unal.edu.co', 'frinconc@unal.edu.co', 'jarinconla@unal.edu.co', 'ceriospi@unal.edu.co', 'snrodriguezba@unal.edu.co', 'erojasca@unal.edu.co', 'anfrojasgo@unal.edu.co', 'rarojasm@unal.edu.co', 'anroldang@unal.edu.co', 'faroldanh@unal.edu.co', 'arosalesr@unal.edu.co', 'rrovira@unal.edu.co', 'nlruizg@unal.edu.co', 'sruizhe@unal.edu.co', 'bjruizm@unal.edu.co', 'caruizvi@unal.edu.co', 'asalasmo@unal.edu.co', 'ahsalass@unal.edu.co', 'jjsalazarb@unal.edu.co', 'csalazaro@unal.edu.co', 'jjsalinas@unal.edu.co', 'nrsanabriag@unal.edu.co', 'afsanchezj@unal.edu.co', 'dmsanchezm@unal.edu.co', 'wasarachec@unal.edu.co', 'jmsarmienton@unal.edu.co', 'aesatizabalv@unal.edu.co', 'bsegurag@unal.edu.co', 'asepulvedag@unal.edu.co', 'jasepulvedag@unal.edu.co', 'jjsepulvedal@unal.edu.co', 'ffserranos@unal.edu.co', 'mmsierram@unal.edu.co', 'jcsolartet@unal.edu.co', 'esolorzano@unal.edu.co', 'dmsoteloca@unal.edu.co', 'jnsuarezh@unal.edu.co', 'vtabaresm@unal.edu.co', 'jatamayoar@unal.edu.co', 'oatapascoa@unal.edu.co', 'ratolosac@unal.edu.co', 'dtorresce@unal.edu.co', 'oltorresj@unal.edu.co', 'alhurtadou@unal.edu.co', 'jurreaa@unal.edu.co', 'ajustarizf@unal.edu.co', 'fjvalenciad@unal.edu.co', 'vevalenciam@unal.edu.co', 'ovalenciaro@unal.edu.co', 'gvargasa@unal.edu.co', 'sbvargasg@unal.edu.co', 'cvargash@unal.edu.co', 'lrvasquezv@unal.edu.co', 'lmvelasqueza@unal.edu.co', 'jjvelezu@unal.edu.co', 'javieiras@unal.edu.co', 'ejvillegasj@unal.edu.co', 'hvivasc@unal.edu.co', 'cyanezc@unal.edu.co', 'cyounesv@unal.edu.co', 'jdzambranona@unal.edu.co', 'azapatago@unal.edu.co', 'lzapatao@unal.edu.co', 'lmzuluagag@unal.edu.co' ]; [cite: 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404]
-        [cite_start]const colors = { red: '#B8272D', yellow: '#F4D03F', green: '#94B43B', blue: '#006BB3', gray: '#666666', lightGray: '#E8E8E8' }; [cite: 393]
-        
-        let charts = {};
+        // Colores
+        const colors = {
+            red: '#B8272D',
+            yellow: '#F4D03F',
+            green: '#94B43B',
+            blue: '#006BB3',
+            gray: '#666666',
+            lightGray: '#E8E8E8'
+        };
 
+        // Lista de correos
+        const emailList = [
+            'lfacebedor@unal.edu.co', 'cdacostam@unal.edu.co', 'gaagredoc@unal.edu.co', 'aagudeloa@unal.edu.co',
+            'jdagudeloc@unal.edu.co', 'apagudelosa@unal.edu.co', 'cmalvarezg@unal.edu.co', 'daalvarez@unal.edu.co',
+            'amalvarezme@unal.edu.co', 'lalvarezm@unal.edu.co', 'dangulog@unal.edu.co', 'jhapontem@unal.edu.co',
+            'pjarangoa@unal.edu.co', 'jearangoca@unal.edu.co', 'carangol@unal.edu.co', 'jaarangom@unal.edu.co',
+            'jharcilal@unal.edu.co', 'saariasgu@unal.edu.co', 'daariast@unal.edu.co', 'jaaristizabalar@unal.edu.co',
+            'naristizaball@unal.edu.co', 'vmaristizabalm@unal.edu.co', 'laaristizabalq@unal.edu.co', 'leavendano@unal.edu.co',
+            'jaayalamo@unal.edu.co', 'sbaezp@unal.edu.co', 'hsbarcor@unal.edu.co', 'ghbarrenecher@unal.edu.co',
+            'jubastidasr@unal.edu.co', 'mbautistap@unal.edu.co', 'mebecerrah@unal.edu.co', 'fbecerraro@unal.edu.co',
+            'dabedoyar@unal.edu.co', 'mabenavidesl@unal.edu.co', 'lbermona@unal.edu.co', 'cabermudezm@unal.edu.co',
+            'rbetancourtg@unal.edu.co', 'jbuitragoa@unal.edu.co', 'ubustamantel@unal.edu.co', 'eacanopl@unal.edu.co',
+            'dmcardenasa@unal.edu.co', 'jicardenasj@unal.edu.co', 'gfcardona@unal.edu.co', 'ccardonaal@unal.edu.co',
+            'odcardonaa@unal.edu.co', 'macardonaji@unal.edu.co', 'lscardonam@unal.edu.co', 'luacarmonasa@unal.edu.co',
+            'jicarrerom@unal.edu.co', 'jgcarvajalo@unal.edu.co', 'sxcarvajalq@unal.edu.co', 'scasanovat@unal.edu.co',
+            'gacastanod@unal.edu.co', 'jmcastanom@unal.edu.co', 'cgcastellanosd@unal.edu.co', 'lfcastilloos@unal.edu.co',
+            'odcastrillong@unal.edu.co', 'jcchanchigo@unal.edu.co', 'pchang@unal.edu.co', 'dchavezc@unal.edu.co',
+            'jcchicam@unal.edu.co', 'imcholoc@unal.edu.co', 'ikcollazoss@unal.edu.co', 'jccorderoc@unal.edu.co',
+            'crdcorreaal@unal.edu.co', 'osccorreac@unal.edu.co', 'lfcorteshe@unal.edu.co', 'acuellarb@unal.edu.co',
+            'pccuellars@unal.edu.co', 'alcuestame@unal.edu.co', 'gadabbracciok@unal.edu.co', 'omdiazb@unal.edu.co',
+            'lfdiazc@unal.edu.co', 'idobrosz-gomez@unal.edu.co', 'eduquees@unal.edu.co', 'ndduqueme@unal.edu.co',
+            'paescandon@unal.edu.co', 'geescobara@unal.edu.co', 'daescobarga@unal.edu.co', 'mescobaror@unal.edu.co',
+            'nesteband@unal.edu.co', 'jhestradae@unal.edu.co', 'jafigueroaf@unal.edu.co', 'dtflorezq@unal.edu.co',
+            'gflorezr@unal.edu.co', 'ofollecos@unal.edu.co', 'jfontalvoa@unal.edu.co', 'joaforerosa@unal.edu.co',
+            'ohfrancob@unal.edu.co', 'flfrancoi@unal.edu.co', 'jagalindod@unal.edu.co', 'fagallegol@unal.edu.co',
+            'fagallegor@unal.edu.co', 'rdgalvism@unal.edu.co', 'jcgarciaa@unal.edu.co', 'fjgarciaor@unal.edu.co',
+            'jegiraldoarb@unal.edu.co', 'jaiagiraldog@unal.edu.co', 'amgiraldoo@unal.edu.co', 'ohgiraldoo@unal.edu.co',
+            'tgiraldoo@unal.edu.co', 'mdgiraldori@unal.edu.co', 'lpgiraldov@unal.edu.co', 'magomez@unal.edu.co',
+            'jbgomezm@unal.edu.co', 'alvgomezp@unal.edu.co', 'ndgonzalezho@unal.edu.co', 'fagonzalez@unal.edu.co',
+            'nguerrerog@unal.edu.co', 'leguerrerom@unal.edu.co', 'gdguzmanr@unal.edu.co', 'giguzmansa@unal.edu.co',
+            'ehenaoc@unal.edu.co', 'shernandezn@unal.edu.co', 'jphernand@unal.edu.co', 'mrojashe@unal.edu.co',
+            'jpherrerac@unal.edu.co', 'jfherrerag@unal.edu.co', 'maherrerahu@unal.edu.co', 'jchiguitav@unal.edu.co',
+            'ghbustamante@unal.edu.co', 'jehurtadog@unal.edu.co', 'jghurtadoi@unal.edu.co', 'gidarragap@unal.edu.co',
+            'fnjimenezg@unal.edu.co', 'gjimenezob@unal.edu.co', 'jijurados@unal.edu.co', 'wmliconac@unal.edu.co',
+            'illanosc@unal.edu.co', 'jalondonol@unal.edu.co', 'edloperar@unal.edu.co', 'shloperapr@unal.edu.co',
+            'wrlopez@unal.edu.co', 'klopezb@unal.edu.co', 'dahlopezgar@unal.edu.co', 'mrlopezg@unal.edu.co',
+            'idlopezl@unal.edu.co', 'malopeztr@unal.edu.co', 'fhlopezv@unal.edu.co', 'aflopezv@unal.edu.co',
+            'lilopezv@unal.edu.co', 'jolozanoe@unal.edu.co', 'eflunan@unal.edu.co', 'ifmaciasq@unal.edu.co',
+            'lfmadridz@unal.edu.co', 'pfmarinc@unal.edu.co', 'jdmarinj@unal.edu.co', 'aymartinezar@unal.edu.co',
+            'ljmartinezhe@unal.edu.co', 'cemarulandae@unal.edu.co', 'amarulandam@unal.edu.co', 'gmedinaar@unal.edu.co',
+            'vmejiaa@unal.edu.co', 'vmejiab@unal.edu.co', 'cemejiac@unal.edu.co', 'cmendozab@unal.edu.co',
+            'famesar@unal.edu.co', 'oemezaa@unal.edu.co', 'demolinac@unal.edu.co', 'nlmontesc@unal.edu.co',
+            'nmontoyamo@unal.edu.co', 'lemorenom@unal.edu.co', 'lfmotatoro@unal.edu.co', 'lfmulcuen@unal.edu.co',
+            'jfmunozr@unal.edu.co', 'cmurillo@unal.edu.co', 'jcnaranjov@unal.edu.co', 'apnoguerad@unal.edu.co',
+            'jgocampoh@unal.edu.co', 'dlocampor@unal.edu.co', 'morozcoa@unal.edu.co', 'ceorregoa@unal.edu.co',
+            'hhortiza@unal.edu.co', 'dosoriob@unal.edu.co', 'aaosoriolo@unal.edu.co', 'gaosoriol@unal.edu.co',
+            'jaosorioos@unal.edu.co', 'jjosorioval@unal.edu.co', 'gaosorioz@unal.edu.co', 'hjosoriozu@unal.edu.co',
+            'llpalomap@unal.edu.co', 'mapantojao@unal.edu.co', 'japaredesl@unal.edu.co', 'jhparrasa@unal.edu.co',
+            'aepazgo@unal.edu.co', 'ppinedag@unal.edu.co', 'jfpunebam@unal.edu.co', 'oaprador@unal.edu.co',
+            'nprietoc@unal.edu.co', 'maprietot@unal.edu.co', 'aopulzaram@unal.edu.co', 'hquinterov@unal.edu.co',
+            'jquinonesc@unal.edu.co', 'laramirezc@unal.edu.co', 'jhramirezfra@unal.edu.co', 'oramirezga@unal.edu.co',
+            'camramirezma@unal.edu.co', 'ddramirezra@unal.edu.co', 'mcramiress@unal.edu.co', 'erestrepopa@unal.edu.co',
+            'jcrianoro@unal.edu.co', 'frinconc@unal.edu.co', 'jarinconla@unal.edu.co', 'ceriospi@unal.edu.co',
+            'snrodriguezba@unal.edu.co', 'erojasca@unal.edu.co', 'anfrojasgo@unal.edu.co', 'rarojasm@unal.edu.co',
+            'anroldang@unal.edu.co', 'faroldanh@unal.edu.co', 'arosalesr@unal.edu.co', 'rrovira@unal.edu.co',
+            'nlruizg@unal.edu.co', 'sruizhe@unal.edu.co', 'bjruizm@unal.edu.co', 'caruizvi@unal.edu.co',
+            'asalasmo@unal.edu.co', 'ahsalass@unal.edu.co', 'jjsalazarb@unal.edu.co', 'csalazaro@unal.edu.co',
+            'jjsalinas@unal.edu.co', 'nrsanabriag@unal.edu.co', 'afsanchezj@unal.edu.co', 'dmsanchezm@unal.edu.co',
+            'wasarachec@unal.edu.co', 'jmsarmienton@unal.edu.co', 'aesatizabalv@unal.edu.co', 'bsegurag@unal.edu.co',
+            'asepulvedag@unal.edu.co', 'jasepulvedag@unal.edu.co', 'jjsepulvedal@unal.edu.co', 'ffserranos@unal.edu.co',
+            'mmsierram@unal.edu.co', 'jcsolartet@unal.edu.co', 'esolorzano@unal.edu.co', 'dmsoteloca@unal.edu.co',
+            'jnsuarezh@unal.edu.co', 'vtabaresm@unal.edu.co', 'jatamayoar@unal.edu.co', 'oatapascoa@unal.edu.co',
+            'ratolosac@unal.edu.co', 'dtorresce@unal.edu.co', 'oltorresj@unal.edu.co', 'alhurtadou@unal.edu.co',
+            'jurreaa@unal.edu.co', 'ajustarizf@unal.edu.co', 'fjvalenciad@unal.edu.co', 'vevalenciam@unal.edu.co',
+            'ovalenciaro@unal.edu.co', 'gvargasa@unal.edu.co', 'sbvargasg@unal.edu.co', 'cvargash@unal.edu.co',
+            'lrvasquezv@unal.edu.co', 'lmvelasqueza@unal.edu.co', 'jjvelezu@unal.edu.co', 'javieiras@unal.edu.co',
+            'ejvillegasj@unal.edu.co', 'hvivasc@unal.edu.co', 'cyanezc@unal.edu.co', 'cyounesv@unal.edu.co',
+            'jdzambranona@unal.edu.co', 'azapatago@unal.edu.co', 'lzapatao@unal.edu.co', 'lmzuluagag@unal.edu.co'
+        ];
+
+        // Función para cambiar pestañas
         function showTab(tabName) {
-            [cite_start]document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active')); [cite: 405]
-            [cite_start]document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active')); [cite: 406]
-            [cite_start]document.getElementById(tabName).classList.add('active'); [cite: 407]
-            [cite_start]event.target.classList.add('active'); [cite: 407]
-            
-            Object.values(charts).forEach(chart => {
-                if (chart) { chart.destroy(); }
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
-            initializeCharts();
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
         }
 
+        // Función para filtrar comentarios
         function filterComments(type) {
-            [cite_start]const container = document.getElementById('commentsContainer'); [cite: 408]
-            [cite_start]container.innerHTML = ''; [cite: 408]
+            const container = document.getElementById('commentsContainer');
+            container.innerHTML = '';
             
             let filtered = surveyData.comments;
             if (type !== 'all') {
@@ -980,16 +1593,16 @@
                     'neutral': 'Tengo dudas / No tengo una posición definida.',
                     'positive': 'Sí, estoy de acuerdo.'
                 };
-                if (type === 'censored') {
-                    filtered = surveyData.comments.filter(c => c.censored);
-                } else {
-                    filtered = surveyData.comments.filter(c => c.position === positionMap[type] && !c.censored);
-                }
+                filtered = surveyData.comments.filter(c => c.position === positionMap[type]);
             }
             
-            [cite_start]document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active')); [cite: 410]
-            [cite_start]event.target.classList.add('active'); [cite: 411]
+            // Actualizar botones
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
             
+            // Mostrar comentarios
             filtered.forEach((comment, index) => {
                 const classMap = {
                     'No, no estoy de acuerdo.': 'negative',
@@ -998,156 +1611,273 @@
                 };
                 
                 const div = document.createElement('div');
-                let positionClass = classMap[comment.position] || 'neutral';
-                if(comment.censored) positionClass = 'positive';
-
-                div.className = `comment-item ${positionClass}`;
-                
-                let textContent = `<p class="comment-text">${comment.text}</p>`;
-                if (comment.censored) {
-                    textContent = `<p class="comment-text censored-comment" onclick="this.classList.add('revealed')"><i>Comentario con contenido inapropiado. Haga clic o toque para revelar.</i><br><br>${comment.text}</p>`;
-                }
-
+                div.className = `comment-item ${classMap[comment.position]}`;
                 div.innerHTML = `
                     <div class="comment-header">
                         <span class="comment-position">${comment.position.replace(/\.$/, '')}</span>
                         <span class="comment-number">#${index + 1}</span>
                     </div>
-                    ${textContent}
+                    <p class="comment-text">${comment.text}</p>
                 `;
                 container.appendChild(div);
             });
         }
 
-        function initializeCharts() {
-            Chart.defaults.animation.duration = 1000;
-            Chart.defaults.animation.easing = 'easeOutCubic';
-            
-            if (document.getElementById('resumen').classList.contains('active')) {
-                [cite_start]const radarCtx = document.getElementById('radarChart').getContext('2d'); [cite: 416]
-                charts.radar = new Chart(radarCtx, {
-                    type: 'radar',
-                    data: {
-                        [cite_start]labels: [ 'Consenso Docente', 'Participación', 'Viabilidad Financiera', 'Rigor Académico', 'Pertinencia Regional', 'Documentación' ], [cite: 418, 419]
-                        datasets: [
-                            [cite_start]{ label: 'Estado Actual', data: [18.5, 43.5, 15, 25, 20, 20], backgroundColor: 'rgba(184, 39, 45, 0.2)', borderColor: colors.red, pointBackgroundColor: colors.red }, [cite: 420, 421]
-                            [cite_start]{ label: 'Mínimo Requerido', data: [60, 50, 70, 75, 70, 90], backgroundColor: 'rgba(148, 180, 59, 0.2)', borderColor: colors.green, pointBackgroundColor: colors.green } [cite: 422]
-                        ]
-                    },
-                    [cite_start]options: { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100, pointLabels: { font: { size: 11 } } } } } [cite: 423, 424, 425]
-                });
-            }
-
-            if (document.getElementById('distribucion').classList.contains('active')) {
-                [cite_start]const pieCtx = document.getElementById('pieChart').getContext('2d'); [cite: 426]
-                charts.pie = new Chart(pieCtx, {
-                    type: 'doughnut',
-                    data: {
-                        [cite_start]labels: ['En Desacuerdo (54.6%)', 'Con Dudas (26.9%)', 'De Acuerdo (18.5%)'], [cite: 427]
-                        [cite_start]datasets: [{ data: [59, 29, 20], backgroundColor: [colors.red, colors.yellow, colors.green], borderWidth: 2, borderColor: '#fff' }] [cite: 428, 429]
-                    },
-                    [cite_start]options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { padding: 20, font: { size: 14 } } } } } [cite: 430, 431, 432]
-                });
-                [cite_start]const concernsCtx = document.getElementById('concernsChart').getContext('2d'); [cite: 442]
-                charts.concerns = new Chart(concernsCtx, {
-                    type: 'bar',
-                    data: {
-                        [cite_start]labels: Object.keys(surveyData.concerns), [cite: 443]
-                        [cite_start]datasets: [{ label: 'Menciones', data: Object.values(surveyData.concerns), backgroundColor: colors.blue, }] [cite: 444]
-                    },
-                    [cite_start]options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } } [cite: 446, 447]
-                });
-            }
-
-            if (document.getElementById('participacion').classList.contains('active')) {
-                [cite_start]const participationCtx = document.getElementById('participationChart').getContext('2d'); [cite: 448]
-                charts.participation = new Chart(participationCtx, {
-                    type: 'pie',
-                    data: {
-                        [cite_start]labels: [ 'Participaron en oficial (13.3%)', 'Solo en independiente (30.2%)', 'No participaron (56.5%)' ], [cite: 450]
-                        [cite_start]datasets: [{ data: [33, 75, 140], backgroundColor: [colors.blue, colors.yellow, colors.lightGray] }] [cite: 451]
-                    },
-                    [cite_start]options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } } [cite: 452]
-                });
-
-                const deptParticipationCtx = document.getElementById('departmentParticipationChart').getContext('2d');
-                const deptLabels = Object.keys(surveyData.departments);
-                const deptData = deptLabels.map(dept => {
-                    const d = surveyData.departments[dept];
-                    return d.total > 0 ? (d.participated / d.total) * 100 : 0;
-                });
-                 charts.deptParticipation = new Chart(deptParticipationCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: deptLabels,
-                        datasets: [{
-                            label: 'Tasa de Participación (%)',
-                            data: deptData,
-                            backgroundColor: colors.verde,
-                             borderColor: colors.verde,
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: { x: { max: 100, ticks: { callback: value => value + '%' } } },
-                        plugins: { legend: { display: false } }
-                    }
-                });
-            }
-
-            if (document.getElementById('viabilidad').classList.contains('active')) {
-                [cite_start]const viabilityCtx = document.getElementById('viabilityChart').getContext('2d'); [cite: 453]
-                charts.viability = new Chart(viabilityCtx, {
-                    type: 'bar',
-                    data: {
-                        [cite_start]labels: [ 'Consenso Docente', 'Participación', 'Viabilidad Financiera', 'Documentación', 'Pertinencia Regional', 'Rigor Académico' ], [cite: 455, 456]
-                        [cite_start]datasets: [{ label: 'Brecha (%)', data: [-41.5, -6.5, -55, -70, -50, -50], backgroundColor: colors.red, }] [cite: 457, 458]
-                    },
-                    options: {
-                        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-                        [cite_start]scales: { x: { max: 0, min: -80, ticks: { callback: value => Math.abs(value) + '%' } } }, [cite: 459, 460, 461]
-                        [cite_start]plugins: { legend: { display: false }, tooltip: { callbacks: { label: context => 'Déficit: ' + Math.abs(context.parsed.x) + '%' } } } [cite: 462, 463, 464]
-                    }
-                });
-            }
-
-            if (document.getElementById('financiero').classList.contains('active')) {
-                [cite_start]const costCtx = document.getElementById('costChart').getContext('2d'); [cite: 465]
-                charts.cost = new Chart(costCtx, {
-                    type: 'bar',
-                    data: {
-                        [cite_start]labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4'], [cite: 466]
-                        datasets: [
-                            [cite_start]{ label: 'Inversión Anual (Millones COP)', data: [8089, 9656, 11405, 12908], backgroundColor: colors.red, tension: 0.4 }, [cite: 467]
-                        ]
-                    },
-                    [cite_start]options: { responsive: true, maintainAspectRatio: false, scales: { y: { ticks: { callback: value => '$' + value.toLocaleString() + 'M' } } } } [cite: 470, 471, 472]
-                });
-            }
-        }
-        
-        function loadComments() { filterComments('all'); [cite_start]} [cite: 473]
-        function loadEmails() {
-            [cite_start]const container = document.getElementById('emailList'); [cite: 474]
-            if(container) {
-                container.innerHTML = '';
-                emailList.forEach(email => {
-                    [cite_start]const div = document.createElement('div'); [cite: 475]
-                    [cite_start]div.className = 'email-item'; [cite: 475]
-                    [cite_start]div.textContent = email; [cite: 475]
-                    [cite_start]container.appendChild(div); [cite: 475]
-                });
-            }
-        }
-
+        // Inicializar gráficos
         document.addEventListener('DOMContentLoaded', function() {
             initializeCharts();
             loadComments();
             loadEmails();
         });
+
+        function initializeCharts() {
+            // Gráfico Radar
+            const radarCtx = document.getElementById('radarChart').getContext('2d');
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Consenso Docente',
+                        'Participación',
+                        'Viabilidad Financiera',
+                        'Rigor Académico',
+                        'Pertinencia Regional',
+                        'Transparencia Proceso',
+                        'Documentación'
+                    ],
+                    datasets: [{
+                        label: 'Estado Actual',
+                        data: [18.5, 43.5, 15, 25, 20, 30, 20],
+                        backgroundColor: 'rgba(184, 39, 45, 0.2)',
+                        borderColor: colors.red,
+                        pointBackgroundColor: colors.red
+                    }, {
+                        label: 'Mínimo Requerido',
+                        data: [60, 50, 70, 75, 70, 80, 90],
+                        backgroundColor: 'rgba(148, 180, 59, 0.2)',
+                        borderColor: colors.green,
+                        pointBackgroundColor: colors.green
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de Torta
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            new Chart(pieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['En Desacuerdo (54.6%)', 'Con Dudas (26.9%)', 'De Acuerdo (18.5%)'],
+                    datasets: [{
+                        data: [59, 29, 20],
+                        backgroundColor: [colors.red, colors.yellow, colors.green],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: { size: 14 }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de Comparación
+            const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+            new Chart(comparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Encuesta Oficial', 'Encuesta Independiente'],
+                    datasets: [{
+                        label: 'A favor / De acuerdo',
+                        data: [76.4, 18.5],
+                        backgroundColor: colors.green
+                    }, {
+                        label: 'En contra / Desacuerdo',
+                        data: [23.6, 54.6],
+                        backgroundColor: colors.red
+                    }, {
+                        label: 'Sin posición / Dudas',
+                        data: [0, 26.9],
+                        backgroundColor: colors.yellow
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true },
+                        y: { 
+                            stacked: true,
+                            max: 100,
+                            ticks: {
+                                callback: value => value + '%'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de Preocupaciones
+            const concernsCtx = document.getElementById('concernsChart').getContext('2d');
+            new Chart(concernsCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(surveyData.concerns),
+                    datasets: [{
+                        label: 'Menciones',
+                        data: Object.values(surveyData.concerns),
+                        backgroundColor: colors.blue,
+                        borderColor: colors.blue,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // Gráfico de Participación
+            const participationCtx = document.getElementById('participationChart').getContext('2d');
+            new Chart(participationCtx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        'Participaron en oficial (13.3%)',
+                        'Solo en independiente (30.2%)',
+                        'No participaron (56.5%)'
+                    ],
+                    datasets: [{
+                        data: [33, 75, 140],
+                        backgroundColor: [colors.green, colors.yellow, colors.lightGray]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Gráfico de Viabilidad (corregido para Chart.js 3)
+            const viabilityCtx = document.getElementById('viabilityChart').getContext('2d');
+            new Chart(viabilityCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Consenso Docente',
+                        'Participación en Consultas',
+                        'Viabilidad Financiera',
+                        'Documentación Completa',
+                        'Pertinencia Regional',
+                        'Rigor Académico'
+                    ],
+                    datasets: [{
+                        label: 'Brecha (%)',
+                        data: [-41.5, -36.7, -55, -70, -50, -50],
+                        backgroundColor: colors.red,
+                        borderColor: colors.red,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            max: 0,
+                            min: -80,
+                            ticks: {
+                                callback: function(value) {
+                                    return Math.abs(value) + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Déficit: ' + Math.abs(context.parsed.x) + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de Costos
+            const costCtx = document.getElementById('costChart').getContext('2d');
+            new Chart(costCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4'],
+                    datasets: [{
+                        label: 'Inversión Anual',
+                        data: [8089, 9656, 11405, 12908],
+                        borderColor: colors.red,
+                        backgroundColor: 'rgba(184, 39, 45, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Acumulada',
+                        data: [8089, 17745, 29150, 41953],
+                        borderColor: colors.blue,
+                        backgroundColor: 'rgba(0, 107, 179, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: value => '$' + value.toLocaleString() + 'M'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadComments() {
+            filterComments('all');
+        }
+
+        function loadEmails() {
+            const container = document.getElementById('emailList');
+            emailList.forEach(email => {
+                const div = document.createElement('div');
+                div.className = 'email-item';
+                div.textContent = email;
+                container.appendChild(div);
+            });
+        }
     </script>
 </body>
 </html>
