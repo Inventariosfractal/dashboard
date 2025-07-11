@@ -199,7 +199,16 @@ const Comments: React.FC = () => {
   const censoredComment = "Este comentario contenía expresiones despectivas hacia la administración universitaria y lenguaje inapropiado que no se ajusta a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo y respetuoso entre todos los participantes.";
 
   const toggleCommentReveal = (commentId: number) => {
-    const newRevealed = new Set(revealedComments || new Set());
+    const currentRevealed = revealedComments || new Set();
+    const newRevealed = new Set(currentRevealed);
+    
+    // Defensive check to ensure newRevealed is a Set instance
+    if (!(newRevealed instanceof Set)) {
+      console.warn('newRevealed is not a Set instance, reinitializing');
+      setRevealedComments(new Set());
+      return;
+    }
+    
     if (newRevealed.has(commentId)) {
       newRevealed.delete(commentId);
     } else {
