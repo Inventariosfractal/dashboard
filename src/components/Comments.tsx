@@ -271,6 +271,16 @@ const Comments: React.FC = () => {
   const toggleCommentExpansion = (commentId: number) => {
     setExpandedComments(prev => {
       const newExpanded = new Set(prev);
+      
+      // Defensive check to ensure newExpanded is a valid Set before calling methods
+      if (!newExpanded || typeof newExpanded.add !== 'function') {
+        const safeSet = new Set();
+        if (commentId !== undefined) {
+          safeSet.add(commentId);
+        }
+        return safeSet;
+      }
+      
       if (newExpanded.has(commentId)) {
         newExpanded.delete(commentId);
       } else {
