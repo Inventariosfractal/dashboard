@@ -275,10 +275,14 @@ const Comments: React.FC = () => {
       const currentRevealed = (prev && prev instanceof Set) ? prev : new Set();
       const newRevealed = new Set(currentRevealed);
       
-      // Explicit check to ensure newRevealed is a valid Set instance
-      if (!newRevealed || typeof newRevealed.add !== 'function' || typeof newRevealed.has !== 'function' || typeof newRevealed.delete !== 'function') {
-        console.warn('Set object is invalid after construction, creating new Set');
-        return new Set(commentId ? [commentId] : []);
+      // Defensive check to ensure newRevealed is a valid Set instance
+      if (!newRevealed || typeof newRevealed.add !== 'function') {
+        // Re-initialize as new empty Set if invalid
+        const safeSet = new Set();
+        if (commentId) {
+          safeSet.add(commentId);
+        }
+        return safeSet;
       }
       
       if (newRevealed.has(commentId)) {
