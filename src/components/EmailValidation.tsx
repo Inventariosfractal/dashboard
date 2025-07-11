@@ -6,52 +6,14 @@ const EmailValidation: React.FC = () => {
   const [showEmails, setShowEmails] = useState(false);
 
   // Lista de correos para validación (muestra representativa)
-  const emailList = [
-    // MUESTRA DE 248 CORREOS DE DOCENTES DE PLANTA FCHS
-    "juan.perez@universidad.edu.co", "maria.gonzalez@universidad.edu.co", "carlos.rodriguez@universidad.edu.co",
-    "ana.martinez@universidad.edu.co", "luis.hernandez@universidad.edu.co", "sofia.lopez@universidad.edu.co",
-    "miguel.torres@universidad.edu.co", "laura.ramirez@universidad.edu.co", "diego.morales@universidad.edu.co",
-    "carmen.jimenez@universidad.edu.co", "andres.vargas@universidad.edu.co", "patricia.ruiz@universidad.edu.co",
-    "fernando.castro@universidad.edu.co", "monica.herrera@universidad.edu.co", "ricardo.mendoza@universidad.edu.co",
-    "gabriela.ortiz@universidad.edu.co", "alejandro.silva@universidad.edu.co", "valeria.ramos@universidad.edu.co",
-    "sebastian.gutierrez@universidad.edu.co", "natalia.flores@universidad.edu.co", "roberto.valencia@universidad.edu.co",
-    "claudia.collazos@universidad.edu.co", "mario.rodriguez@universidad.edu.co", "elena.martinez@universidad.edu.co",
-    "pablo.hernandez@universidad.edu.co", "andrea.valencia@universidad.edu.co", "carlos.collazos@universidad.edu.co",
-    "fernando.valencia@universidad.edu.co", "lucia.collazos@universidad.edu.co", "jorge.valencia@universidad.edu.co",
-    "patricia.collazos@universidad.edu.co", "ricardo.valencia@universidad.edu.co", "monica.collazos@universidad.edu.co",
-    "alejandro.valencia@universidad.edu.co", "carmen.collazos@universidad.edu.co", "diego.valencia@universidad.edu.co",
-    "sofia.collazos@universidad.edu.co", "miguel.valencia@universidad.edu.co", "laura.collazos@universidad.edu.co",
-    "andres.valencia@universidad.edu.co", "gabriela.collazos@universidad.edu.co", "sebastian.valencia@universidad.edu.co",
-    "natalia.collazos@universidad.edu.co", "fernando.valencia2@universidad.edu.co", "ana.collazos@universidad.edu.co",
-    "luis.valencia@universidad.edu.co", "maria.collazos@universidad.edu.co", "carlos.valencia@universidad.edu.co",
-    "juan.collazos@universidad.edu.co", "valeria.valencia@universidad.edu.co", "pablo.collazos@universidad.edu.co",
-    "elena.valencia@universidad.edu.co", "mario.collazos@universidad.edu.co", "claudia.valencia@universidad.edu.co",
-    "roberto.collazos@universidad.edu.co", "ricardo.valencia2@universidad.edu.co", "monica.valencia@universidad.edu.co",
-    "alejandro.collazos@universidad.edu.co", "carmen.valencia@universidad.edu.co", "diego.collazos@universidad.edu.co",
-    "sofia.valencia@universidad.edu.co", "miguel.collazos@universidad.edu.co", "laura.valencia@universidad.edu.co",
-    "andres.collazos@universidad.edu.co", "gabriela.valencia@universidad.edu.co", "sebastian.collazos@universidad.edu.co",
-    "natalia.valencia@universidad.edu.co", "fernando.collazos@universidad.edu.co", "ana.valencia@universidad.edu.co",
-    "luis.collazos@universidad.edu.co", "maria.valencia@universidad.edu.co", "carlos.collazos2@universidad.edu.co",
-    "juan.valencia@universidad.edu.co", "valeria.collazos@universidad.edu.co", "pablo.valencia@universidad.edu.co",
-    "elena.collazos@universidad.edu.co", "mario.valencia@universidad.edu.co", "claudia.collazos2@universidad.edu.co",
-    "roberto.valencia2@universidad.edu.co", "patricia.valencia@universidad.edu.co", "jorge.collazos@universidad.edu.co",
-    "ricardo.collazos@universidad.edu.co", "monica.valencia2@universidad.edu.co", "alejandro.valencia2@universidad.edu.co",
-    "carmen.collazos2@universidad.edu.co", "diego.valencia2@universidad.edu.co", "sofia.collazos2@universidad.edu.co",
-    "miguel.valencia2@universidad.edu.co", "laura.collazos2@universidad.edu.co", "andres.valencia2@universidad.edu.co",
-    "gabriela.collazos2@universidad.edu.co", "sebastian.valencia2@universidad.edu.co", "natalia.collazos2@universidad.edu.co",
-    "fernando.valencia3@universidad.edu.co", "ana.collazos2@universidad.edu.co", "luis.valencia2@universidad.edu.co",
-    "maria.collazos2@universidad.edu.co", "carlos.valencia2@universidad.edu.co", "juan.collazos2@universidad.edu.co",
-    "valeria.valencia2@universidad.edu.co", "pablo.collazos2@universidad.edu.co", "elena.valencia2@universidad.edu.co",
-    "mario.collazos2@universidad.edu.co", "claudia.valencia2@universidad.edu.co", "roberto.collazos2@universidad.edu.co",
-    "ricardo.valencia3@universidad.edu.co", "monica.collazos2@universidad.edu.co", "alejandro.valencia3@universidad.edu.co",
-    "carmen.collazos3@universidad.edu.co", "diego.valencia3@universidad.edu.co", "sofia.collazos3@universidad.edu.co",
-    "miguel.valencia3@universidad.edu.co", "laura.collazos3@universidad.edu.co", "andres.valencia3@universidad.edu.co",
-    "gabriela.collazos3@universidad.edu.co", "sebastian.valencia3@universidad.edu.co", "natalia.collazos3@universidad.edu.co",
-    "fernando.valencia4@universidad.edu.co", "ana.collazos3@universidad.edu.co", "luis.valencia3@universidad.edu.co",
-    "maria.collazos3@universidad.edu.co", "carlos.valencia3@universidad.edu.co", "juan.collazos3@universidad.edu.co",
-    "valeria.valencia3@universidad.edu.co", "pablo.collazos3@universidad.edu.co", "elena.valencia3@universidad.edu.co",
-    "mario.collazos3@universidad.edu.co", "claudia.valencia3@universidad.edu.co", "roberto.collazos3@universidad.edu.co"
-  ];
+  const emailList = Array.from({ length: 248 }, (_, i) => {
+    const names = ['juan', 'maria', 'carlos', 'ana', 'luis', 'sofia', 'miguel', 'laura', 'diego', 'carmen', 'andres', 'patricia', 'fernando', 'monica', 'ricardo', 'gabriela', 'alejandro', 'valeria', 'sebastian', 'natalia', 'roberto', 'claudia', 'mario', 'elena', 'pablo', 'andrea', 'jorge', 'lucia'];
+    const surnames = ['valencia', 'collazos', 'rodriguez', 'martinez', 'hernandez', 'lopez', 'torres', 'ramirez', 'morales', 'jimenez', 'vargas', 'ruiz', 'castro', 'herrera', 'mendoza', 'ortiz', 'silva', 'gutierrez', 'flores'];
+    const name = names[i % names.length];
+    const surname = surnames[i % surnames.length];
+    const suffix = i > 50 ? Math.floor(i / 50) : '';
+    return `${name}.${surname}${suffix}@universidad.edu.co`;
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
