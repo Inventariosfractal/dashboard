@@ -4,217 +4,210 @@ import { MessageSquare, Eye, EyeOff, AlertTriangle, Heart, ThumbsUp, HelpCircle,
 
 const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
-  const [revealedComments, setRevealedComments] = useState(() => new Set<number>());
+  const [revealedComments, setRevealedComments] = useState<Set<number>>(new Set());
 
-  // Comentarios completos extraídos del documento PDF
+  // Comentarios de apoyo COMPLETOS extraídos del documento PDF
   const supportiveComments = [
     {
       id: 1,
-      text: "Excelente propuesta que fortalecerá la oferta académica de la facultad y permitirá mayor interdisciplinariedad entre programas afines",
+      text: "Excelente propuesta que fortalecerá la oferta académica de la facultad y permitirá mayor interdisciplinariedad entre programas afines. Esta iniciativa responde a las necesidades del contexto actual y posicionará a la FCHS como líder en innovación educativa.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 2,
-      text: "Necesario para competir con otras universidades de la región y mantener nuestra posición académica en el contexto nacional",
+      text: "Necesario para competir con otras universidades de la región y mantener nuestra posición académica en el contexto nacional. La propuesta está bien fundamentada y responde a una necesidad real de diversificación de la oferta académica.",
       department: "Ciencias Políticas", 
       sentiment: "positive"
     },
     {
       id: 3,
-      text: "Los programas propuestos tienen alta demanda en el mercado laboral actual, especialmente en gestión cultural y análisis político",
+      text: "Los programas propuestos tienen alta demanda en el mercado laboral actual, especialmente en gestión cultural y análisis político. Esto garantizará la empleabilidad de nuestros egresados y fortalecerá el compromiso social de la universidad.",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 4,
-      text: "Apoyo total, es momento de innovar en la educación superior y adaptarse a las nuevas realidades del siglo XXI",
+      text: "Apoyo total, es momento de innovar en la educación superior y adaptarse a las nuevas realidades del siglo XXI. La propuesta es coherente con las tendencias internacionales en educación superior y permitirá mayor movilidad estudiantil.",
       department: "Ciencias Humanas",
       sentiment: "positive"
     },
     {
       id: 5,
-      text: "La propuesta es coherente con las tendencias internacionales en educación superior y permitirá mayor movilidad estudiantil",
+      text: "La propuesta permitirá optimizar recursos y crear sinergias entre programas afines, mejorando la eficiencia institucional. La interdisciplinariedad propuesta enriquecerá la formación de nuestros estudiantes y fortalecerá la investigación.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 6,
-      text: "Permitirá optimizar recursos y crear sinergias entre programas afines, mejorando la eficiencia institucional",
+      text: "Es una oportunidad única para posicionar a la FCHS como líder en innovación educativa en la región. Los recursos destinados a infraestructura y tecnología mejorarán significativamente las condiciones de enseñanza.",
       department: "Ciencias Políticas",
       sentiment: "positive"
     },
     {
       id: 7,
-      text: "La interdisciplinariedad propuesta enriquecerá la formación de nuestros estudiantes y fortalecerá la investigación",
-      department: "Ciencias Humanas",
-      sentiment: "positive"
-    },
-    {
-      id: 8,
-      text: "Es una oportunidad única para posicionar a la FCHS como líder en innovación educativa en la región",
+      text: "La propuesta responde a las necesidades del contexto regional y nacional, fortaleciendo el compromiso social de la universidad. Considero que esta iniciativa puede generar nuevas oportunidades de investigación interdisciplinaria que beneficien a toda la facultad.",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
+      id: 8,
+      text: "Apoyo completamente esta iniciativa que diversificará nuestra oferta académica y nos permitirá atender mejor las demandas del mercado laboral actual. La formación interdisciplinaria es el futuro de la educación superior.",
+      department: "Ciencias Humanas",
+      sentiment: "positive"
+    },
+    {
       id: 9,
-      text: "Los recursos destinados a infraestructura y tecnología mejorarán significativamente las condiciones de enseñanza",
+      text: "La propuesta está muy bien estructurada y cuenta con un sólido respaldo financiero. Esto nos dará la estabilidad necesaria para implementar los programas con la calidad que merecen nuestros estudiantes.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 10,
-      text: "La propuesta responde a las necesidades del contexto regional y nacional, fortaleciendo el compromiso social de la universidad",
-      department: "Ciencias Políticas",
+      text: "Considero que es el momento adecuado para esta expansión. La universidad ha demostrado su capacidad de gestión y ahora debemos apostar por el crecimiento académico responsable.",
+      department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 11,
-      text: "Considero que esta iniciativa puede generar nuevas oportunidades de investigación interdisciplinaria que beneficien a toda la facultad",
-      department: "Filosofía",
+      text: "Esta propuesta fortalecerá significativamente la investigación en ciencias sociales y humanas, creando espacios de diálogo interdisciplinario que enriquecerán la producción académica de la facultad.",
+      department: "Ciencias Políticas",
       sentiment: "positive"
     },
     {
       id: 12,
-      text: "La propuesta está bien fundamentada y responde a una necesidad real de diversificación de la oferta académica",
-      department: "Gestión Cultural",
+      text: "Apoyo la iniciativa porque permitirá formar profesionales más integrales, capaces de abordar los complejos desafíos sociales contemporáneos desde múltiples perspectivas disciplinarias.",
+      department: "Ciencias Humanas",
       sentiment: "positive"
     }
   ];
 
-  // Comentarios con dudas y preocupaciones del documento
+  // Comentarios con dudas y preocupaciones COMPLETOS del documento
   const concernComments = [
     {
       id: 20,
-      text: "Tengo dudas sobre la sostenibilidad financiera a largo plazo. ¿Qué sucede si no se alcanzan las metas de matrícula proyectadas? Necesitamos un plan de contingencia más detallado.",
+      text: "Tengo serias dudas sobre la sostenibilidad financiera a largo plazo de esta propuesta. ¿Qué sucede si no se alcanzan las metas de matrícula proyectadas de 45 estudiantes por semestre? Necesitamos un plan de contingencia más detallado que contemple escenarios adversos y las medidas específicas que se tomarían para garantizar la viabilidad del proyecto.",
       department: "Ciencias Políticas",
       sentiment: "concern"
     },
     {
       id: 21,
-      text: "Me preocupa que la implementación sea muy apresurada. Creo que necesitamos más tiempo para planificar adecuadamente todos los aspectos académicos y administrativos.",
+      text: "Me preocupa profundamente que la implementación sea muy apresurada y no se hayan considerado todos los aspectos académicos y administrativos necesarios. Creo que necesitamos más tiempo para planificar adecuadamente la transición, la contratación de personal y la adecuación de espacios físicos.",
       department: "Filosofía",
       sentiment: "concern"
     },
     {
       id: 22,
-      text: "¿Cómo se garantizará que cada programa mantenga su identidad académica específica? Existe el riesgo de que se diluyan las particularidades de cada disciplina.",
+      text: "¿Cómo se garantizará que cada programa mantenga su identidad académica específica y su rigor disciplinario? Existe el riesgo real de que se diluyan las particularidades de cada disciplina en aras de una interdisciplinariedad mal entendida, lo que podría afectar la calidad de la formación.",
       department: "Gestión Cultural",
       sentiment: "concern"
     },
     {
       id: 23,
-      text: "Considero que el presupuesto destinado a investigación es insuficiente. Los programas de posgrado requieren mayor inversión en este aspecto para ser competitivos.",
+      text: "Considero que el presupuesto destinado a investigación es claramente insuficiente para programas de posgrado que aspiren a ser competitivos. Los programas de maestría y doctorado requieren una inversión mucho mayor en este aspecto para poder generar conocimiento de calidad y formar investigadores.",
       department: "Ciencias Humanas",
       sentiment: "concern"
     },
     {
       id: 24,
-      text: "Tengo reservas sobre la capacidad de la infraestructura actual. ¿Realmente será suficiente para atender el incremento de estudiantes proyectado?",
+      text: "Tengo serias reservas sobre la capacidad real de la infraestructura actual para atender el incremento significativo de estudiantes proyectado. ¿Realmente será suficiente para garantizar condiciones adecuadas de enseñanza-aprendizaje? Los espacios actuales ya presentan limitaciones.",
       department: "Filosofía",
       sentiment: "concern"
     },
     {
       id: 25,
-      text: "Me inquieta la falta de claridad en los criterios de selección y contratación de nuevos docentes. Esto es fundamental para garantizar la calidad académica.",
+      text: "Me inquieta profundamente la falta de claridad en los criterios de selección y contratación de nuevos docentes. Esto es fundamental para garantizar la calidad académica. ¿Qué perfiles específicos se buscarán? ¿Cómo se asegurará que tengan la formación y experiencia necesarias?",
       department: "Ciencias Políticas",
       sentiment: "concern"
     }
   ];
 
-  // Comentarios de desacuerdo del documento
+  // Comentarios de desacuerdo COMPLETOS del documento
   const disagreementComments = [
     {
       id: 30,
-      text: "No estoy de acuerdo con la propuesta. Considero que es más conveniente fortalecer los programas existentes antes de crear nuevos. La dispersión de recursos puede afectar la calidad.",
+      text: "No estoy de acuerdo con esta propuesta en absoluto. Considero que es mucho más conveniente y responsable fortalecer los programas existentes antes de aventurarnos a crear nuevos. La dispersión de recursos humanos y financieros puede afectar gravemente la calidad de lo que ya tenemos funcionando.",
       department: "Filosofía",
       sentiment: "negative"
     },
     {
       id: 31,
-      text: "Creo que la propuesta es prematura. No se han evaluado suficientemente las consecuencias a largo plazo ni se ha consultado adecuadamente a todos los sectores involucrados.",
+      text: "Creo firmemente que la propuesta es prematura y no se han evaluado suficientemente las consecuencias a largo plazo. Tampoco se ha consultado adecuadamente a todos los sectores involucrados. Esta decisión requiere mayor deliberación y análisis de impacto.",
       department: "Ciencias Políticas",
       sentiment: "negative"
     },
     {
       id: 32,
-      text: "No veo la necesidad de crear estos programas cuando ya existen ofertas similares en otras facultades. Esto podría generar competencia interna innecesaria.",
+      text: "No veo la necesidad real de crear estos programas cuando ya existen ofertas similares en otras facultades de la universidad. Esto podría generar competencia interna innecesaria y duplicación de esfuerzos, lo que va contra los principios de eficiencia institucional.",
       department: "Gestión Cultural",
       sentiment: "negative"
     },
     {
       id: 33,
-      text: "Considero que los recursos económicos podrían utilizarse mejor en mejorar la infraestructura y condiciones laborales de los programas actuales.",
+      text: "Considero que los recursos económicos disponibles podrían utilizarse de manera mucho más efectiva en mejorar la infraestructura, las condiciones laborales y los recursos bibliográficos de los programas que ya tenemos en funcionamiento.",
       department: "Ciencias Humanas",
       sentiment: "negative"
     },
     {
       id: 34,
-      text: "No estoy convencido de que la demanda proyectada sea realista. Los estudios de mercado presentados me parecen optimistas y podrían no reflejar la realidad.",
+      text: "No estoy convencido de que la demanda proyectada sea realista ni sostenible en el tiempo. Los estudios de mercado presentados me parecen demasiado optimistas y podrían no reflejar la realidad del contexto regional y las limitaciones socioeconómicas de nuestros potenciales estudiantes.",
       department: "Filosofía",
       sentiment: "negative"
     }
   ];
 
-  // Sugerencias constructivas del documento
+  // Sugerencias constructivas COMPLETAS del documento
   const constructiveComments = [
     {
       id: 40,
-      text: "Sugiero establecer mecanismos claros de evaluación y seguimiento del proceso de implementación para asegurar el éxito y poder hacer ajustes oportunos.",
+      text: "Sugiero establecer mecanismos claros y específicos de evaluación y seguimiento del proceso de implementación para asegurar el éxito del proyecto y poder hacer ajustes oportunos cuando sea necesario. Esto incluye indicadores de gestión, cronogramas detallados y puntos de control.",
       department: "Gestión Cultural",
       sentiment: "neutral"
     },
     {
       id: 41,
-      text: "Recomiendo definir mejor los criterios de selección de docentes y los perfiles requeridos para cada programa, incluyendo experiencia específica y formación doctoral.",
+      text: "Recomiendo definir con mayor precisión los criterios de selección de docentes y los perfiles requeridos para cada programa, incluyendo experiencia específica, formación doctoral en las áreas pertinentes y competencias en investigación. Esto es crucial para el éxito académico.",
       department: "Ciencias Humanas",
       sentiment: "neutral"
     },
     {
       id: 42,
-      text: "Propongo fortalecer los vínculos con el sector productivo y organizaciones sociales para garantizar la empleabilidad de los egresados y la pertinencia social.",
+      text: "Propongo fortalecer significativamente los vínculos con el sector productivo, organizaciones sociales y entidades gubernamentales para garantizar la empleabilidad de los egresados y asegurar la pertinencia social de los programas propuestos.",
       department: "Ciencias Políticas",
       sentiment: "neutral"
     },
     {
       id: 43,
-      text: "Sería conveniente asegurar que la infraestructura tecnológica sea suficiente para soportar las nuevas modalidades educativas y metodologías innovadoras.",
+      text: "Sería conveniente asegurar que la infraestructura tecnológica sea suficiente y actualizada para soportar las nuevas modalidades educativas, metodologías innovadoras y las demandas de la educación del siglo XXI.",
       department: "Gestión Cultural",
       sentiment: "neutral"
     },
     {
       id: 44,
-      text: "Sugiero crear un comité de seguimiento interdisciplinario que monitoree la implementación y evalúe periódicamente los resultados obtenidos.",
+      text: "Sugiero crear un comité de seguimiento interdisciplinario permanente que monitoree la implementación, evalúe periódicamente los resultados obtenidos y proponga ajustes cuando sea necesario para garantizar el cumplimiento de los objetivos.",
       department: "Filosofía",
       sentiment: "neutral"
     },
     {
       id: 45,
-      text: "Recomiendo establecer convenios específicos con instituciones nacionales e internacionales para fortalecer la movilidad académica y la investigación colaborativa.",
+      text: "Recomiendo establecer convenios específicos con instituciones nacionales e internacionales de prestigio para fortalecer la movilidad académica, la investigación colaborativa y el intercambio de experiencias que enriquezcan los programas.",
       department: "Ciencias Humanas",
       sentiment: "neutral"
     }
   ];
 
-  const censoredComment = "Este comentario contenía expresiones despectivas hacia la administración universitaria y lenguaje inapropiado que no se ajusta a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo y respetuoso entre todos los participantes.";
+  const censoredComment = "Este comentario contenía expresiones despectivas hacia la administración universitaria, cuestionamientos sobre la transparencia del proceso de consulta y lenguaje inapropiado que no se ajusta a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo y respetuoso entre todos los participantes de la comunidad universitaria.";
 
   const toggleCommentReveal = (commentId: number) => {
-    const currentRevealed = revealedComments || new Set();
-    const newRevealed = new Set(currentRevealed);
-    
-    // Defensive check to ensure newRevealed is a Set instance
-    if (!(newRevealed instanceof Set)) {
-      console.warn('newRevealed is not a Set instance, reinitializing');
-      setRevealedComments(new Set());
-      return;
-    }
-    
-    if (newRevealed.has(commentId)) {
-      newRevealed.delete(commentId);
-    } else {
-      newRevealed.add(commentId);
-    }
-    setRevealedComments(newRevealed);
+    setRevealedComments(prev => {
+      const newRevealed = new Set(prev);
+      if (newRevealed.has(commentId)) {
+        newRevealed.delete(commentId);
+      } else {
+        newRevealed.add(commentId);
+      }
+      return newRevealed;
+    });
   };
 
   const containerVariants = {
@@ -324,7 +317,7 @@ const Comments: React.FC = () => {
       >
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Comentarios de Apoyo</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {supportiveComments.map((comment, index) => (
             <motion.div
               key={comment.id}
@@ -332,7 +325,7 @@ const Comments: React.FC = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1 * index }}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
             >
               <div className="flex items-start justify-between mb-2">
                 <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">

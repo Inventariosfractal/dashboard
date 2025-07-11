@@ -13,7 +13,7 @@ const FinancialAnalysis: React.FC = () => {
 
   const totalBudget = 12908; // Costo real corregido
   const matriculasPorSemestre = 45; // 15 por cada carrera
-  const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 360 estudiantes nuevos en 4 años
+  const totalMatriculasCuatroAnos = 360; // 45 estudiantes nuevos por semestre × 8 semestres = 360 estudiantes nuevos en 4 años
   
   // Total de estudiantes en el programa en estado estable (4 años completos)
   const totalEstudiantesPrograma = 180; // 45 estudiantes por año × 4 años = 180 estudiantes totales
@@ -211,15 +211,16 @@ const FinancialAnalysis: React.FC = () => {
           Detalles del Cálculo Corregido
         </h3>
         <div className="text-sm text-green-800 space-y-2">
-          <p><strong>Matrículas nuevas por semestre:</strong> {matriculasPorSemestre} (15 por cada carrera)</p>
-          <p><strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos} estudiantes nuevos</p>
-          <p><strong>Total estudiantes en el programa (estado estable):</strong> {totalEstudiantesPrograma} estudiantes</p>
-          <p><strong>Costo por estudiante nuevo (4 años):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</p>
+          <p><strong>ACLARACIÓN CRÍTICA:</strong> 45 son estudiantes NUEVOS por semestre (no el total)</p>
+          <p><strong>Estudiantes nuevos por semestre:</strong> 45 (15 Ciencias Políticas + 15 Filosofía + 15 Gestión Cultural)</p>
+          <p><strong>Total estudiantes nuevos en 4 años:</strong> 360 (45 × 8 semestres)</p>
+          <p><strong>Total estudiantes en el programa (estado estable):</strong> 180 estudiantes simultáneamente</p>
+          <p><strong>Costo por estudiante nuevo (4 años completos):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</p>
           <p><strong>Costo anual por estudiante:</strong> ${costoAnualPorEstudiante.toLocaleString()} COP</p>
         </div>
         <div className="mt-3 text-xs text-green-700 bg-green-100 p-2 rounded">
-          <strong>Aclaración importante:</strong> 45 son estudiantes NUEVOS por semestre. En 4 años ingresan {totalMatriculasCuatroAnos} estudiantes nuevos. 
-          En estado estable, el programa tendrá {totalEstudiantesPrograma} estudiantes simultáneamente (45 por cada año académico).
+          <strong>IMPORTANTE:</strong> No confundir estudiantes nuevos por semestre (45) con total de estudiantes en el programa. 
+          En estado estable habrá 180 estudiantes simultáneamente: 45 de primer año + 45 de segundo año + 45 de tercer año + 45 de cuarto año.
         </div>
       </motion.div>
     </motion.section>
