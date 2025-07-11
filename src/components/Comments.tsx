@@ -272,7 +272,7 @@ const Comments: React.FC = () => {
 
   const toggleCommentReveal = (commentId: number) => {
     setRevealedComments(prev => {
-      const currentRevealed = (prev instanceof Set) ? prev : new Set();
+      const currentRevealed = (prev && prev instanceof Set) ? prev : new Set();
       const newRevealed = new Set(currentRevealed);
       if (newRevealed.has(commentId)) {
         newRevealed.delete(commentId);
