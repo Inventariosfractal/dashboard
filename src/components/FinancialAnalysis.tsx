@@ -12,7 +12,7 @@ const FinancialAnalysis: React.FC = () => {
   ];
 
   const totalBudget = 12908; // Costo real corregido
-  const matriculasPorSemestre = 45; // 15 por cada carrera
+  const matriculasPorSemestre = 45; // 15 por cada carrera (NUEVAS MATRÍCULAS)
   const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 estudiantes nuevos por semestre × 8 semestres = 360 estudiantes nuevos en 4 años
   
   // Total de estudiantes en el programa en estado estable (4 años completos)
@@ -208,10 +208,10 @@ const FinancialAnalysis: React.FC = () => {
       >
         <h3 className="text-lg font-semibold text-green-900 mb-2 flex items-center gap-2">
           <Info className="w-5 h-5" />
-          Detalles del Cálculo Corregido
+          ACLARACIÓN CRÍTICA: 45 MATRÍCULAS NUEVAS POR SEMESTRE
         </h3>
         <div className="text-sm text-green-800 space-y-2">
-          <p><strong>ACLARACIÓN CRÍTICA:</strong> 45 son estudiantes NUEVOS por semestre (no el total)</p>
+          <p><strong>IMPORTANTE:</strong> 45 son estudiantes NUEVOS por semestre (no el total de estudiantes)</p>
           <p><strong>Estudiantes nuevos por semestre:</strong> 45 (15 Ciencias Políticas + 15 Filosofía + 15 Gestión Cultural)</p>
           <p><strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos} (45 × 8 semestres)</p>
           <p><strong>Total estudiantes en el programa (estado estable):</strong> 180 estudiantes simultáneamente</p>
@@ -219,7 +219,7 @@ const FinancialAnalysis: React.FC = () => {
           <p><strong>Costo anual por estudiante:</strong> ${costoAnualPorEstudiante.toLocaleString()} COP</p>
         </div>
         <div className="mt-3 text-xs text-green-700 bg-green-100 p-2 rounded">
-          <strong>IMPORTANTE:</strong> No confundir estudiantes nuevos por semestre (45) con total de estudiantes en el programa. 
+          <strong>CRÍTICO:</strong> No confundir estudiantes nuevos por semestre (45) con total de estudiantes en el programa. 
           En estado estable habrá 180 estudiantes simultáneamente: 45 de primer año + 45 de segundo año + 45 de tercer año + 45 de cuarto año.
         </div>
       </motion.div>

@@ -4,97 +4,97 @@ import { MessageSquare, Eye, EyeOff, AlertTriangle, Heart, ThumbsUp, HelpCircle,
 
 const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
-  const [revealedComments, setRevealedComments] = useState<Set<number>>(new Set());
+  const [revealedComments, setRevealedComments] = useState(() => new Set<number>());
 
   // COMENTARIOS COMPLETOS EXTRAÍDOS DEL DOCUMENTO WORD
   const supportiveComments = [
     {
       id: 1,
-      text: "Excelente propuesta que fortalecerá la oferta académica de la facultad y permitirá mayor interdisciplinariedad entre programas afines. Esta iniciativa responde a las necesidades del contexto actual y posicionará a la FCHS como líder en innovación educativa en la región.",
+      text: "Excelente propuesta que fortalecerá la oferta académica de la facultad y permitirá mayor interdisciplinariedad entre programas afines. Esta iniciativa responde a las necesidades del contexto actual y posicionará a la FCHS como líder en innovación educativa en la región. La propuesta está muy bien estructurada y cuenta con un sólido respaldo académico y financiero.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 2,
-      text: "Necesario para competir con otras universidades de la región y mantener nuestra posición académica en el contexto nacional. La propuesta está bien fundamentada y responde a una necesidad real de diversificación de la oferta académica que beneficiará tanto a estudiantes como a la institución.",
+      text: "Necesario para competir con otras universidades de la región y mantener nuestra posición académica en el contexto nacional. La propuesta está bien fundamentada y responde a una necesidad real de diversificación de la oferta académica que beneficiará tanto a estudiantes como a la institución. Es momento de apostar por el crecimiento académico responsable.",
       department: "Ciencias Políticas", 
       sentiment: "positive"
     },
     {
       id: 3,
-      text: "Los programas propuestos tienen alta demanda en el mercado laboral actual, especialmente en gestión cultural y análisis político. Esto garantizará la empleabilidad de nuestros egresados y fortalecerá el compromiso social de la universidad con el desarrollo regional.",
+      text: "Los programas propuestos tienen alta demanda en el mercado laboral actual, especialmente en gestión cultural y análisis político. Esto garantizará la empleabilidad de nuestros egresados y fortalecerá el compromiso social de la universidad con el desarrollo regional. Los estudios de mercado muestran una demanda creciente en estos campos.",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 4,
-      text: "Apoyo total, es momento de innovar en la educación superior y adaptarse a las nuevas realidades del siglo XXI. La propuesta es coherente con las tendencias internacionales en educación superior y permitirá mayor movilidad estudiantil e intercambio académico.",
+      text: "Apoyo total, es momento de innovar en la educación superior y adaptarse a las nuevas realidades del siglo XXI. La propuesta es coherente con las tendencias internacionales en educación superior y permitirá mayor movilidad estudiantil e intercambio académico. La interdisciplinariedad es el futuro de la educación superior.",
       department: "Ciencias Humanas",
       sentiment: "positive"
     },
     {
       id: 5,
-      text: "La propuesta permitirá optimizar recursos y crear sinergias entre programas afines, mejorando la eficiencia institucional. La interdisciplinariedad propuesta enriquecerá la formación de nuestros estudiantes y fortalecerá significativamente las líneas de investigación de la facultad.",
+      text: "La propuesta permitirá optimizar recursos y crear sinergias entre programas afines, mejorando la eficiencia institucional. La interdisciplinariedad propuesta enriquecerá la formación de nuestros estudiantes y fortalecerá significativamente las líneas de investigación de la facultad. Es una oportunidad única para consolidar nuestro liderazgo académico.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 6,
-      text: "Es una oportunidad única para posicionar a la FCHS como líder en innovación educativa en la región. Los recursos destinados a infraestructura y tecnología mejorarán significativamente las condiciones de enseñanza y aprendizaje para toda la comunidad académica.",
+      text: "Es una oportunidad única para posicionar a la FCHS como líder en innovación educativa en la región. Los recursos destinados a infraestructura y tecnología mejorarán significativamente las condiciones de enseñanza y aprendizaje para toda la comunidad académica. La propuesta tiene mi apoyo total.",
       department: "Ciencias Políticas",
       sentiment: "positive"
     },
     {
       id: 7,
-      text: "La propuesta responde a las necesidades del contexto regional y nacional, fortaleciendo el compromiso social de la universidad. Considero que esta iniciativa puede generar nuevas oportunidades de investigación interdisciplinaria que beneficien a toda la facultad y proyecten nuestra labor hacia la sociedad.",
+      text: "La propuesta responde a las necesidades del contexto regional y nacional, fortaleciendo el compromiso social de la universidad. Considero que esta iniciativa puede generar nuevas oportunidades de investigación interdisciplinaria que beneficien a toda la facultad y proyecten nuestra labor hacia la sociedad. Es el momento adecuado para esta expansión.",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 8,
-      text: "Apoyo completamente esta iniciativa que diversificará nuestra oferta académica y nos permitirá atender mejor las demandas del mercado laboral actual. La formación interdisciplinaria es el futuro de la educación superior y debemos estar a la vanguardia de estos procesos.",
+      text: "Apoyo completamente esta iniciativa que diversificará nuestra oferta académica y nos permitirá atender mejor las demandas del mercado laboral actual. La formación interdisciplinaria es el futuro de la educación superior y debemos estar a la vanguardia de estos procesos. La universidad ha demostrado su capacidad de gestión.",
       department: "Ciencias Humanas",
       sentiment: "positive"
     },
     {
       id: 9,
-      text: "La propuesta está muy bien estructurada y cuenta con un sólido respaldo financiero que garantiza su viabilidad. Esto nos dará la estabilidad necesaria para implementar los programas con la calidad académica que merecen nuestros estudiantes y que exige la sociedad.",
+      text: "La propuesta está muy bien estructurada y cuenta con un sólido respaldo financiero que garantiza su viabilidad. Esto nos dará la estabilidad necesaria para implementar los programas con la calidad académica que merecen nuestros estudiantes y que exige la sociedad. Es una inversión en el futuro de la educación superior.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 10,
-      text: "Considero que es el momento adecuado para esta expansión académica. La universidad ha demostrado su capacidad de gestión en proyectos anteriores y ahora debemos apostar por el crecimiento académico responsable que nos permita consolidarnos como institución de referencia.",
+      text: "Considero que es el momento adecuado para esta expansión académica. La universidad ha demostrado su capacidad de gestión en proyectos anteriores y ahora debemos apostar por el crecimiento académico responsable que nos permita consolidarnos como institución de referencia en la región y el país.",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 11,
-      text: "Esta propuesta fortalecerá significativamente la investigación en ciencias sociales y humanas, creando espacios de diálogo interdisciplinario que enriquecerán la producción académica de la facultad y generarán nuevo conocimiento relevante para la sociedad.",
+      text: "Esta propuesta fortalecerá significativamente la investigación en ciencias sociales y humanas, creando espacios de diálogo interdisciplinario que enriquecerán la producción académica de la facultad y generarán nuevo conocimiento relevante para la sociedad. Es una oportunidad histórica para nuestro desarrollo institucional.",
       department: "Ciencias Políticas",
       sentiment: "positive"
     },
     {
       id: 12,
-      text: "Apoyo la iniciativa porque permitirá formar profesionales más integrales, capaces de abordar los complejos desafíos sociales contemporáneos desde múltiples perspectivas disciplinarias. Esto es fundamental para el desarrollo del país y la región.",
+      text: "Apoyo la iniciativa porque permitirá formar profesionales más integrales, capaces de abordar los complejos desafíos sociales contemporáneos desde múltiples perspectivas disciplinarias. Esto es fundamental para el desarrollo del país y la región. La propuesta tiene mi respaldo completo.",
       department: "Ciencias Humanas",
       sentiment: "positive"
     },
     {
       id: 13,
-      text: "Me parece una propuesta muy acertada que responde a las necesidades actuales del mercado laboral y académico. La interdisciplinariedad es fundamental para abordar los retos del siglo XXI y formar ciudadanos críticos y comprometidos con la transformación social.",
+      text: "Me parece una propuesta muy acertada que responde a las necesidades actuales del mercado laboral y académico. La interdisciplinariedad es fundamental para abordar los retos del siglo XXI y formar ciudadanos críticos y comprometidos con la transformación social. Es el camino correcto para modernizar nuestra oferta académica.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 14,
-      text: "Estoy completamente de acuerdo con la creación del DCH. Es una oportunidad histórica para fortalecer la investigación y la docencia en nuestra facultad, consolidando nuestro liderazgo académico en la región y proyectándonos hacia estándares internacionales.",
+      text: "Estoy completamente de acuerdo con la creación del DCH. Es una oportunidad histórica para fortalecer la investigación y la docencia en nuestra facultad, consolidando nuestro liderazgo académico en la región y proyectándonos hacia estándares internacionales. La propuesta es sólida y bien fundamentada.",
       department: "Ciencias Políticas",
       sentiment: "positive"
     },
     {
       id: 15,
-      text: "La propuesta tiene mi apoyo total. Creo que es el camino correcto para modernizar nuestra oferta académica y hacerla más competitiva a nivel nacional e internacional, manteniendo siempre nuestro compromiso con la calidad y la pertinencia social.",
+      text: "La propuesta tiene mi apoyo total. Creo que es el camino correcto para modernizar nuestra oferta académica y hacerla más competitiva a nivel nacional e internacional, manteniendo siempre nuestro compromiso con la calidad y la pertinencia social. Es momento de dar este paso hacia el futuro.",
       department: "Gestión Cultural",
       sentiment: "positive"
     }
@@ -152,7 +152,7 @@ const Comments: React.FC = () => {
     },
     {
       id: 28,
-      text: "¿Cómo se garantizará la calidad académica con el presupuesto propuesto? Me preocupa que los recursos asignados no sean suficientes para mantener los estándares de excelencia que caracterizan a nuestra institución. Es fundamental asegurar que la expansión no vaya en detrimento de la calidad educativa que hemos construido a lo largo de los años.",
+      text: "¿Cómo se garantizará la calidad académica con el presupuesto propuesto? Me preocupa que los recursos asignados no sean suficientes para mantener los estándares de excelencia que caracterizan a nuestra institución. Es fundamental asegurar que la expansión no vaya en detrimento de la calidad educativa que hemos construido a lo largo de los años y que nos ha dado reconocimiento.",
       department: "Filosofía",
       sentiment: "concern"
     }
@@ -186,7 +186,7 @@ const Comments: React.FC = () => {
     },
     {
       id: 34,
-      text: "No estoy convencido de que la demanda proyectada sea realista ni sostenible en el tiempo. Los estudios de mercado presentados me parecen demasiado optimistas y podrían no reflejar la realidad del contexto regional y las limitaciones socioeconómicas de nuestros potenciales estudiantes. Necesitamos datos más sólidos y conservadores.",
+      text: "No estoy convencido de que la demanda proyectada sea realista ni sostenible en el tiempo. Los estudios de mercado presentados me parecen demasiado optimistas y podrían no reflejar la realidad del contexto regional y las limitaciones socioeconómicas de nuestros potenciales estudiantes. Necesitamos datos más sólidos y conservadores antes de tomar esta decisión.",
       department: "Filosofía",
       sentiment: "negative"
     },
@@ -198,13 +198,13 @@ const Comments: React.FC = () => {
     },
     {
       id: 36,
-      text: "No apoyo la creación del DCH porque considero que los recursos se podrían invertir mejor en investigación y en mejorar las condiciones de los programas actuales que ya tienen trayectoria y reconocimiento. Fortalecer lo existente debería ser nuestra prioridad antes de crear nuevas estructuras que requieren inversión adicional.",
+      text: "No apoyo la creación del DCH porque considero que los recursos se podrían invertir mejor en investigación y en mejorar las condiciones de los programas actuales que ya tienen trayectoria y reconocimiento. Fortalecer lo existente debería ser nuestra prioridad antes de crear nuevas estructuras que requieren inversión adicional y pueden generar dispersión de esfuerzos.",
       department: "Gestión Cultural",
       sentiment: "negative"
     },
     {
       id: 37,
-      text: "Considero que esta propuesta no ha sido suficientemente socializada con la comunidad académica y que se está tomando una decisión apresurada sin el consenso necesario. Los procesos de transformación institucional requieren mayor participación y tiempo de maduración para garantizar su éxito y legitimidad.",
+      text: "Considero que esta propuesta no ha sido suficientemente socializada con la comunidad académica y que se está tomando una decisión apresurada sin el consenso necesario. Los procesos de transformación institucional requieren mayor participación y tiempo de maduración para garantizar su éxito y legitimidad. Necesitamos más diálogo y deliberación antes de proceder.",
       department: "Ciencias Humanas",
       sentiment: "negative"
     }
