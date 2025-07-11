@@ -496,57 +496,6 @@ const Comments: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Comentario Censurado */}
-      <motion.div 
-        className="chart-container"
-        variants={itemVariants}
-      >
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-          <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-semibold text-red-900 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4" />
-              Comentario Removido por Contenido Inapropiado
-            </h4>
-            <motion.button
-              onClick={() => setShowCensoredComment(!showCensoredComment)}
-              className="flex items-center gap-1 text-xs text-red-700 hover:text-red-900 transition-colors duration-200 px-2 py-1 bg-red-100 rounded hover:bg-red-200"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {showCensoredComment ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
-              {showCensoredComment ? 'Ocultar' : 'Ver detalles'}
-            </motion.button>
-          </div>
-          
-          <AnimatePresence>
-            {showCensoredComment && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="p-3 bg-red-100 rounded border-l-4 border-red-400">
-                  <motion.p 
-                    className={`text-xs text-red-800 transition-all duration-300 cursor-pointer ${
-                      revealedComments.has(999) ? '' : 'blur-sm'
-                    }`}
-                    onClick={() => toggleCommentReveal(999)}
-                  >
-                    {censoredComment}
-                  </motion.p>
-                  {!revealedComments.has(999) && (
-                    <p className="text-xs text-red-600 mt-2">
-                      <em>Haga clic en el texto para enfocarlo</em>
-                    </p>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.div>
-
       {/* Análisis cualitativo */}
       <motion.div 
         className="bg-gray-50 border border-gray-200 rounded-lg p-4"
