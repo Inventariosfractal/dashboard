@@ -21,8 +21,8 @@ const ParticipationStats: React.FC = () => {
 
   // Datos de participación en consultas
   const consultationData = [
-    { name: 'Consulta Oficial', value: 33, color: '#3B82F6', percentage: 26.0 },
-    { name: 'Consulta Independiente', value: 108, color: '#10B981', percentage: 85.0 }
+    { name: 'Encuesta Propia', value: 108, color: '#10B981', percentage: 85.0 },
+    { name: 'Otras Respuestas', value: 19, color: '#3B82F6', percentage: 15.0 }
   ];
 
   const COLORS = ['#10B981', '#EF4444', '#6B7280'];
@@ -221,8 +221,8 @@ const ParticipationStats: React.FC = () => {
             </ResponsiveContainer>
           </div>
           <div className="mt-4 text-sm text-gray-600">
-            <p><strong>Consulta Oficial:</strong> 33 participantes</p>
-            <p><strong>Consulta Independiente:</strong> 108 participantes</p>
+            <p><strong>Encuesta Propia:</strong> 108 participantes</p>
+            <p><strong>Otras Respuestas:</strong> 19 participantes</p>
             <p><strong>Total respuestas válidas:</strong> 127 (sin duplicados)</p>
           </div>
         </motion.div>

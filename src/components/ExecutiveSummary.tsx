@@ -21,12 +21,13 @@ const ExecutiveSummary: React.FC = () => {
   // Datos corregidos basados en el documento
   const matriculasPorSemestre = 45; // 15 por cada carrera
   const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 por semestre x 8 semestres = 360
-  const totalEstudiantesPrograma = 180; // 45 estudiantes por año × 4 años = 180 estudiantes totales en estado estable
+  const totalEstudiantesPrograma = 180; // 45 estudiantes por año × 4 años = 180 estudiantes simultáneos en estado estable
   const costoTotalProyecto = 12908; // millones COP
   const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // en pesos
-  const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual en universidad pública colombiana
+  const costoPromedioUniversidadPublica = 19000000; // Costo promedio anual IES pública: 10-28 millones/año (promedio 19M)
   const docentesActualesDCH = 15; // Corregido: 15 docentes actuales (no 17)
   const totalDocentesUniversidad = 248; // CORREGIDO: 248 docentes UNIVERSIDAD (no 146 DCH)
+  const participacionDocente = Math.round((127 / totalDocentesUniversidad) * 100); // 60% participación
 
   return (
     <motion.section 
@@ -92,15 +93,16 @@ const ExecutiveSummary: React.FC = () => {
                 <span className="font-semibold text-green-900">127</span>
               </div>
               <div className="flex justify-between items-center">
+                <span className="text-green-800">Participación docente:</span>
+                <span className="font-semibold text-green-900">{participacionDocente}%</span>
+              </div>
+              <div className="flex justify-between items-center">
                 <span className="text-green-800">A favor de la propuesta:</span>
                 <span className="font-semibold text-green-900">78.7%</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-green-800">A favor (consulta inicial):</span>
-                <span className="font-semibold text-green-900">15 docentes</span>
-              </div>
-              <div className="text-xs text-green-700 bg-green-100 p-2 rounded">
-                <strong>Aclaración:</strong> Los 15 a favor corresponden a una consulta inicial realizada previamente al proceso actual de 127 respuestas
+                <span className="text-green-800">Encuesta propia:</span>
+                <span className="font-semibold text-green-900">108 participantes</span>
               </div>
             </div>
           </div>
@@ -183,8 +185,8 @@ const ExecutiveSummary: React.FC = () => {
             </div>
           </div>
           <div className="mt-3 text-xs text-purple-700 bg-purple-100 p-2 rounded">
-            El costo por estudiante del DCH está {((costoPorEstudianteCuatroAnos/4) / costoPromedioUniversidadPublica * 100).toFixed(1)}% 
-            {(costoPorEstudianteCuatroAnos/4) > costoPromedioUniversidadPublica ? ' por encima' : ' por debajo'} del promedio nacional
+            El costo por estudiante del DCH representa el {((costoPorEstudianteCuatroAnos/4) / costoPromedioUniversidadPublica * 100).toFixed(1)}% 
+            del rango promedio de IES públicas (10-28 millones/año)
           </div>
         </div>
       </motion.div>

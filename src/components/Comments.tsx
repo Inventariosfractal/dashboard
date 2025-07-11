@@ -4,7 +4,7 @@ import { MessageSquare, Eye, EyeOff, AlertTriangle, Heart, ThumbsUp, HelpCircle,
 
 const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
-  const [revealedComments, setRevealedComments] = useState<Set<number>>(new Set());
+  const [expandedComments, setExpandedComments] = useState<Set<number>>(new Set());
 
   // COMENTARIOS COMPLETOS EXTRAÍDOS DEL DOCUMENTO WORD
   const supportiveComments = [
@@ -268,29 +268,15 @@ const Comments: React.FC = () => {
     }
   ];
 
-  const censoredComment = "Este comentario contenía expresiones despectivas hacia la administración universitaria, cuestionamientos infundados sobre la transparencia del proceso de consulta y lenguaje inapropiado que no se ajusta a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo y respetuoso entre todos los participantes de la comunidad universitaria.";
-
-  const toggleCommentReveal = (commentId: number) => {
-    setRevealedComments(prev => {
-      const currentRevealed = (prev && prev instanceof Set) ? prev : new Set();
-      const newRevealed = new Set(currentRevealed);
-      
-      // Defensive check to ensure newRevealed is a valid Set instance
-      if (!newRevealed || typeof newRevealed.add !== 'function') {
-        // Re-initialize as new empty Set if invalid
-        const safeSet = new Set();
-        if (commentId) {
-          safeSet.add(commentId);
-        }
-        return safeSet;
-      }
-      
-      if (newRevealed.has(commentId)) {
-        newRevealed.delete(commentId);
+  const toggleCommentExpansion = (commentId: number) => {
+    setExpandedComments(prev => {
+      const newExpanded = new Set(prev);
+      if (newExpanded.has(commentId)) {
+        newExpanded.delete(commentId);
       } else {
-        newRevealed.add(commentId);
+        newExpanded.add(commentId);
       }
-      return newRevealed;
+      return newExpanded;
     });
   };
 

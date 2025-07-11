@@ -20,7 +20,7 @@ const FinancialAnalysis: React.FC = () => {
   
   const costoPorEstudianteCuatroAnos = totalBudget * 1000000 / totalMatriculasCuatroAnos; // Costo por estudiante nuevo
   const costoAnualPorEstudiante = costoPorEstudianteCuatroAnos / 4; // Costo anual por estudiante
-  const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual
+  const costoPromedioIESPublica = 19000000; // Costo promedio anual IES pública: 10-28 millones/año
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -183,8 +183,8 @@ const FinancialAnalysis: React.FC = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-white p-3 rounded border">
-            <p className="text-sm text-indigo-700 mb-1">Costo promedio anual universidad pública:</p>
-            <p className="text-xl font-bold text-indigo-900">${costoPromedioUniversidadPublica.toLocaleString()}</p>
+            <p className="text-sm text-indigo-700 mb-1">Costo promedio anual IES pública:</p>
+            <p className="text-xl font-bold text-indigo-900">${costoPromedioIESPublica.toLocaleString()}</p>
           </div>
           <div className="bg-white p-3 rounded border">
             <p className="text-sm text-indigo-700 mb-1">Costo anual por estudiante DCH:</p>
@@ -192,9 +192,9 @@ const FinancialAnalysis: React.FC = () => {
           </div>
         </div>
         <div className="mt-3 text-xs text-indigo-700 bg-indigo-100 p-2 rounded">
-          <strong>Análisis:</strong> El costo por estudiante del DCH representa el {(costoAnualPorEstudiante / costoPromedioUniversidadPublica * 100).toFixed(1)}% 
-          del promedio nacional, lo que indica una inversión {costoAnualPorEstudiante > costoPromedioUniversidadPublica ? 'superior' : 'competitiva'} 
-          en educación superior.
+          <strong>Análisis:</strong> El costo por estudiante del DCH representa el {(costoAnualPorEstudiante / costoPromedioIESPublica * 100).toFixed(1)}% 
+          del rango promedio de IES públicas (10-28 millones/año), lo que indica una inversión 
+          {costoAnualPorEstudiante > costoPromedioIESPublica ? 'superior al promedio' : 'dentro del rango competitivo'}.
         </div>
       </motion.div>
 
