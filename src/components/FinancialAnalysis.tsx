@@ -213,7 +213,7 @@ const FinancialAnalysis: React.FC = () => {
         <div className="text-sm text-green-800 space-y-2">
           <p><strong>ACLARACIÓN CRÍTICA:</strong> 45 son estudiantes NUEVOS por semestre (no el total)</p>
           <p><strong>Estudiantes nuevos por semestre:</strong> 45 (15 Ciencias Políticas + 15 Filosofía + 15 Gestión Cultural)</p>
-          <p><strong>Total estudiantes nuevos en 4 años:</strong> 360 (45 × 8 semestres)</p>
+          <p><strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos} (45 × 8 semestres)</p>
           <p><strong>Total estudiantes en el programa (estado estable):</strong> 180 estudiantes simultáneamente</p>
           <p><strong>Costo por estudiante nuevo (4 años completos):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</p>
           <p><strong>Costo anual por estudiante:</strong> ${costoAnualPorEstudiante.toLocaleString()} COP</p>
