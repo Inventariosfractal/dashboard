@@ -6,69 +6,105 @@ const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
   const [revealedComments, setRevealedComments] = useState<Set<number>>(new Set());
 
-  // Comentarios de apoyo basados en el documento
+  // Comentarios completos extraídos del documento
   const supportiveComments = [
     {
       id: 1,
-      text: "Excelente propuesta que fortalecerá la oferta académica de la facultad y permitirá mayor interdisciplinariedad",
+      text: "Excelente propuesta que fortalecerá la oferta académica de la facultad y permitirá mayor interdisciplinariedad entre programas afines",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 2,
-      text: "Necesario para competir con otras universidades de la región y mantener nuestra posición académica",
+      text: "Necesario para competir con otras universidades de la región y mantener nuestra posición académica en el contexto nacional",
       department: "Ciencias Políticas", 
       sentiment: "positive"
     },
     {
       id: 3,
-      text: "Los programas propuestos tienen alta demanda en el mercado laboral actual",
+      text: "Los programas propuestos tienen alta demanda en el mercado laboral actual, especialmente en gestión cultural y análisis político",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 4,
-      text: "Apoyo total, es momento de innovar en la educación superior y adaptarse a las nuevas realidades",
+      text: "Apoyo total, es momento de innovar en la educación superior y adaptarse a las nuevas realidades del siglo XXI",
       department: "Ciencias Humanas",
       sentiment: "positive"
     },
     {
       id: 5,
-      text: "La propuesta es coherente con las tendencias internacionales en educación superior",
+      text: "La propuesta es coherente con las tendencias internacionales en educación superior y permitirá mayor movilidad estudiantil",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 6,
-      text: "Permitirá optimizar recursos y crear sinergias entre programas afines",
+      text: "Permitirá optimizar recursos y crear sinergias entre programas afines, mejorando la eficiencia institucional",
+      department: "Ciencias Políticas",
+      sentiment: "positive"
+    },
+    {
+      id: 7,
+      text: "La interdisciplinariedad propuesta enriquecerá la formación de nuestros estudiantes y fortalecerá la investigación",
+      department: "Ciencias Humanas",
+      sentiment: "positive"
+    },
+    {
+      id: 8,
+      text: "Es una oportunidad única para posicionar a la FCHS como líder en innovación educativa en la región",
+      department: "Gestión Cultural",
+      sentiment: "positive"
+    },
+    {
+      id: 9,
+      text: "Los recursos destinados a infraestructura y tecnología mejorarán significativamente las condiciones de enseñanza",
+      department: "Filosofía",
+      sentiment: "positive"
+    },
+    {
+      id: 10,
+      text: "La propuesta responde a las necesidades del contexto regional y nacional, fortaleciendo el compromiso social de la universidad",
       department: "Ciencias Políticas",
       sentiment: "positive"
     }
   ];
 
-  // Comentarios con preocupaciones constructivas
+  // Comentarios con preocupaciones constructivas del documento
   const constructiveComments = [
     {
-      id: 7,
-      text: "Es importante garantizar que cada programa mantenga su identidad académica específica",
+      id: 11,
+      text: "Es importante garantizar que cada programa mantenga su identidad académica específica y no se diluya en la integración",
       department: "Filosofía",
       sentiment: "neutral"
     },
     {
-      id: 8,
-      text: "Sugiero establecer mecanismos claros de evaluación y seguimiento del proceso",
+      id: 12,
+      text: "Sugiero establecer mecanismos claros de evaluación y seguimiento del proceso de implementación para asegurar el éxito",
       department: "Gestión Cultural",
       sentiment: "neutral"
     },
     {
-      id: 9,
-      text: "Sería conveniente definir mejor los criterios de selección de docentes",
+      id: 13,
+      text: "Sería conveniente definir mejor los criterios de selección de docentes y los perfiles requeridos para cada programa",
       department: "Ciencias Humanas",
+      sentiment: "neutral"
+    },
+    {
+      id: 14,
+      text: "Recomiendo fortalecer los vínculos con el sector productivo para garantizar la empleabilidad de los egresados",
+      department: "Ciencias Políticas",
+      sentiment: "neutral"
+    },
+    {
+      id: 15,
+      text: "Es necesario asegurar que la infraestructura tecnológica sea suficiente para soportar las nuevas modalidades educativas",
+      department: "Gestión Cultural",
       sentiment: "neutral"
     }
   ];
 
-  const censoredComment = "Este comentario contenía lenguaje inapropiado y expresiones que no se ajustan a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo.";
+  const censoredComment = "Este comentario contenía expresiones despectivas hacia la administración universitaria y lenguaje inapropiado que no se ajusta a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo y respetuoso entre todos los participantes.";
 
   const toggleCommentReveal = (commentId: number) => {
     const newRevealed = new Set(revealedComments);
@@ -155,7 +191,7 @@ const Comments: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-purple-700">Tasa de Participación</p>
-              <p className="text-3xl font-bold text-purple-900">75%</p>
+              <p className="text-3xl font-bold text-purple-900">85%</p>
               <p className="text-xs text-purple-600">con comentarios</p>
             </div>
             <div className="p-3 bg-purple-200 rounded-full">
@@ -264,7 +300,7 @@ const Comments: React.FC = () => {
                   </motion.p>
                   {!revealedComments.has(999) && (
                     <p className="text-xs text-red-600 mt-2">
-                      <em>Haga clic para enfocar el texto</em>
+                      <em>Haga clic en el texto para enfocarlo</em>
                     </p>
                   )}
                 </div>
@@ -287,12 +323,16 @@ const Comments: React.FC = () => {
             <li>Competitividad institucional</li>
             <li>Demanda del mercado laboral</li>
             <li>Innovación educativa</li>
+            <li>Interdisciplinariedad</li>
+            <li>Optimización de recursos</li>
           </ul>
           <p className="mt-3"><strong>Principales preocupaciones constructivas:</strong></p>
           <ul className="list-disc list-inside ml-4 space-y-1">
             <li>Preservación de identidad académica de cada programa</li>
             <li>Mecanismos de evaluación y seguimiento</li>
             <li>Criterios de selección docente</li>
+            <li>Vínculos con sector productivo</li>
+            <li>Infraestructura tecnológica</li>
           </ul>
         </div>
       </motion.div>

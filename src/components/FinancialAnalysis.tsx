@@ -14,6 +14,10 @@ const FinancialAnalysis: React.FC = () => {
   const totalBudget = 12908; // Costo real corregido
   const matriculasPorSemestre = 45; // 15 por cada carrera
   const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 por semestre x 8 semestres = 360
+  
+  // CORRECCIÓN: Total de estudiantes en el programa en estado estable (4 años completos)
+  const totalEstudiantesPrograma = 180; // 45 estudiantes por año × 4 años = 180 estudiantes totales
+  
   const costoPorEstudianteCuatroAnos = totalBudget * 1000000 / totalMatriculasCuatroAnos;
   const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual
 
@@ -101,9 +105,9 @@ const FinancialAnalysis: React.FC = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-purple-700">Estudiantes 4 años</p>
-              <p className="text-3xl font-bold text-purple-900">{totalMatriculasCuatroAnos}</p>
-              <p className="text-xs text-purple-600">total proyectado</p>
+              <p className="text-sm font-medium text-purple-700">Estudiantes Totales</p>
+              <p className="text-3xl font-bold text-purple-900">{totalEstudiantesPrograma}</p>
+              <p className="text-xs text-purple-600">en estado estable</p>
             </div>
             <div className="p-3 bg-purple-200 rounded-full">
               <TrendingUp className="w-6 h-6 text-purple-700" />
@@ -196,20 +200,25 @@ const FinancialAnalysis: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Detalles adicionales */}
+      {/* Detalles adicionales corregidos */}
       <motion.div 
         className="bg-green-50 border border-green-200 rounded-lg p-4"
         variants={itemVariants}
       >
         <h3 className="text-lg font-semibold text-green-900 mb-2 flex items-center gap-2">
           <Info className="w-5 h-5" />
-          Detalles del Cálculo
+          Detalles del Cálculo Corregido
         </h3>
         <div className="text-sm text-green-800 space-y-2">
-          <p><strong>Matrículas por semestre:</strong> {matriculasPorSemestre} (15 por cada carrera)</p>
-          <p><strong>Total estudiantes en 4 años:</strong> {totalMatriculasCuatroAnos} estudiantes</p>
-          <p><strong>Costo por estudiante (4 años):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</p>
+          <p><strong>Matrículas nuevas por semestre:</strong> {matriculasPorSemestre} (15 por cada carrera)</p>
+          <p><strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos} estudiantes</p>
+          <p><strong>Total estudiantes en el programa (estado estable):</strong> {totalEstudiantesPrograma} estudiantes</p>
+          <p><strong>Costo por estudiante nuevo (4 años):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</p>
           <p><strong>Costo anual por estudiante:</strong> ${(costoPorEstudianteCuatroAnos/4).toLocaleString()} COP</p>
+        </div>
+        <div className="mt-3 text-xs text-green-700 bg-green-100 p-2 rounded">
+          <strong>Aclaración:</strong> El cálculo se basa en el costo total del proyecto dividido entre los estudiantes nuevos que ingresan en 4 años. 
+          En estado estable, el programa tendrá {totalEstudiantesPrograma} estudiantes simultáneamente (45 por cada año académico).
         </div>
       </motion.div>
     </motion.section>

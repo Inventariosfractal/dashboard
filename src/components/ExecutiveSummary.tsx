@@ -21,6 +21,7 @@ const ExecutiveSummary: React.FC = () => {
   // Datos corregidos basados en el documento
   const matriculasPorSemestre = 45; // 15 por cada carrera
   const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 por semestre x 8 semestres = 360
+  const totalEstudiantesPrograma = 180; // 45 estudiantes por año × 4 años = 180 estudiantes totales en estado estable
   const costoTotalProyecto = 12908; // millones COP
   const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // en pesos
   const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual en universidad pública colombiana
@@ -57,6 +58,14 @@ const ExecutiveSummary: React.FC = () => {
                 <span className="font-semibold text-blue-900">{matriculasPorSemestre}</span>
               </div>
               <div className="flex justify-between items-center">
+                <span className="text-blue-800">Total estudiantes en 4 años:</span>
+                <span className="font-semibold text-blue-900">{totalMatriculasCuatroAnos} nuevos</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-blue-800">Estudiantes totales (estado estable):</span>
+                <span className="font-semibold text-blue-900">{totalEstudiantesPrograma}</span>
+              </div>
+              <div className="flex justify-between items-center">
                 <span className="text-blue-800">Total docentes planta FCHS:</span>
                 <span className="font-semibold text-blue-900">{totalDocentesPlantaFCHS} profesores</span>
               </div>
@@ -83,11 +92,15 @@ const ExecutiveSummary: React.FC = () => {
                 <span className="font-semibold text-green-900">127</span>
               </div>
               <div className="flex justify-between items-center">
+                <span className="text-green-800">A favor de la propuesta:</span>
+                <span className="font-semibold text-green-900">78.7%</span>
+              </div>
+              <div className="flex justify-between items-center">
                 <span className="text-green-800">A favor (consulta inicial):</span>
                 <span className="font-semibold text-green-900">15 docentes</span>
               </div>
               <div className="text-xs text-green-700 bg-green-100 p-2 rounded">
-                <strong>Aclaración:</strong> Los 15 a favor corresponden a una consulta inicial realizada previamente al proceso actual
+                <strong>Aclaración:</strong> Los 15 a favor corresponden a una consulta inicial realizada previamente al proceso actual de 127 respuestas
               </div>
             </div>
           </div>
@@ -115,7 +128,7 @@ const ExecutiveSummary: React.FC = () => {
         <div className="metric-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Estudiantes 4 años</p>
+              <p className="text-sm font-medium text-gray-600">Estudiantes Nuevos 4 años</p>
               <p className="text-2xl font-bold text-green-600">{totalMatriculasCuatroAnos}</p>
               <p className="text-xs text-gray-500">total proyectado</p>
             </div>
@@ -187,8 +200,9 @@ const ExecutiveSummary: React.FC = () => {
             <li>• <strong>Gestión Cultural SÍ genera matrículas nuevas:</strong> 15 por semestre</li>
             <li>• <strong>Docentes DCH actuales:</strong> {docentesActualesDCH} (reducción de 18 a {docentesActualesDCH} por traslados)</li>
             <li>• <strong>Matrículas nuevas por semestre:</strong> {matriculasPorSemestre} (15 por cada carrera)</li>
-            <li>• <strong>Total estudiantes proyectados en 4 años:</strong> {totalMatriculasCuatroAnos}</li>
-            <li>• <strong>Costo por estudiante en 4 años:</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</li>
+            <li>• <strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos}</li>
+            <li>• <strong>Total estudiantes en el programa (estado estable):</strong> {totalEstudiantesPrograma}</li>
+            <li>• <strong>Costo por estudiante nuevo en 4 años:</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</li>
           </ul>
         </div>
       </motion.div>
