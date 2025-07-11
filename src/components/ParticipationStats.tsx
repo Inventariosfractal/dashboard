@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Info, Users, TrendingUp } from 'lucide-react';
 
 const ParticipationStats: React.FC = () => {
-  // Datos reales de participación por departamento basados en el documento
+  // Datos de participación por departamento
   const departmentData = [
     { name: 'Ciencias Humanas', responses: 45, percentage: 35.4 },
     { name: 'Filosofía', responses: 32, percentage: 25.2 },
@@ -12,21 +12,21 @@ const ParticipationStats: React.FC = () => {
     { name: 'Gestión Cultural', responses: 22, percentage: 17.3 }
   ];
 
-  // Datos de apoyo a la propuesta - corregidos según el documento
+  // Datos de apoyo a la propuesta
   const supportData = [
     { name: 'A favor', value: 100, color: '#10B981', percentage: 78.7 },
     { name: 'En contra', value: 15, color: '#EF4444', percentage: 11.8 },
     { name: 'Neutral/Sin respuesta', value: 12, color: '#6B7280', percentage: 9.4 }
   ];
 
-  // Datos de participación en consultas
+  // Datos de participación en consultas - ACTUALIZADO: 108 encuesta propia
   const consultationData = [
     { name: 'Encuesta Propia', value: 108, color: '#10B981', percentage: 85.0 },
     { name: 'Otras Respuestas', value: 19, color: '#3B82F6', percentage: 15.0 }
   ];
 
   const COLORS = ['#10B981', '#EF4444', '#6B7280'];
-  const CONSULTATION_COLORS = ['#3B82F6', '#10B981'];
+  const CONSULTATION_COLORS = ['#10B981', '#3B82F6'];
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -182,7 +182,7 @@ const ParticipationStats: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Gráfico de participación en consultas */}
+        {/* Gráfico de participación en consultas - ACTUALIZADO */}
         <motion.div 
           className="chart-container"
           variants={itemVariants}
@@ -226,6 +226,7 @@ const ParticipationStats: React.FC = () => {
             <p><strong>Total respuestas válidas:</strong> 127 (sin duplicados)</p>
           </div>
         </motion.div>
+
         {/* Gráfico de apoyo a la propuesta */}
         <motion.div 
           className="chart-container"
@@ -271,7 +272,7 @@ const ParticipationStats: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Criterios de éxito con fuentes explícitas */}
+      {/* Criterios de éxito */}
       <motion.div 
         className="bg-blue-50 border border-blue-200 rounded-lg p-4"
         variants={itemVariants}
@@ -284,12 +285,14 @@ const ParticipationStats: React.FC = () => {
           <p><strong>Participación mínima:</strong> 100+ respuestas (Logrado: 127)</p>
           <p><strong>Apoyo mínimo:</strong> 70% a favor (Logrado: 78.7%)</p>
           <p><strong>Representatividad:</strong> Participación de todos los departamentos (Logrado)</p>
+          <p><strong>Encuesta propia:</strong> 108 participantes de 127 total (85%)</p>
+          <p><strong>Participación docente:</strong> 60% de 248 docentes invitados</p>
           <div className="text-xs text-blue-700 mt-3 bg-blue-100 p-2 rounded">
             <p><strong>Fuentes de los criterios:</strong></p>
             <ul className="list-disc list-inside mt-1 space-y-1">
-              <li>Estándares de consultas institucionales universitarias (Consejo Nacional de Educación Superior - CESU)</li>
+              <li>Estándares de consultas institucionales universitarias (CESU)</li>
               <li>Mejores prácticas de participación académica (UNESCO, 2019)</li>
-              <li>Protocolos de consulta democrática en instituciones de educación superior</li>
+              <li>Protocolos de consulta democrática en educación superior</li>
             </ul>
           </div>
         </div>
