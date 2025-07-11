@@ -4,7 +4,7 @@ import { MessageSquare, Eye, EyeOff, AlertTriangle, Heart, ThumbsUp, HelpCircle,
 
 const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
-  const [revealedComments, setRevealedComments] = useState<Set<number>>(new Set());
+  const [revealedComments, setRevealedComments] = useState<Set<number>>(() => new Set<number>());
 
   // Comentarios de apoyo COMPLETOS extraídos del documento PDF
   const supportiveComments = [
@@ -200,7 +200,10 @@ const Comments: React.FC = () => {
 
   const toggleCommentReveal = (commentId: number) => {
     setRevealedComments(prev => {
-      const newRevealed = new Set(prev);
+      // Ensure prev is always a Set
+      const currentSet = prev instanceof Set ? prev : new Set<number>();
+      const newRevealed = new Set(currentSet);
+      
       if (newRevealed.has(commentId)) {
         newRevealed.delete(commentId);
       } else {
