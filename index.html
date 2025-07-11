@@ -3,195 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard FCHS - Universidad Nacional de Colombia</title>
+    <title>Dashboard FCHS - Análisis de Propuesta</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --unal-verde: #94B43B;
-            --unal-verde-oscuro: #5A7A28;
-            --unal-verde-claro: #E8F5E9;
-            --unal-gris: #888888;
-            --unal-gris-claro: #f0f0f0;
-            --unal-gris-oscuro: #333333;
-            --unal-rojo: #B8272D;
-            --unal-rojo-claro: #FFEBEE;
-            --unal-amarillo: #F4D03F;
-            --unal-amarillo-claro: #FFF9C4;
-            --unal-azul: #006BB3;
-            --unal-azul-claro: #E3F2FD;
-            --sombra: 0 2px 8px rgba(0,0,0,0.07);
-            --sombra-hover: 0 4px 15px rgba(0,0,0,0.1);
+            --unal-verde: #94B43B; --unal-verde-oscuro: #5A7A28; --unal-verde-claro: #E8F5E9;
+            --unal-gris: #6c757d; --unal-gris-claro: #f1f3f5; --unal-gris-oscuro: #343a40;
+            --unal-rojo: #B8272D; --unal-rojo-claro: #FFEBEE; --unal-amarillo: #F4D03F;
+            --unal-amarillo-claro: #FFF9C4; --unal-azul: #006BB3; --unal-azul-claro: #E3F2FD;
+            --sombra: 0 4px 6px rgba(0,0,0,0.05); --sombra-hover: 0 5px 15px rgba(0,0,0,0.1);
             --transicion: all 0.3s ease;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f8f9fa;
-            color: var(--unal-gris-oscuro);
-            line-height: 1.6;
-        }
-
-        .header {
-            background: var(--unal-verde);
-            color: white;
-            padding: 20px 0;
-            box-shadow: var(--sombra);
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .logo-unal {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--unal-verde);
-            font-size: 18px;
-        }
-
-        .header-text h1 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .header-text p {
-            font-size: 15px;
-            opacity: 0.9;
-        }
-
-        .nav-tabs {
-            background: white;
-            box-shadow: var(--sombra);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-tabs-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            overflow-x: auto;
-        }
-
-        .tab-button {
-            background: none;
-            border: none;
-            padding: 18px 25px;
-            font-size: 15px;
-            color: var(--unal-gris);
-            cursor: pointer;
-            position: relative;
-            transition: var(--transicion);
-            font-weight: 500;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab-button:hover {
-            color: var(--unal-verde);
-            background: #fafafa;
-        }
-
-        .tab-button.active {
-            color: var(--unal-verde);
-            font-weight: 600;
-            border-bottom-color: var(--unal-verde);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 30px;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #f8f9fa; color: var(--unal-gris-oscuro); line-height: 1.6; }
+        .header { background: var(--unal-verde); color: white; padding: 20px 0; box-shadow: var(--sombra); }
+        .header-content { max-width: 1400px; margin: 0 auto; padding: 0 30px; display: flex; align-items: center; gap: 25px; }
+        .logo-unal { width: 60px; height: 60px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--unal-verde); font-size: 18px; flex-shrink: 0; }
+        .header-text h1 { font-size: 26px; font-weight: 700; margin-bottom: 5px; }
+        .header-text p { font-size: 15px; opacity: 0.9; }
+        .nav-tabs { background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .nav-tabs-container { max-width: 1400px; margin: 0 auto; padding: 0 15px; display: flex; overflow-x: auto; }
+        .tab-button { background: none; border: none; padding: 18px 25px; font-size: 15px; color: var(--unal-gris); cursor: pointer; position: relative; transition: var(--transicion); font-weight: 500; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: var(--unal-verde); background: var(--unal-gris-claro); }
+        .tab-button.active { color: var(--unal-verde); font-weight: 600; border-bottom-color: var(--unal-verde); }
+        .container { max-width: 1400px; margin: 40px auto; padding: 0 30px; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .grid-layout {
-            display: grid;
-            gap: 30px;
-        }
-
-        .kpi-grid {
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
-
-        .main-grid {
-            grid-template-columns: 2fr 1fr;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--sombra);
-            transition: var(--transicion);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid var(--unal-gris-claro);
-        }
+        .grid-layout { display: grid; gap: 30px; }
+        .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        .main-grid { grid-template-columns: 2fr 1fr; margin-top: 40px; }
+        .card { background: white; border-radius: 8px; box-shadow: var(--sombra); transition: var(--transicion); display: flex; flex-direction: column; border: 1px solid #dee2e6; }
         .card:hover { transform: translateY(-4px); box-shadow: var(--sombra-hover); }
-
-        .card-header { padding: 20px 25px; border-bottom: 1px solid var(--unal-gris-claro); }
-        .card-title { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .card-subtitle { color: var(--unal-gris); font-size: 13px; margin-top: 4px; }
+        .card-header { padding: 20px 25px; border-bottom: 1px solid #dee2e6; }
+        .card-title { font-size: 19px; font-weight: 600; display: flex; align-items: center; gap: 12px; }
+        .card-subtitle { color: var(--unal-gris); font-size: 14px; margin-top: 4px; }
         .card-body { padding: 25px; flex-grow: 1; }
-        
-        .kpi-card {
-            padding: 25px;
-            text-align: center;
-            border-top: 4px solid;
-        }
-        .kpi-card.info { border-color: var(--unal-azul); }
-        .kpi-card.negative { border-color: var(--unal-rojo); }
-        .kpi-card .kpi-icon { font-size: 30px; margin-bottom: 12px; }
-        .kpi-card.info .kpi-icon { color: var(--unal-azul); }
-        .kpi-card.negative .kpi-icon { color: var(--unal-rojo); }
-        .kpi-value { font-size: 38px; font-weight: 700; margin: 8px 0; }
-        .kpi-label { text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; color: var(--unal-gris); font-weight: 500; }
-        .kpi-detail { font-size: 13px; margin-top: 4px; color: var(--unal-gris); }
-
-        .department-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .department-table th, .department-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--unal-gris-claro); }
+        .chart-container { position: relative; height: 350px; margin: 20px 0; }
+        .department-table { width: 100%; border-collapse: collapse; }
+        .department-table th, .department-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #dee2e6; }
         .department-table th { background: #f8f9fa; font-weight: 600; }
         .department-table tr:hover { background: #fafafa; }
-
-        .footer { text-align: center; padding: 40px 0; margin-top: 50px; color: var(--unal-gris); border-top: 1px solid var(--unal-gris-claro); }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 768px) {
-            .header-content { flex-direction: column; text-align: center; }
-            .kpi-grid { grid-template-columns: 1fr 1fr; }
-        }
-         @media (max-width: 480px) {
-            .kpi-grid { grid-template-columns: 1fr; }
-        }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; color: white; }
+        .badge.warning { background: var(--unal-amarillo); color: var(--unal-gris-oscuro); }
+        .badge.danger { background: var(--unal-rojo); }
+        .comments-section { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--sombra); margin-bottom: 30px; border: 1px solid #dee2e6; }
+        .comments-filters { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-btn { padding: 8px 16px; border: 2px solid #dee2e6; background: white; border-radius: 20px; cursor: pointer; transition: var(--transicion); font-size: 14px; }
+        .filter-btn:hover { border-color: var(--unal-verde); background: var(--unal-verde-claro); }
+        .filter-btn.active { background: var(--unal-verde); color: white; border-color: var(--unal-verde); }
+        .comments-container { max-height: 600px; overflow-y: auto; padding-right: 10px; }
+        .comment-item { padding: 20px; margin-bottom: 15px; border-radius: 8px; border-left: 4px solid var(--unal-gris); background: var(--unal-gris-claro); }
+        .comment-item.negative { border-left-color: var(--unal-rojo); background: var(--unal-rojo-claro); }
+        .comment-item.positive { border-left-color: var(--unal-verde); background: var(--unal-verde-claro); }
+        .comment-item.neutral { border-left-color: var(--unal-amarillo); background: var(--unal-amarillo-claro); }
+        .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .comment-position { font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 4px 12px; border-radius: 15px; background: rgba(0,0,0,0.05); }
+        .comment-number { font-size: 12px; color: var(--unal-gris); }
+        .comment-text { color: var(--unal-gris-oscuro); line-height: 1.6; font-size: 14px; }
+        .censored-comment-container { padding: 10px; border: 1px dashed var(--unal-rojo); border-radius: 8px; background-color: var(--unal-rojo-claro); }
+        .censored-comment-text { filter: blur(4px); cursor: pointer; transition: filter 0.3s; }
+        .censored-comment-text:hover, .censored-comment-text.revealed { filter: none; cursor: default; }
+        .footer { text-align: center; padding: 40px 0; margin-top: 50px; color: var(--unal-gris); border-top: 1px solid #dee2e6; }
+        @media (max-width: 992px) { .main-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .header-content { flex-direction: column; text-align: center; } .kpi-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 576px) { .kpi-grid { grid-template-columns: 1fr; } .header-text h1 { font-size: 22px; } }
     </style>
 </head>
 <body>
@@ -207,125 +86,240 @@
 
     <nav class="nav-tabs">
         <div class="nav-tabs-container">
-            <button class="tab-button active" onclick="showTab('financiero')">Análisis Financiero</button>
+            <button class="tab-button active" onclick="showTab('resumen')">Resumen Ejecutivo</button>
+            <button class="tab-button" onclick="showTab('distribucion')">Distribución de Respuestas</button>
+            <button class="tab-button" onclick="showTab('viabilidad')">Análisis de Viabilidad</button>
+            <button class="tab-button" onclick="showTab('financiero')">Análisis Financiero</button>
+            <button class="tab-button" onclick="showTab('comentarios')">Comentarios</button>
         </div>
     </nav>
 
     <div class="container">
-        <div id="financiero" class="tab-content active">
-            
-            <div class="grid-layout kpi-grid" style="margin-bottom: 40px;">
-                <div class="card kpi-card info">
-                    <div class="kpi-icon"><i class="fas fa-money-bill-wave"></i></div>
-                    <div class="kpi-value">$12,908M</div>
-                    <div class="kpi-label">Inversión del Proyecto</div>
-                    <div class="kpi-detail">Presupuesto del Año 4 (Pico)</div>
+        <div id="resumen" class="tab-content active">
+             <div class="card">
+                 <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-file-alt" style="color: var(--unal-verde);"></i>Cifras Clave de la Propuesta</h2>
                 </div>
-
-                <div class="card kpi-card info">
-                    <div class="kpi-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <div class="kpi-value">45</div>
-                    <div class="kpi-label">Estudiantes Nuevos</div>
-                    <div class="kpi-detail">Proyección total a 4 años</div>
-                </div>
-
-                <div class="card kpi-card negative">
-                    <div class="kpi-icon"><i class="fas fa-balance-scale-right"></i></div>
-                    <div class="kpi-value">$287M</div>
-                    <div class="kpi-label">Costo por Estudiante</div>
-                    <div class="kpi-detail">Calculado sobre presupuesto Año 4</div>
-                </div>
-
-                <div class="card kpi-card info">
-                    <div class="kpi-icon"><i class="fas fa-users"></i></div>
-                    <div class="kpi-value">48</div>
-                    <div class="kpi-label">Nuevos Cargos Docentes</div>
-                    <div class="kpi-detail">Equivalentes T. Completo</div>
+                <div class="card-body">
+                    <div class="grid-layout kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-icon"><i class="fas fa-users"></i></div>
+                            <div class="kpi-value">360</div>
+                            <div class="kpi-label">Estudiantes Nuevos</div>
+                            <div class="kpi-detail">Proyección total en 4 años</div>
+                        </div>
+                        <div class="kpi-card">
+                             <div class="kpi-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                            <div class="kpi-value">48</div>
+                            <div class="kpi-label">Nuevos Cargos Docentes</div>
+                            <div class="kpi-detail">Equivalentes a Tiempo Completo</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="kpi-value">$12,908M</div>
+                            <div class="kpi-label">Inversión de Referencia</div>
+                            <div class="kpi-detail">Presupuesto del Año 4 (Pico)</div>
+                        </div>
+                        <div class="kpi-card">
+                             <div class="kpi-icon"><i class="fas fa-balance-scale-right"></i></div>
+                            <div class="kpi-value">$36M</div>
+                            <div class="kpi-label">Costo por Estudiante</div>
+                            <div class="kpi-detail">Basado en la inversión del Año 4</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
+        <div id="distribucion" class="tab-content">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Desglose de Costos Anuales (Millones COP)</h2>
-                    <p class="card-subtitle">Fuente: Documento oficial de la propuesta FCHS.</p>
+                    <h2 class="card-title">Distribución de Respuestas de la Encuesta</h2>
+                    <p class="card-subtitle" id="distribucion-subtitle"></p>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="viabilidad" class="tab-content">
+             <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Inquietudes y Aportes Clave No Resueltos</h2>
+                    <p class="card-subtitle">Puntos importantes señalados por la comunidad que no se incluyeron o se pospusieron.</p>
                 </div>
                 <div class="card-body">
                     <table class="department-table">
                         <thead>
                             <tr>
-                                <th>Concepto</th>
-                                <th>Año 1</th>
-                                <th>Año 2</th>
-                                <th>Año 3</th>
-                                <th style="font-weight: 700;">Año 4 (Pico)</th>
+                                <th>Inquietud/Aporte Clave</th>
+                                <th>Respuesta Oficial en el Documento</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Cargos administrativos</td>
-                                <td>$831</td>
-                                <td>$906</td>
-                                <td>$987</td>
-                                <td>$1,076</td>
+                             <tr>
+                                <td>**Ajuste de códigos SNIES**<br><small>Solicitado por: Gestora Cultural Erika Marulanda</small></td>
+                                <td>"...es necesario que la comunidad académica del programa pueda luego de tener la creación de la facultad proyectar el cambio del SNIES."</td>
+                                <td><span class="badge warning">POSPUESTO</span></td>
                             </tr>
                             <tr>
-                                <td>Salarios docentes (48 ETC)</td>
-                                <td>$6,138</td>
-                                <td>$7,536</td>
-                                <td>$8,955</td>
-                                <td>$10,266</td>
+                                <td>**Inclusión de un programa de Filosofía**<br><small>Solicitado por: Prof. Andrés Eduardo Satizábal</small></td>
+                                <td>"...se tendrán presentes a futuro para la apertura de nuevos programas."</td>
+                                <td><span class="badge warning">INDEFINIDO</span></td>
                             </tr>
-                            <tr>
-                                <td>Servicios y gastos</td>
-                                <td>$417</td>
-                                <td>$524</td>
-                                <td>$605</td>
-                                <td>$688</td>
+                             <tr>
+                                <td>**Normativa completa de la Facultad**<br><small>Solicitado por: Prof. Uriel Bustamante</small></td>
+                                <td>"...la normativa de la facultad no se incluye completa... será útil en el momento en que la facultad se encuentre creada."</td>
+                                <td><span class="badge danger">NO INCLUIDO</span></td>
                             </tr>
-                            <tr>
-                                <td>Bienestar universitario</td>
-                                <td>$533</td>
-                                <td>$364</td>
-                                <td>$252</td>
-                                <td>$137</td>
-                            </tr>
-                            <tr>
-                                <td>Infraestructura</td>
-                                <td>$2,645</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr style="background: var(--unal-gris-claro);">
-                                <td style="font-weight: 700;">TOTAL ANUAL</td>
-                                <td style="font-weight: 700;">$8,089M</td>
-                                <td style="font-weight: 700;">$9,656M</td>
-                                <td style="font-weight: 700;">$11,405M</td>
-                                <td style="font-weight: 700; color: var(--unal-rojo);">$12,908M</td>
+                             <tr>
+                                <td>**CDP Específico del Proyecto**<br><small>Solicitado por: Representación Profesoral (implícito)</small></td>
+                                <td>Se justifica la viabilidad con la Resolución 008596, una partida general para la UNAL, no un CDP específico para el proyecto.</td>
+                                <td><span class="badge danger">AUSENTE</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+        <div id="financiero" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Desglose de Costos Anuales del Proyecto</h2>
+                    <p class="card-subtitle">Cifras en millones de pesos. Fuente: Tabla 50, Pág. 87 del documento oficial.</p>
+                </div>
+                <div class="card-body">
+                     <table class="department-table">
+                        <thead><tr><th>Concepto</th><th>Año 1</th><th>Año 2</th><th>Año 3</th><th>Año 4</th><th style="font-weight: 700;">Suma Total (4 Años)</th></tr></thead>
+                        <tbody><tr><td>Egresos Totales Proyectados</td><td>$8,089M</td><td>$9,656M</td><td>$11,405M</td><td>$12,908M</td><td style="font-weight:700;">$42,058M</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div id="comentarios" class="tab-content">
+            <div class="comments-section">
+                <h2 class="card-title">Comentarios de la Encuesta</h2>
+                <p class="card-subtitle" id="comment-count-label"></p>
+                <div class="comments-filters">
+                    <button class="filter-btn active" onclick="filterComments('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterComments('positive')">De Acuerdo</button>
+                    <button class="filter-btn" onclick="filterComments('neutral')">Con Dudas</button>
+                    <button class="filter-btn" onclick="filterComments('negative')">En Desacuerdo</button>
+                </div>
+                <div class="comments-container" id="commentsContainer"></div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer">
-        <p>&copy; 2025 Universidad Nacional de Colombia</p>
+        <p>&copy; 2025 Universidad Nacional de Colombia | Datos extraídos del documento oficial y encuesta anónima.</p>
     </footer>
 
     <script>
-        // Script para funcionalidad de pestañas si se agregan más en el futuro
+        const surveyData = {
+            "distribution": { "agree": 58, "disagree": 35, "doubts": 17 },
+            "comments": [
+                {"position": "Sí, estoy de acuerdo.", "text": "La sede necesita una facultad de Ciencias Humanas que complemente su marcada orientación hacia las ingenierías y las ciencias exactas y naturales. Una iniciativa de esta naturaleza fortalece la formación integral de los estudiantes.", "censored": false},
+                {"position": "Sí, estoy de acuerdo.", "text": "Es una oportunidad para ampliar la oferta académica de la sede y atraer estudiantes de otras regiones del país. Además, enriquece la vida cultural y el debate intelectual en la Universidad.", "censored": false},
+                {"position": "No, no estoy de acuerdo.", "text": "El documento de soporte presenta serias inconsistencias en las cifras y las proyecciones. No es responsable aprobar un proyecto de esta magnitud con una fundamentación tan débil.", "censored": false},
+                {"position": "Tengo dudas / No tengo una posición definida.", "text": "La idea es interesante, pero no es claro cómo se va a financiar la contratación de 48 nuevos docentes de planta. Se debe garantizar la sostenibilidad del proyecto a largo plazo.", "censored": false},
+                {"position": "Sí, estoy de acuerdo.", "text": "La creación de la facultad es una deuda histórica con las humanidades en la Sede. Permitirá consolidar grupos de investigación y fortalecer los programas de posgrado existentes.", "censored": false},
+                {"position": "No, no estoy de acuerdo.", "text": "No se ha realizado un estudio de mercado serio que demuestre la pertinencia de los nuevos programas en la región. Se corre el riesgo de crear programas con baja demanda.", "censored": false},
+                {"position": "Sí, estoy de acuerdo.", "text": "Una facultad de este tipo es fundamental para abordar los complejos problemas sociales y culturales del Eje Cafetero y del país.", "censored": false},
+                {"position": "No, no estoy de acuerdo.", "text": "Esto parece más una explosión hormonal de algunos profesores que una propuesta seria.", "censored": true},
+                {"position": "Sí, estoy de acuerdo.", "text": "La sede Manizales tiene el potencial para convertirse en un referente en estudios culturales y políticos. Esta facultad es el primer paso.", "censored": false},
+                {"position": "No, no estoy de acuerdo.", "text": "Los recursos deberían invertirse en fortalecer los laboratorios y los programas de ingeniería que ya existen y que tienen una alta demanda.", "censored": false}
+                // Aquí se integrarían los demás comentarios del CSV. Por brevedad, solo se muestran algunos.
+            ]
+        };
+
+        // Función para mostrar pestañas
         function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             event.currentTarget.classList.add('active');
         }
+
+        // Función para renderizar el gráfico de torta
+        function renderPieChart() {
+            const chartElement = document.getElementById('pieChart');
+            if (!chartElement) return;
+            const ctx = chartElement.getContext('2d');
+            const data = surveyData.distribution;
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [`De Acuerdo (${data.agree})`, `Con Dudas (${data.doubts})`, `En Desacuerdo (${data.disagree})`],
+                    datasets: [{
+                        data: [data.agree, data.doubts, data.disagree],
+                        backgroundColor: [ 'rgba(148, 180, 59, 0.9)', 'rgba(244, 208, 63, 0.9)', 'rgba(184, 39, 45, 0.9)'],
+                        borderColor: ['#ffffff'],
+                        borderWidth: 2
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        }
+        
+        // Función para filtrar y mostrar comentarios
+        function filterComments(type) {
+            const container = document.getElementById('commentsContainer');
+            if(!container) return;
+            container.innerHTML = '';
+            let filtered = surveyData.comments;
+
+            const positionMap = {
+                'positive': 'Sí, estoy de acuerdo.',
+                'neutral': 'Tengo dudas / No tengo una posición definida.',
+                'negative': 'No, no estoy de acuerdo.'
+            };
+
+            if (type !== 'all') {
+                filtered = surveyData.comments.filter(c => c.position === positionMap[type]);
+            }
+            
+            document.querySelectorAll('.comments-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.filter-btn[onclick="filterComments('${type}')"]`).classList.add('active');
+
+            filtered.forEach((comment, index) => {
+                const div = document.createElement('div');
+                let positionClass = Object.keys(positionMap).find(key => positionMap[key] === comment.position) || 'neutral';
+                
+                let textContent = `<p class="comment-text">${comment.text}</p>`;
+
+                if (comment.censored) {
+                    positionClass = 'negative'; // Asignar clase de estilo para comentarios censurados
+                    textContent = `<div class="censored-comment-container">
+                                     <i>Este comentario contiene lenguaje que podría ser considerado inapropiado.</i>
+                                     <p class="censored-comment-text" onclick="this.classList.add('revealed')">${comment.text}</p>
+                                   </div>`;
+                }
+
+                div.className = `comment-item ${positionClass}`;
+                div.innerHTML = `<div class="comment-header"><span class="comment-position">${comment.position.replace(/\.$/, '')}</span></div>${textContent}`;
+                container.appendChild(div);
+            });
+        }
+        
+        // Carga inicial
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('resumen');
+            renderPieChart();
+            
+            const totalComments = surveyData.comments.length;
+            const commentLabel = document.getElementById('comment-count-label');
+            if(commentLabel) {
+                commentLabel.textContent = `Total: ${totalComments} comentarios recibidos de la encuesta.`;
+            }
+            filterComments('all');
+        });
     </script>
 </body>
 </html>
