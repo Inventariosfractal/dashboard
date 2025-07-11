@@ -20,7 +20,7 @@ const FinancialAnalysis: React.FC = () => {
   
   const costoPorEstudianteCuatroAnos = totalBudget * 1000000 / totalMatriculasCuatroAnos; // Costo por estudiante nuevo
   const costoAnualPorEstudiante = costoPorEstudianteCuatroAnos / 4; // Costo anual por estudiante
-  const costoPromedioIESPublica = 19000000; // Costo promedio anual IES pública: 10-28 millones/año
+  const costoPromedioIESPublica = 15000000; // Costo promedio anual IES pública: 15M/año
 
   const containerVariants = {
     hidden: { opacity: 0 },

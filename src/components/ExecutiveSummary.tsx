@@ -23,11 +23,17 @@ const ExecutiveSummary: React.FC = () => {
   const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 × 8 semestres = 360
   const totalEstudiantesPrograma = 180; // 45 estudiantes por año × 4 años = 180 simultáneos
   const costoTotalProyecto = 12908; // millones COP
-  const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // en pesos
-  const costoPromedioUniversidadPublica = 19000000; // Promedio 19M/año
+  const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // 35.9M en pesos
+  const costoAnualPorEstudiante = Math.round(costoPorEstudianteCuatroAnos / 4); // 8.97M por año
+  const costoPromedioUniversidadPublica = 15000000; // Promedio 15M/año IES públicas
   const docentesActualesDCH = 15;
   const totalDocentesUniversidad = 248;
-  const participacionDocente = 60; // 127/248 = 51% redondeado a 60%
+  const participacionDocente = 51; // 127/248 = 51.2%
+  
+  // DATOS ENCUESTA: 127 total (108 encuesta propia + 19 otras fuentes)
+  const totalRespuestas = 127;
+  const encuestaPropiaRespuestas = 108;
+  const otrasRespuestas = 19;
 
   return (
     <motion.section 
@@ -85,7 +91,7 @@ const ExecutiveSummary: React.FC = () => {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between items-center">
                 <span className="text-green-800">Total respuestas:</span>
-                <span className="font-semibold text-green-900">127</span>
+                <span className="font-semibold text-green-900">{totalRespuestas}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-green-800">Participación docente:</span>
@@ -97,7 +103,7 @@ const ExecutiveSummary: React.FC = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-green-800">Encuesta propia:</span>
-                <span className="font-semibold text-green-900">108 participantes</span>
+                <span className="font-semibold text-green-900">{encuestaPropiaRespuestas} participantes</span>
               </div>
             </div>
           </div>
@@ -113,7 +119,7 @@ const ExecutiveSummary: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Participación Total</p>
-              <p className="text-2xl font-bold text-gray-900">127</p>
+              <p className="text-2xl font-bold text-gray-900">{totalRespuestas}</p>
               <p className="text-xs text-gray-500">respuestas válidas</p>
             </div>
             <div className="p-3 bg-blue-100 rounded-full">
@@ -152,8 +158,8 @@ const ExecutiveSummary: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Costo/Estudiante</p>
-              <p className="text-2xl font-bold text-orange-600">${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)}M</p>
-              <p className="text-xs text-gray-500">4 años completos</p>
+              <p className="text-2xl font-bold text-orange-600">${(costoAnualPorEstudiante/1000000).toFixed(1)}M</p>
+              <p className="text-xs text-gray-500">por año</p>
             </div>
             <div className="p-3 bg-orange-100 rounded-full">
               <AlertTriangle className="w-6 h-6 text-orange-600" />
@@ -176,12 +182,12 @@ const ExecutiveSummary: React.FC = () => {
             </div>
             <div>
               <p className="text-purple-800"><strong>Costo anual por estudiante DCH:</strong></p>
-              <p className="text-xl font-bold text-purple-900">${(costoPorEstudianteCuatroAnos/4).toLocaleString()}</p>
+              <p className="text-xl font-bold text-purple-900">${costoAnualPorEstudiante.toLocaleString()}</p>
             </div>
           </div>
           <div className="mt-3 text-xs text-purple-700 bg-purple-100 p-2 rounded">
-            El costo por estudiante del DCH representa el {((costoPorEstudianteCuatroAnos/4) / costoPromedioUniversidadPublica * 100).toFixed(1)}% 
-            del rango promedio de IES públicas (10-28 millones/año)
+            El costo por estudiante del DCH (${(costoAnualPorEstudiante/1000000).toFixed(1)}M/año) representa el {(costoAnualPorEstudiante / costoPromedioUniversidadPublica * 100).toFixed(1)}% 
+            del promedio de IES públicas (${(costoPromedioUniversidadPublica/1000000).toFixed(0)}M/año)
           </div>
         </div>
       </motion.div>
@@ -197,9 +203,9 @@ const ExecutiveSummary: React.FC = () => {
             <li>• <strong>45 estudiantes nuevos por semestre:</strong> 15 por cada carrera (Ciencias Políticas, Filosofía, Gestión Cultural)</li>
             <li>• <strong>360 estudiantes nuevos en 4 años:</strong> 45 × 8 semestres</li>
             <li>• <strong>180 estudiantes simultáneos:</strong> En estado estable (45 por año × 4 años)</li>
-            <li>• <strong>108 participantes en encuesta propia:</strong> De 127 respuestas totales</li>
-            <li>• <strong>248 docentes invitados:</strong> 60% de participación (127 respuestas)</li>
-            <li>• <strong>Costo por estudiante nuevo:</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)}M en 4 años (${(costoPorEstudianteCuatroAnos/4/1000000).toFixed(1)}M/año)</li>
+            <li>• <strong>{encuestaPropiaRespuestas} participantes en encuesta propia:</strong> De {totalRespuestas} respuestas totales</li>
+            <li>• <strong>248 docentes invitados:</strong> {participacionDocente}% de participación ({totalRespuestas} respuestas)</li>
+            <li>• <strong>Costo por estudiante:</strong> ${(costoAnualPorEstudiante/1000000).toFixed(1)}M/año (${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)}M en 4 años)</li>
             <li>• <strong>78.7% apoyo a la propuesta:</strong> Nivel exitoso para procesos institucionales</li>
           </ul>
         </div>

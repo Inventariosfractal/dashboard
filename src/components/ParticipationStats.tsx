@@ -22,7 +22,7 @@ const ParticipationStats: React.FC = () => {
   // Datos de participación en consultas - ACTUALIZADO: 108 encuesta propia
   const consultationData = [
     { name: 'Encuesta Propia', value: 108, color: '#10B981', percentage: 85.0 },
-    { name: 'Otras Respuestas', value: 19, color: '#3B82F6', percentage: 15.0 }
+    { name: 'Otras Fuentes', value: 19, color: '#3B82F6', percentage: 15.0 }
   ];
 
   const COLORS = ['#10B981', '#EF4444', '#6B7280'];
