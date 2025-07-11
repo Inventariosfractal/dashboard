@@ -117,6 +117,61 @@ const FinancialAnalysis: React.FC = () => {
         </motion.div>
       </motion.div>
 
+      {/* Cálculo detallado del costo por estudiante */}
+      <motion.div 
+        variants={itemVariants}
+        className="bg-yellow-50 border border-yellow-200 rounded-lg p-6"
+      >
+        <h3 className="text-lg font-semibold text-yellow-900 mb-3 flex items-center gap-2">
+          <Info className="w-5 h-5" />
+          Cálculo Detallado del Costo por Estudiante
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <h4 className="font-semibold text-yellow-800">Datos Base:</h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span>Costo total del proyecto:</span>
+                <span className="font-semibold">${totalBudget.toLocaleString()} millones</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Estudiantes nuevos por semestre:</span>
+                <span className="font-semibold text-red-600">{matriculasPorSemestre}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Duración del programa:</span>
+                <span className="font-semibold">4 años (8 semestres)</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Total estudiantes nuevos en 4 años:</span>
+                <span className="font-semibold">{totalMatriculasCuatroAnos}</span>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-yellow-800">Cálculos:</h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span>Costo por estudiante (4 años):</span>
+                <span className="font-semibold">${costoPorEstudianteCuatroAnos.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Costo anual por estudiante:</span>
+                <span className="font-semibold">${costoAnualPorEstudiante.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Estudiantes simultáneos (estado estable):</span>
+                <span className="font-semibold">{totalEstudiantesPrograma}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-4 p-3 bg-yellow-100 rounded text-xs text-yellow-800">
+          <strong>Fórmula:</strong> Costo por estudiante = Costo total proyecto ÷ Total estudiantes nuevos en 4 años<br/>
+          <strong>Resultado:</strong> ${totalBudget.toLocaleString()}M ÷ {totalMatriculasCuatroAnos} = ${(costoPorEstudianteCuatroAnos/1000000).toFixed(2)}M por estudiante
+        </div>
+      </motion.div>
+
       {/* Comparación con universidades públicas */}
       <motion.div 
         variants={itemVariants}
@@ -206,8 +261,8 @@ const FinancialAnalysis: React.FC = () => {
         className="bg-red-50 border border-red-400 rounded-lg p-6"
         variants={itemVariants}
       >
-        <h3 className="text-lg font-semibold text-green-900 mb-2 flex items-center gap-2">
-          <Info className="w-5 h-5" />
+        <h3 className="text-lg font-semibold text-red-900 mb-2 flex items-center gap-2">
+          <AlertCircle className="w-5 h-5" />
           🚨 ACLARACIÓN CRÍTICA: 45 MATRÍCULAS NUEVAS POR SEMESTRE
         </h3>
         <div className="text-sm text-red-800 space-y-3 bg-red-100 p-4 rounded">

@@ -26,7 +26,7 @@ const ExecutiveSummary: React.FC = () => {
   const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // en pesos
   const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual en universidad pública colombiana
   const docentesActualesDCH = 15; // Corregido: 15 docentes actuales (no 17)
-  const totalDocentesPlantaFCHS = 248; // CORREGIDO: 248 docentes UNIVERSIDAD (no 146 DCH)
+  const totalDocentesUniversidad = 248; // CORREGIDO: 248 docentes UNIVERSIDAD (no 146 DCH)
 
   return (
     <motion.section 
@@ -66,14 +66,14 @@ const ExecutiveSummary: React.FC = () => {
                 <span className="font-semibold text-blue-900">{totalEstudiantesPrograma}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-blue-800">Total docentes planta FCHS:</span>
-                <span className="font-semibold text-blue-900">248 universidad</span>
+                <span className="text-blue-800">Total docentes universidad:</span>
+                <span className="font-semibold text-blue-900">{totalDocentesUniversidad}</span>
               </div>
               <div className="text-xs text-blue-700 bg-blue-100 p-2 rounded">
                 <strong>Distribución por carrera:</strong> 15 Ciencias Políticas + 15 Filosofía + 15 Gestión Cultural = {matriculasPorSemestre} nuevas matrículas/semestre
               </div>
               <div className="text-xs text-blue-700">
-                <strong>Nota:</strong> 248 son docentes de toda la universidad, no solo DCH
+                <strong>Nota:</strong> {totalDocentesUniversidad} son docentes de toda la universidad, no solo DCH
               </div>
             </div>
           </div>
