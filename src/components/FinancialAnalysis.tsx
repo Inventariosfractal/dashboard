@@ -13,14 +13,7 @@ const FinancialAnalysis: React.FC = () => {
 
   const totalBudget = 12908; // Costo real corregido
   const matriculasPorSemestre = 45; // ⚠️ CRÍTICO: 45 NUEVAS MATRÍCULAS POR SEMESTRE (15 por cada carrera)
-  const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 estudiantes nuevos por semestre × 8 semestres = 360 estudiantes nuevos en 4 años
-  
-  // Total de estudiantes en el programa en estado estable (4 años completos)
-  const totalEstudiantesPrograma = matriculasPorSemestre * 4; // 45 estudiantes por año × 4 años = 180 estudiantes totales
-  
-  const costoPorEstudianteCuatroAnos = totalBudget * 1000000 / totalMatriculasCuatroAnos; // Costo por estudiante nuevo
-  const costoAnualPorEstudiante = costoPorEstudianteCuatroAnos / 4; // Costo anual por estudiante
-  const costoPromedioIESPublica = 15000000; // Costo promedio anual IES pública: 15M/año
+  const costoPorEstudiante = Math.round(totalBudget / matriculasPorSemestre); // 287M por estudiante
 
   const containerVariants = {
     hidden: { opacity: 0 },

@@ -20,15 +20,11 @@ const ExecutiveSummary: React.FC = () => {
 
   // DATOS CORREGIDOS - 45 ESTUDIANTES POR SEMESTRE
   const matriculasPorSemestre = 45; // 15 por cada carrera
-  const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 × 8 semestres = 360
-  const totalEstudiantesPrograma = 180; // 45 estudiantes por año × 4 años = 180 simultáneos
   const costoTotalProyecto = 12908; // millones COP
-  const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // 35.9M en pesos
-  const costoAnualPorEstudiante = Math.round(costoPorEstudianteCuatroAnos / 4); // 8.97M por año
-  const costoPromedioUniversidadPublica = 15000000; // Promedio 15M/año IES públicas
+  const costoPorEstudiante = Math.round(costoTotalProyecto / matriculasPorSemestre); // 287M por estudiante
   const docentesActualesDCH = 15;
   const totalDocentesUniversidad = 248;
-  const participacionDocente = 51; // 127/248 = 51.2%
+  const participacionDocente = Math.round((127/248)*100); // 51%
   
   // DATOS ENCUESTA: 127 total (108 encuesta propia + 19 otras fuentes)
   const totalRespuestas = 127;
@@ -62,14 +58,6 @@ const ExecutiveSummary: React.FC = () => {
               <div className="flex justify-between items-center">
                 <span className="text-blue-800">Matrículas nuevas por semestre:</span>
                 <span className="font-semibold text-blue-900">{matriculasPorSemestre}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-blue-800">Total estudiantes nuevos en 4 años:</span>
-                <span className="font-semibold text-blue-900">{totalMatriculasCuatroAnos}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-blue-800">Estudiantes simultáneos (estado estable):</span>
-                <span className="font-semibold text-blue-900">{totalEstudiantesPrograma}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-blue-800">Total docentes universidad:</span>
@@ -131,9 +119,9 @@ const ExecutiveSummary: React.FC = () => {
         <div className="metric-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Estudiantes Nuevos 4 años</p>
-              <p className="text-2xl font-bold text-green-600">{totalMatriculasCuatroAnos}</p>
-              <p className="text-xs text-gray-500">total proyectado</p>
+              <p className="text-sm font-medium text-gray-600">Estudiantes por Semestre</p>
+              <p className="text-2xl font-bold text-green-600">{matriculasPorSemestre}</p>
+              <p className="text-xs text-gray-500">nuevas matrículas</p>
             </div>
             <div className="p-3 bg-green-100 rounded-full">
               <TrendingUp className="w-6 h-6 text-green-600" />
@@ -158,8 +146,8 @@ const ExecutiveSummary: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Costo/Estudiante</p>
-              <p className="text-2xl font-bold text-orange-600">${(costoAnualPorEstudiante/1000000).toFixed(1)}M</p>
-              <p className="text-xs text-gray-500">por año</p>
+              <p className="text-2xl font-bold text-orange-600">${costoPorEstudiante}M</p>
+              <p className="text-xs text-gray-500">por estudiante</p>
             </div>
             <div className="p-3 bg-orange-100 rounded-full">
               <AlertTriangle className="w-6 h-6 text-orange-600" />
@@ -168,44 +156,18 @@ const ExecutiveSummary: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Comparación con universidades públicas */}
-      <motion.div variants={itemVariants}>
-        <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-          <h3 className="text-lg font-semibold text-purple-900 mb-2 flex items-center gap-2">
-            <Info className="w-5 h-5" />
-            Comparación con Universidades Públicas Colombianas
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="text-purple-800"><strong>Costo promedio anual universidad pública:</strong></p>
-              <p className="text-xl font-bold text-purple-900">${costoPromedioUniversidadPublica.toLocaleString()}</p>
-            </div>
-            <div>
-              <p className="text-purple-800"><strong>Costo anual por estudiante DCH:</strong></p>
-              <p className="text-xl font-bold text-purple-900">${costoAnualPorEstudiante.toLocaleString()}</p>
-            </div>
-          </div>
-          <div className="mt-3 text-xs text-purple-700 bg-purple-100 p-2 rounded">
-            El costo por estudiante del DCH (${(costoAnualPorEstudiante/1000000).toFixed(1)}M/año) representa el {(costoAnualPorEstudiante / costoPromedioUniversidadPublica * 100).toFixed(1)}% 
-            del promedio de IES públicas (${(costoPromedioUniversidadPublica/1000000).toFixed(0)}M/año)
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Datos críticos actualizados */}
+      {/* Datos básicos corregidos */}
       <motion.div variants={itemVariants}>
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
           <h3 className="text-lg font-semibold text-green-900 mb-2 flex items-center gap-2">
             <CheckCircle className="w-5 h-5" />
-            ✅ DATOS ACTUALIZADOS CORRECTAMENTE
+            ✅ DATOS BÁSICOS CORREGIDOS
           </h3>
           <ul className="text-sm text-green-800 space-y-1">
             <li>• <strong>45 estudiantes nuevos por semestre:</strong> 15 por cada carrera (Ciencias Políticas, Filosofía, Gestión Cultural)</li>
-            <li>• <strong>360 estudiantes nuevos en 4 años:</strong> 45 × 8 semestres</li>
-            <li>• <strong>180 estudiantes simultáneos:</strong> En estado estable (45 por año × 4 años)</li>
             <li>• <strong>{encuestaPropiaRespuestas} participantes en encuesta propia:</strong> De {totalRespuestas} respuestas totales</li>
             <li>• <strong>248 docentes invitados:</strong> {participacionDocente}% de participación ({totalRespuestas} respuestas)</li>
-            <li>• <strong>Costo por estudiante:</strong> ${(costoAnualPorEstudiante/1000000).toFixed(1)}M/año (${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)}M en 4 años)</li>
+            <li>• <strong>Costo por estudiante:</strong> ${costoPorEstudiante}M (${costoTotalProyecto}M ÷ {matriculasPorSemestre})</li>
             <li>• <strong>78.7% apoyo a la propuesta:</strong> Nivel exitoso para procesos institucionales</li>
           </ul>
         </div>
