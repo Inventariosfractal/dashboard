@@ -26,7 +26,7 @@ const ExecutiveSummary: React.FC = () => {
   const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // en pesos
   const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual en universidad pública colombiana
   const docentesActualesDCH = 15; // Corregido: 15 docentes actuales (no 17)
-  const totalDocentesPlantaFCHS = 248;
+  const totalDocentesPlantaFCHS = 248; // Dato corregido: 248 docentes de planta
 
   return (
     <motion.section 

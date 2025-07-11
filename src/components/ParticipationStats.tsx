@@ -19,7 +19,14 @@ const ParticipationStats: React.FC = () => {
     { name: 'Neutral/Sin respuesta', value: 12, color: '#6B7280', percentage: 9.4 }
   ];
 
+  // Datos de participación en consultas
+  const consultationData = [
+    { name: 'Consulta Oficial', value: 33, color: '#3B82F6', percentage: 23.4 },
+    { name: 'Consulta Independiente', value: 108, color: '#10B981', percentage: 76.6 }
+  ];
+
   const COLORS = ['#10B981', '#EF4444', '#6B7280'];
+  const CONSULTATION_COLORS = ['#3B82F6', '#10B981'];
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -129,7 +136,7 @@ const ParticipationStats: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Gráfico de participación por departamento */}
         <motion.div 
           className="chart-container"
@@ -175,6 +182,49 @@ const ParticipationStats: React.FC = () => {
           </div>
         </motion.div>
 
+        {/* Gráfico de participación en consultas */}
+        <motion.div 
+          className="chart-container"
+          variants={itemVariants}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Participación por Tipo de Consulta
+          </h3>
+          <div className="h-64 sm:h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={consultationData}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label={({ name, percentage }) => `${name}: ${percentage}%`}
+                  labelLine={false}
+                  className="hover:opacity-80 transition-opacity duration-200"
+                >
+                  {consultationData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={CONSULTATION_COLORS[index % CONSULTATION_COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  formatter={(value: number, name: string, props: any) => [
+                    `${value} respuestas (${props.payload.percentage}%)`, 
+                    'Cantidad'
+                  ]}
+                />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="mt-4 text-sm text-gray-600">
+            <p><strong>Total participantes:</strong> 141 (33 + 108)</p>
+            <p>Nota: Algunos participaron en ambas consultas</p>
+          </div>
+        </motion.div>
         {/* Gráfico de apoyo a la propuesta */}
         <motion.div 
           className="chart-container"

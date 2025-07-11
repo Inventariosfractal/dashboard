@@ -13,12 +13,13 @@ const FinancialAnalysis: React.FC = () => {
 
   const totalBudget = 12908; // Costo real corregido
   const matriculasPorSemestre = 45; // 15 por cada carrera
-  const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 por semestre x 8 semestres = 360
+  const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 360 estudiantes nuevos en 4 años
   
-  // CORRECCIÓN: Total de estudiantes en el programa en estado estable (4 años completos)
+  // Total de estudiantes en el programa en estado estable (4 años completos)
   const totalEstudiantesPrograma = 180; // 45 estudiantes por año × 4 años = 180 estudiantes totales
   
-  const costoPorEstudianteCuatroAnos = totalBudget * 1000000 / totalMatriculasCuatroAnos;
+  const costoPorEstudianteCuatroAnos = totalBudget * 1000000 / totalMatriculasCuatroAnos; // Costo por estudiante nuevo
+  const costoAnualPorEstudiante = costoPorEstudianteCuatroAnos / 4; // Costo anual por estudiante
   const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual
 
   const containerVariants = {
@@ -105,9 +106,9 @@ const FinancialAnalysis: React.FC = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-purple-700">Estudiantes Totales</p>
+              <p className="text-sm font-medium text-purple-700">Estudiantes (Estado Estable)</p>
               <p className="text-3xl font-bold text-purple-900">{totalEstudiantesPrograma}</p>
-              <p className="text-xs text-purple-600">en estado estable</p>
+              <p className="text-xs text-purple-600">simultáneamente</p>
             </div>
             <div className="p-3 bg-purple-200 rounded-full">
               <TrendingUp className="w-6 h-6 text-purple-700" />
@@ -132,12 +133,12 @@ const FinancialAnalysis: React.FC = () => {
           </div>
           <div className="bg-white p-3 rounded border">
             <p className="text-sm text-indigo-700 mb-1">Costo anual por estudiante DCH:</p>
-            <p className="text-xl font-bold text-indigo-900">${(costoPorEstudianteCuatroAnos/4).toLocaleString()}</p>
+            <p className="text-xl font-bold text-indigo-900">${costoAnualPorEstudiante.toLocaleString()}</p>
           </div>
         </div>
         <div className="mt-3 text-xs text-indigo-700 bg-indigo-100 p-2 rounded">
-          <strong>Análisis:</strong> El costo por estudiante del DCH representa el {((costoPorEstudianteCuatroAnos/4) / costoPromedioUniversidadPublica * 100).toFixed(1)}% 
-          del promedio nacional, lo que indica una inversión {(costoPorEstudianteCuatroAnos/4) > costoPromedioUniversidadPublica ? 'superior' : 'competitiva'} 
+          <strong>Análisis:</strong> El costo por estudiante del DCH representa el {(costoAnualPorEstudiante / costoPromedioUniversidadPublica * 100).toFixed(1)}% 
+          del promedio nacional, lo que indica una inversión {costoAnualPorEstudiante > costoPromedioUniversidadPublica ? 'superior' : 'competitiva'} 
           en educación superior.
         </div>
       </motion.div>
@@ -211,13 +212,13 @@ const FinancialAnalysis: React.FC = () => {
         </h3>
         <div className="text-sm text-green-800 space-y-2">
           <p><strong>Matrículas nuevas por semestre:</strong> {matriculasPorSemestre} (15 por cada carrera)</p>
-          <p><strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos} estudiantes</p>
+          <p><strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos} estudiantes nuevos</p>
           <p><strong>Total estudiantes en el programa (estado estable):</strong> {totalEstudiantesPrograma} estudiantes</p>
           <p><strong>Costo por estudiante nuevo (4 años):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</p>
-          <p><strong>Costo anual por estudiante:</strong> ${(costoPorEstudianteCuatroAnos/4).toLocaleString()} COP</p>
+          <p><strong>Costo anual por estudiante:</strong> ${costoAnualPorEstudiante.toLocaleString()} COP</p>
         </div>
         <div className="mt-3 text-xs text-green-700 bg-green-100 p-2 rounded">
-          <strong>Aclaración:</strong> El cálculo se basa en el costo total del proyecto dividido entre los estudiantes nuevos que ingresan en 4 años. 
+          <strong>Aclaración importante:</strong> 45 son estudiantes NUEVOS por semestre. En 4 años ingresan {totalMatriculasCuatroAnos} estudiantes nuevos. 
           En estado estable, el programa tendrá {totalEstudiantesPrograma} estudiantes simultáneamente (45 por cada año académico).
         </div>
       </motion.div>
