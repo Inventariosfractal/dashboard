@@ -26,7 +26,7 @@ const ExecutiveSummary: React.FC = () => {
   const costoPorEstudianteCuatroAnos = Math.round(costoTotalProyecto / totalMatriculasCuatroAnos * 1000000); // en pesos
   const costoPromedioUniversidadPublica = 2500000; // Costo promedio anual en universidad pública colombiana
   const docentesActualesDCH = 15; // Corregido: 15 docentes actuales (no 17)
-  const totalDocentesPlantaFCHS = 248; // CORREGIDO: 248 docentes de planta FCHS (no 146)
+  const totalDocentesPlantaFCHS = 248; // CORREGIDO: 248 docentes UNIVERSIDAD (no 146 DCH)
 
   return (
     <motion.section 
@@ -67,13 +67,13 @@ const ExecutiveSummary: React.FC = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-blue-800">Total docentes planta FCHS:</span>
-                <span className="font-semibold text-blue-900">248 profesores</span>
+                <span className="font-semibold text-blue-900">248 universidad</span>
               </div>
               <div className="text-xs text-blue-700 bg-blue-100 p-2 rounded">
                 <strong>Distribución por carrera:</strong> 15 Ciencias Políticas + 15 Filosofía + 15 Gestión Cultural = {matriculasPorSemestre} nuevas matrículas/semestre
               </div>
               <div className="text-xs text-blue-700">
-                <strong>Nota:</strong> 3 profesores fueron trasladados a otros programas (de 18 a {docentesActualesDCH})
+                <strong>Nota:</strong> 248 son docentes de toda la universidad, no solo DCH
               </div>
             </div>
           </div>
@@ -199,12 +199,12 @@ const ExecutiveSummary: React.FC = () => {
           <ul className="text-sm text-amber-800 space-y-1">
             <li>• <strong>Gestión Cultural SÍ genera matrículas nuevas:</strong> 15 por semestre</li>
             <li>• <strong>Docentes DCH actuales:</strong> {docentesActualesDCH} (reducción de 18 a {docentesActualesDCH} por traslados)</li>
-            <li>• <strong>Total docentes planta FCHS:</strong> 248 (NO 146)</li>
+            <li>• <strong>Total docentes universidad:</strong> 248 (NO 146 DCH)</li>
             <li>• <strong>Matrículas nuevas por semestre:</strong> {matriculasPorSemestre} (15 por cada carrera)</li>
             <li>• <strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos}</li>
             <li>• <strong>Total estudiantes en el programa (estado estable):</strong> {totalEstudiantesPrograma}</li>
             <li>• <strong>Costo por estudiante nuevo en 4 años:</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</li>
-            <li>• <strong>Consulta independiente:</strong> 108 participantes (NO 94)</li>
+            <li>• <strong>Consulta independiente:</strong> 108 participantes</li>
           </ul>
         </div>
       </motion.div>

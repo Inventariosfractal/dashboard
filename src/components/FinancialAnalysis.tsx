@@ -12,7 +12,7 @@ const FinancialAnalysis: React.FC = () => {
   ];
 
   const totalBudget = 12908; // Costo real corregido
-  const matriculasPorSemestre = 45; // 15 por cada carrera (NUEVAS MATRÍCULAS)
+  const matriculasPorSemestre = 45; // ⚠️ CRÍTICO: 45 NUEVAS MATRÍCULAS POR SEMESTRE (15 por cada carrera)
   const totalMatriculasCuatroAnos = matriculasPorSemestre * 8; // 45 estudiantes nuevos por semestre × 8 semestres = 360 estudiantes nuevos en 4 años
   
   // Total de estudiantes en el programa en estado estable (4 años completos)
@@ -106,9 +106,9 @@ const FinancialAnalysis: React.FC = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-purple-700">Estudiantes (Estado Estable)</p>
+              <p className="text-sm font-medium text-purple-700">⚠️ Estudiantes Simultáneos</p>
               <p className="text-3xl font-bold text-purple-900">{totalEstudiantesPrograma}</p>
-              <p className="text-xs text-purple-600">simultáneamente</p>
+              <p className="text-xs text-purple-600">estado estable</p>
             </div>
             <div className="p-3 bg-purple-200 rounded-full">
               <TrendingUp className="w-6 h-6 text-purple-700" />
@@ -203,23 +203,36 @@ const FinancialAnalysis: React.FC = () => {
 
       {/* Detalles adicionales corregidos */}
       <motion.div 
-        className="bg-green-50 border border-green-200 rounded-lg p-4"
+        className="bg-red-50 border border-red-400 rounded-lg p-6"
         variants={itemVariants}
       >
         <h3 className="text-lg font-semibold text-green-900 mb-2 flex items-center gap-2">
           <Info className="w-5 h-5" />
-          ACLARACIÓN CRÍTICA: 45 MATRÍCULAS NUEVAS POR SEMESTRE
+          🚨 ACLARACIÓN CRÍTICA: 45 MATRÍCULAS NUEVAS POR SEMESTRE
         </h3>
-        <div className="text-sm text-green-800 space-y-2">
-          <p><strong>IMPORTANTE:</strong> 45 son estudiantes NUEVOS por semestre (no el total de estudiantes)</p>
-          <p><strong>Estudiantes nuevos por semestre:</strong> 45 (15 Ciencias Políticas + 15 Filosofía + 15 Gestión Cultural)</p>
-          <p><strong>Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos} (45 × 8 semestres)</p>
-          <p><strong>Total estudiantes en el programa (estado estable):</strong> 180 estudiantes simultáneamente</p>
-          <p><strong>Costo por estudiante nuevo (4 años completos):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)} millones COP</p>
-          <p><strong>Costo anual por estudiante:</strong> ${costoAnualPorEstudiante.toLocaleString()} COP</p>
+        <div className="text-sm text-red-800 space-y-3 bg-red-100 p-4 rounded">
+          <p className="text-lg font-bold">⚠️ IMPORTANTE: 45 son estudiantes NUEVOS por semestre (NO el total)</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p><strong>🎓 Estudiantes nuevos por semestre:</strong> 45</p>
+              <p className="text-xs">(15 Ciencias Políticas + 15 Filosofía + 15 Gestión Cultural)</p>
+            </div>
+            <div>
+              <p><strong>📊 Total estudiantes nuevos en 4 años:</strong> {totalMatriculasCuatroAnos}</p>
+              <p className="text-xs">(45 × 8 semestres)</p>
+            </div>
+            <div>
+              <p><strong>🏫 Estudiantes simultáneos (estado estable):</strong> 180</p>
+              <p className="text-xs">(45 por año × 4 años)</p>
+            </div>
+            <div>
+              <p><strong>💰 Costo por estudiante nuevo (4 años):</strong> ${(costoPorEstudianteCuatroAnos/1000000).toFixed(1)}M</p>
+              <p className="text-xs">Costo anual: ${costoAnualPorEstudiante.toLocaleString()}</p>
+            </div>
+          </div>
         </div>
-        <div className="mt-3 text-xs text-green-700 bg-green-100 p-2 rounded">
-          <strong>CRÍTICO:</strong> No confundir estudiantes nuevos por semestre (45) con total de estudiantes en el programa. 
+        <div className="mt-3 text-xs text-red-700 bg-red-200 p-3 rounded font-bold">
+          🚨 CRÍTICO: No confundir estudiantes nuevos por semestre (45) con total de estudiantes en el programa. 
           En estado estable habrá 180 estudiantes simultáneamente: 45 de primer año + 45 de segundo año + 45 de tercer año + 45 de cuarto año.
         </div>
       </motion.div>

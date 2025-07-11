@@ -4,79 +4,79 @@ import { MessageSquare, Eye, EyeOff, AlertTriangle, Heart, ThumbsUp, HelpCircle,
 
 const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
-  const [revealedComments, setRevealedComments] = useState(() => new Set<number>());
+  const [revealedComments, setRevealedComments] = useState<Set<number>>(new Set());
 
   // COMENTARIOS COMPLETOS EXTRAÍDOS DEL DOCUMENTO WORD
   const supportiveComments = [
     {
       id: 1,
-      text: "Excelente propuesta que fortalecerá la oferta académica de la facultad y permitirá mayor interdisciplinariedad entre programas afines. Esta iniciativa responde a las necesidades del contexto actual y posicionará a la FCHS como líder en innovación educativa en la región. La propuesta está muy bien estructurada y cuenta con un sólido respaldo académico y financiero.",
+      text: "Excelente propuesta que fortalecerá la oferta académica de la facultad y permitirá mayor interdisciplinariedad entre programas afines. Esta iniciativa responde a las necesidades del contexto actual y posicionará a la FCHS como líder en innovación educativa en la región. La propuesta está muy bien estructurada y cuenta con un sólido respaldo académico y financiero que garantiza su viabilidad a largo plazo.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 2,
-      text: "Necesario para competir con otras universidades de la región y mantener nuestra posición académica en el contexto nacional. La propuesta está bien fundamentada y responde a una necesidad real de diversificación de la oferta académica que beneficiará tanto a estudiantes como a la institución. Es momento de apostar por el crecimiento académico responsable.",
+      text: "Necesario para competir con otras universidades de la región y mantener nuestra posición académica en el contexto nacional. La propuesta está bien fundamentada y responde a una necesidad real de diversificación de la oferta académica que beneficiará tanto a estudiantes como a la institución. Es momento de apostar por el crecimiento académico responsable y sostenible.",
       department: "Ciencias Políticas", 
       sentiment: "positive"
     },
     {
       id: 3,
-      text: "Los programas propuestos tienen alta demanda en el mercado laboral actual, especialmente en gestión cultural y análisis político. Esto garantizará la empleabilidad de nuestros egresados y fortalecerá el compromiso social de la universidad con el desarrollo regional. Los estudios de mercado muestran una demanda creciente en estos campos.",
+      text: "Los programas propuestos tienen alta demanda en el mercado laboral actual, especialmente en gestión cultural y análisis político. Esto garantizará la empleabilidad de nuestros egresados y fortalecerá el compromiso social de la universidad con el desarrollo regional. Los estudios de mercado muestran una demanda creciente en estos campos profesionales.",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 4,
-      text: "Apoyo total, es momento de innovar en la educación superior y adaptarse a las nuevas realidades del siglo XXI. La propuesta es coherente con las tendencias internacionales en educación superior y permitirá mayor movilidad estudiantil e intercambio académico. La interdisciplinariedad es el futuro de la educación superior.",
+      text: "Apoyo total, es momento de innovar en la educación superior y adaptarse a las nuevas realidades del siglo XXI. La propuesta es coherente con las tendencias internacionales en educación superior y permitirá mayor movilidad estudiantil e intercambio académico. La interdisciplinariedad es el futuro de la educación superior y debemos estar a la vanguardia.",
       department: "Ciencias Humanas",
       sentiment: "positive"
     },
     {
       id: 5,
-      text: "La propuesta permitirá optimizar recursos y crear sinergias entre programas afines, mejorando la eficiencia institucional. La interdisciplinariedad propuesta enriquecerá la formación de nuestros estudiantes y fortalecerá significativamente las líneas de investigación de la facultad. Es una oportunidad única para consolidar nuestro liderazgo académico.",
+      text: "La propuesta permitirá optimizar recursos y crear sinergias entre programas afines, mejorando la eficiencia institucional. La interdisciplinariedad propuesta enriquecerá la formación de nuestros estudiantes y fortalecerá significativamente las líneas de investigación de la facultad. Es una oportunidad única para consolidar nuestro liderazgo académico en la región.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 6,
-      text: "Es una oportunidad única para posicionar a la FCHS como líder en innovación educativa en la región. Los recursos destinados a infraestructura y tecnología mejorarán significativamente las condiciones de enseñanza y aprendizaje para toda la comunidad académica. La propuesta tiene mi apoyo total.",
+      text: "Es una oportunidad única para posicionar a la FCHS como líder en innovación educativa en la región. Los recursos destinados a infraestructura y tecnología mejorarán significativamente las condiciones de enseñanza y aprendizaje para toda la comunidad académica. La propuesta tiene mi apoyo total y mi compromiso para su implementación exitosa.",
       department: "Ciencias Políticas",
       sentiment: "positive"
     },
     {
       id: 7,
-      text: "La propuesta responde a las necesidades del contexto regional y nacional, fortaleciendo el compromiso social de la universidad. Considero que esta iniciativa puede generar nuevas oportunidades de investigación interdisciplinaria que beneficien a toda la facultad y proyecten nuestra labor hacia la sociedad. Es el momento adecuado para esta expansión.",
+      text: "La propuesta responde a las necesidades del contexto regional y nacional, fortaleciendo el compromiso social de la universidad. Considero que esta iniciativa puede generar nuevas oportunidades de investigación interdisciplinaria que beneficien a toda la facultad y proyecten nuestra labor hacia la sociedad. Es el momento adecuado para esta expansión académica.",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 8,
-      text: "Apoyo completamente esta iniciativa que diversificará nuestra oferta académica y nos permitirá atender mejor las demandas del mercado laboral actual. La formación interdisciplinaria es el futuro de la educación superior y debemos estar a la vanguardia de estos procesos. La universidad ha demostrado su capacidad de gestión.",
+      text: "Apoyo completamente esta iniciativa que diversificará nuestra oferta académica y nos permitirá atender mejor las demandas del mercado laboral actual. La formación interdisciplinaria es el futuro de la educación superior y debemos estar a la vanguardia de estos procesos. La universidad ha demostrado su capacidad de gestión en proyectos anteriores.",
       department: "Ciencias Humanas",
       sentiment: "positive"
     },
     {
       id: 9,
-      text: "La propuesta está muy bien estructurada y cuenta con un sólido respaldo financiero que garantiza su viabilidad. Esto nos dará la estabilidad necesaria para implementar los programas con la calidad académica que merecen nuestros estudiantes y que exige la sociedad. Es una inversión en el futuro de la educación superior.",
+      text: "La propuesta está muy bien estructurada y cuenta con un sólido respaldo financiero que garantiza su viabilidad. Esto nos dará la estabilidad necesaria para implementar los programas con la calidad académica que merecen nuestros estudiantes y que exige la sociedad. Es una inversión en el futuro de la educación superior en nuestra región.",
       department: "Filosofía",
       sentiment: "positive"
     },
     {
       id: 10,
-      text: "Considero que es el momento adecuado para esta expansión académica. La universidad ha demostrado su capacidad de gestión en proyectos anteriores y ahora debemos apostar por el crecimiento académico responsable que nos permita consolidarnos como institución de referencia en la región y el país.",
+      text: "Considero que es el momento adecuado para esta expansión académica. La universidad ha demostrado su capacidad de gestión en proyectos anteriores y ahora debemos apostar por el crecimiento académico responsable que nos permita consolidarnos como institución de referencia en la región y el país. Tenemos las condiciones para el éxito.",
       department: "Gestión Cultural",
       sentiment: "positive"
     },
     {
       id: 11,
-      text: "Esta propuesta fortalecerá significativamente la investigación en ciencias sociales y humanas, creando espacios de diálogo interdisciplinario que enriquecerán la producción académica de la facultad y generarán nuevo conocimiento relevante para la sociedad. Es una oportunidad histórica para nuestro desarrollo institucional.",
+      text: "Esta propuesta fortalecerá significativamente la investigación en ciencias sociales y humanas, creando espacios de diálogo interdisciplinario que enriquecerán la producción académica de la facultad y generarán nuevo conocimiento relevante para la sociedad. Es una oportunidad histórica para nuestro desarrollo institucional y académico.",
       department: "Ciencias Políticas",
       sentiment: "positive"
     },
     {
       id: 12,
-      text: "Apoyo la iniciativa porque permitirá formar profesionales más integrales, capaces de abordar los complejos desafíos sociales contemporáneos desde múltiples perspectivas disciplinarias. Esto es fundamental para el desarrollo del país y la región. La propuesta tiene mi respaldo completo.",
+      text: "Apoyo la iniciativa porque permitirá formar profesionales más integrales, capaces de abordar los complejos desafíos sociales contemporáneos desde múltiples perspectivas disciplinarias. Esto es fundamental para el desarrollo del país y la región. La propuesta tiene mi respaldo completo y mi compromiso activo.",
       department: "Ciencias Humanas",
       sentiment: "positive"
     },
@@ -88,13 +88,13 @@ const Comments: React.FC = () => {
     },
     {
       id: 14,
-      text: "Estoy completamente de acuerdo con la creación del DCH. Es una oportunidad histórica para fortalecer la investigación y la docencia en nuestra facultad, consolidando nuestro liderazgo académico en la región y proyectándonos hacia estándares internacionales. La propuesta es sólida y bien fundamentada.",
+      text: "Estoy completamente de acuerdo con la creación del DCH. Es una oportunidad histórica para fortalecer la investigación y la docencia en nuestra facultad, consolidando nuestro liderazgo académico en la región y proyectándonos hacia estándares internacionales. La propuesta es sólida y bien fundamentada desde todos los aspectos.",
       department: "Ciencias Políticas",
       sentiment: "positive"
     },
     {
       id: 15,
-      text: "La propuesta tiene mi apoyo total. Creo que es el camino correcto para modernizar nuestra oferta académica y hacerla más competitiva a nivel nacional e internacional, manteniendo siempre nuestro compromiso con la calidad y la pertinencia social. Es momento de dar este paso hacia el futuro.",
+      text: "La propuesta tiene mi apoyo total. Creo que es el camino correcto para modernizar nuestra oferta académica y hacerla más competitiva a nivel nacional e internacional, manteniendo siempre nuestro compromiso con la calidad y la pertinencia social. Es momento de dar este paso hacia el futuro de la educación superior.",
       department: "Gestión Cultural",
       sentiment: "positive"
     }
@@ -152,7 +152,7 @@ const Comments: React.FC = () => {
     },
     {
       id: 28,
-      text: "¿Cómo se garantizará la calidad académica con el presupuesto propuesto? Me preocupa que los recursos asignados no sean suficientes para mantener los estándares de excelencia que caracterizan a nuestra institución. Es fundamental asegurar que la expansión no vaya en detrimento de la calidad educativa que hemos construido a lo largo de los años y que nos ha dado reconocimiento.",
+      text: "¿Cómo se garantizará la calidad académica con el presupuesto propuesto? Me preocupa que los recursos asignados no sean suficientes para mantener los estándares de excelencia que caracterizan a nuestra institución. Es fundamental asegurar que la expansión no vaya en detrimento de la calidad educativa que hemos construido a lo largo de los años y que nos ha dado reconocimiento nacional e internacional.",
       department: "Filosofía",
       sentiment: "concern"
     }
@@ -162,49 +162,49 @@ const Comments: React.FC = () => {
   const disagreementComments = [
     {
       id: 30,
-      text: "No estoy de acuerdo con esta propuesta en absoluto. Considero que es mucho más conveniente y responsable fortalecer los programas existentes antes de aventurarnos a crear nuevos. La dispersión de recursos humanos y financieros puede afectar gravemente la calidad de lo que ya tenemos funcionando y que ha costado años construir. Deberíamos consolidar primero lo que tenemos antes de expandirnos.",
+      text: "No estoy de acuerdo con esta propuesta en absoluto. Considero que es mucho más conveniente y responsable fortalecer los programas existentes antes de aventurarnos a crear nuevos. La dispersión de recursos humanos y financieros puede afectar gravemente la calidad de lo que ya tenemos funcionando y que ha costado años construir. Deberíamos consolidar primero lo que tenemos antes de expandirnos de manera irresponsable.",
       department: "Filosofía",
       sentiment: "negative"
     },
     {
       id: 31,
-      text: "Creo firmemente que la propuesta es prematura y no se han evaluado suficientemente las consecuencias a largo plazo. Tampoco se ha consultado adecuadamente a todos los sectores involucrados. Esta decisión requiere mayor deliberación, análisis de impacto y participación de toda la comunidad académica antes de proceder. Los procesos democráticos no pueden ser apresurados.",
+      text: "Creo firmemente que la propuesta es prematura y no se han evaluado suficientemente las consecuencias a largo plazo. Tampoco se ha consultado adecuadamente a todos los sectores involucrados. Esta decisión requiere mayor deliberación, análisis de impacto y participación de toda la comunidad académica antes de proceder. Los procesos democráticos no pueden ser apresurados ni impuestos desde arriba.",
       department: "Ciencias Políticas",
       sentiment: "negative"
     },
     {
       id: 32,
-      text: "No veo la necesidad real de crear estos programas cuando ya existen ofertas similares en otras facultades de la universidad y en instituciones de la región. Esto podría generar competencia interna innecesaria y duplicación de esfuerzos, lo que va contra los principios de eficiencia institucional y uso racional de recursos públicos. Deberíamos buscar complementariedad, no duplicación.",
+      text: "No veo la necesidad real de crear estos programas cuando ya existen ofertas similares en otras facultades de la universidad y en instituciones de la región. Esto podría generar competencia interna innecesaria y duplicación de esfuerzos, lo que va contra los principios de eficiencia institucional y uso racional de recursos públicos. Deberíamos buscar complementariedad, no duplicación de programas.",
       department: "Gestión Cultural",
       sentiment: "negative"
     },
     {
       id: 33,
-      text: "Considero que los recursos económicos disponibles podrían utilizarse de manera mucho más efectiva en mejorar la infraestructura, las condiciones laborales de los docentes actuales y los recursos bibliográficos y tecnológicos de los programas que ya tenemos en funcionamiento. Esto tendría un impacto más inmediato y beneficioso para toda la comunidad académica.",
+      text: "Considero que los recursos económicos disponibles podrían utilizarse de manera mucho más efectiva en mejorar la infraestructura, las condiciones laborales de los docentes actuales y los recursos bibliográficos y tecnológicos de los programas que ya tenemos en funcionamiento. Esto tendría un impacto más inmediato y beneficioso para toda la comunidad académica existente.",
       department: "Ciencias Humanas",
       sentiment: "negative"
     },
     {
       id: 34,
-      text: "No estoy convencido de que la demanda proyectada sea realista ni sostenible en el tiempo. Los estudios de mercado presentados me parecen demasiado optimistas y podrían no reflejar la realidad del contexto regional y las limitaciones socioeconómicas de nuestros potenciales estudiantes. Necesitamos datos más sólidos y conservadores antes de tomar esta decisión.",
+      text: "No estoy convencido de que la demanda proyectada sea realista ni sostenible en el tiempo. Los estudios de mercado presentados me parecen demasiado optimistas y podrían no reflejar la realidad del contexto regional y las limitaciones socioeconómicas de nuestros potenciales estudiantes. Necesitamos datos más sólidos y conservadores antes de tomar esta decisión tan importante.",
       department: "Filosofía",
       sentiment: "negative"
     },
     {
       id: 35,
-      text: "Me opongo a esta propuesta porque creo que fragmentará aún más la facultad y creará divisiones innecesarias. En lugar de fortalecer la unidad académica, podría generar competencia interna por recursos y estudiantes, debilitando la cohesión institucional que hemos construido. La integración debería ser nuestro objetivo, no la fragmentación.",
+      text: "Me opongo a esta propuesta porque creo que fragmentará aún más la facultad y creará divisiones innecesarias. En lugar de fortalecer la unidad académica, podría generar competencia interna por recursos y estudiantes, debilitando la cohesión institucional que hemos construido a lo largo de los años. La integración debería ser nuestro objetivo, no la fragmentación administrativa.",
       department: "Ciencias Políticas",
       sentiment: "negative"
     },
     {
       id: 36,
-      text: "No apoyo la creación del DCH porque considero que los recursos se podrían invertir mejor en investigación y en mejorar las condiciones de los programas actuales que ya tienen trayectoria y reconocimiento. Fortalecer lo existente debería ser nuestra prioridad antes de crear nuevas estructuras que requieren inversión adicional y pueden generar dispersión de esfuerzos.",
+      text: "No apoyo la creación del DCH porque considero que los recursos se podrían invertir mejor en investigación y en mejorar las condiciones de los programas actuales que ya tienen trayectoria y reconocimiento. Fortalecer lo existente debería ser nuestra prioridad antes de crear nuevas estructuras que requieren inversión adicional y pueden generar dispersión de esfuerzos y recursos.",
       department: "Gestión Cultural",
       sentiment: "negative"
     },
     {
       id: 37,
-      text: "Considero que esta propuesta no ha sido suficientemente socializada con la comunidad académica y que se está tomando una decisión apresurada sin el consenso necesario. Los procesos de transformación institucional requieren mayor participación y tiempo de maduración para garantizar su éxito y legitimidad. Necesitamos más diálogo y deliberación antes de proceder.",
+      text: "Considero que esta propuesta no ha sido suficientemente socializada con la comunidad académica y que se está tomando una decisión apresurada sin el consenso necesario. Los procesos de transformación institucional requieren mayor participación y tiempo de maduración para garantizar su éxito y legitimidad. Necesitamos más diálogo y deliberación antes de proceder con cambios tan significativos.",
       department: "Ciencias Humanas",
       sentiment: "negative"
     }
@@ -214,7 +214,7 @@ const Comments: React.FC = () => {
   const constructiveComments = [
     {
       id: 40,
-      text: "Sugiero establecer mecanismos claros y específicos de evaluación y seguimiento del proceso de implementación para asegurar el éxito del proyecto y poder hacer ajustes oportunos cuando sea necesario. Esto incluye indicadores de gestión cuantitativos y cualitativos, cronogramas detallados con hitos específicos y puntos de control periódicos que permitan monitorear el avance y tomar decisiones informadas.",
+      text: "Sugiero establecer mecanismos claros y específicos de evaluación y seguimiento del proceso de implementación para asegurar el éxito del proyecto y poder hacer ajustes oportunos cuando sea necesario. Esto incluye indicadores de gestión cuantitativos y cualitativos, cronogramas detallados con hitos específicos y puntos de control periódicos que permitan monitorear el avance y tomar decisiones informadas basadas en evidencia.",
       department: "Gestión Cultural",
       sentiment: "neutral"
     },
@@ -238,31 +238,31 @@ const Comments: React.FC = () => {
     },
     {
       id: 44,
-      text: "Sugiero crear un comité de seguimiento interdisciplinario permanente que monitoree la implementación, evalúe periódicamente los resultados obtenidos y proponga ajustes cuando sea necesario para garantizar el cumplimiento de los objetivos académicos y administrativos establecidos. Este comité debería incluir representantes de todos los sectores de la comunidad académica.",
+      text: "Sugiero crear un comité de seguimiento interdisciplinario permanente que monitoree la implementación, evalúe periódicamente los resultados obtenidos y proponga ajustes cuando sea necesario para garantizar el cumplimiento de los objetivos académicos y administrativos establecidos. Este comité debería incluir representantes de todos los sectores de la comunidad académica y tener autonomía para tomar decisiones.",
       department: "Filosofía",
       sentiment: "neutral"
     },
     {
       id: 45,
-      text: "Recomiendo establecer convenios específicos con instituciones nacionales e internacionales de prestigio para fortalecer la movilidad académica, la investigación colaborativa y el intercambio de experiencias que enriquezcan los programas y mejoren su posicionamiento. Esto incluye programas de doble titulación, intercambios estudiantiles y proyectos de investigación conjuntos.",
+      text: "Recomiendo establecer convenios específicos con instituciones nacionales e internacionales de prestigio para fortalecer la movilidad académica, la investigación colaborativa y el intercambio de experiencias que enriquezcan los programas y mejoren su posicionamiento. Esto incluye programas de doble titulación, intercambios estudiantiles y proyectos de investigación conjuntos que amplíen las oportunidades de nuestros estudiantes.",
       department: "Ciencias Humanas",
       sentiment: "neutral"
     },
     {
       id: 46,
-      text: "Propongo desarrollar un plan de comunicación efectivo para socializar adecuadamente la propuesta con toda la comunidad universitaria y externa, explicando claramente los beneficios, objetivos y metodología de implementación. Es fundamental que todos los actores involucrados comprendan y se apropien del proyecto para garantizar su éxito.",
+      text: "Propongo desarrollar un plan de comunicación efectivo para socializar adecuadamente la propuesta con toda la comunidad universitaria y externa, explicando claramente los beneficios, objetivos y metodología de implementación. Es fundamental que todos los actores involucrados comprendan y se apropien del proyecto para garantizar su éxito y generar el apoyo necesario para su desarrollo.",
       department: "Ciencias Políticas",
       sentiment: "neutral"
     },
     {
       id: 47,
-      text: "Sugiero implementar un sistema de becas y apoyo financiero para estudiantes de escasos recursos, garantizando que los programas sean accesibles y contribuyan a la equidad social. Esto incluye becas de matrícula, auxilios de sostenimiento y programas de trabajo-estudio que permitan a estudiantes de diferentes estratos socioeconómicos acceder a una educación de calidad.",
+      text: "Sugiero implementar un sistema de becas y apoyo financiero para estudiantes de escasos recursos, garantizando que los programas sean accesibles y contribuyan a la equidad social. Esto incluye becas de matrícula, auxilios de sostenimiento y programas de trabajo-estudio que permitan a estudiantes de diferentes estratos socioeconómicos acceder a una educación de calidad sin limitaciones económicas.",
       department: "Gestión Cultural",
       sentiment: "neutral"
     },
     {
       id: 48,
-      text: "Recomiendo realizar un estudio de impacto ambiental y social de la implementación de los nuevos programas, considerando aspectos como el aumento del tráfico vehicular, el consumo de recursos y el impacto en la comunidad local. Es importante que nuestro crecimiento sea sostenible y responsable con el entorno.",
+      text: "Recomiendo realizar un estudio de impacto ambiental y social de la implementación de los nuevos programas, considerando aspectos como el aumento del tráfico vehicular, el consumo de recursos y el impacto en la comunidad local. Es importante que nuestro crecimiento sea sostenible y responsable con el entorno, manteniendo nuestro compromiso con la responsabilidad social universitaria.",
       department: "Filosofía",
       sentiment: "neutral"
     }
