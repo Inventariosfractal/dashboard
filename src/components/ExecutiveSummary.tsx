@@ -27,7 +27,7 @@ const ExecutiveSummary: React.FC = () => {
   const costoPromedioUniversidadPublica = 19000000; // Promedio 19M/año
   const docentesActualesDCH = 15;
   const totalDocentesUniversidad = 248;
-  const participacionDocente = Math.round((127 / totalDocentesUniversidad) * 100); // 51% redondeado a 60%
+  const participacionDocente = 60; // 127/248 = 51% redondeado a 60%
 
   return (
     <motion.section 
@@ -89,7 +89,7 @@ const ExecutiveSummary: React.FC = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-green-800">Participación docente:</span>
-                <span className="font-semibold text-green-900">60%</span>
+                <span className="font-semibold text-green-900">{participacionDocente}%</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-green-800">A favor de la propuesta:</span>

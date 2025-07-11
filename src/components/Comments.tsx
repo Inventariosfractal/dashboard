@@ -18,7 +18,7 @@ const Comments: React.FC = () => {
     visible: { opacity: 1, y: 0 }
   };
 
-  // COMENTARIOS COMPLETOS SIN CENSURA
+  // COMENTARIOS COMPLETOS SIN CENSURA - TODOS VISIBLES
   const supportiveComments = [
     {
       id: 1,
