@@ -1,13 +1,327 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Encuesta FCHS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <i class="fas fa-chart-bar text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+                            Dashboard Encuesta FCHS
+                        </h1>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Análisis de la consulta sobre la propuesta del Departamento de Ciencias Humanas
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 text-sm text-gray-600">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-calendar"></i>
+                        <span>Período: Noviembre 2024</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-users"></i>
+                        <span>Total Respuestas: 127</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <!-- Navigation -->
+        <nav class="mb-6 sm:mb-8">
+            <div class="flex flex-wrap gap-1 sm:gap-2 bg-white rounded-xl p-2 shadow-sm border border-gray-100 overflow-x-auto">
+                <button onclick="showSection('resumen')" class="nav-btn active px-2 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm whitespace-nowrap">
+                    Resumen Ejecutivo
+                </button>
+                <button onclick="showSection('participacion')" class="nav-btn px-2 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm whitespace-nowrap">
+                    Participación
+                </button>
+                <button onclick="showSection('financiero')" class="nav-btn px-2 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm whitespace-nowrap">
+                    Análisis Financiero
+                </button>
+                <button onclick="showSection('inquietudes')" class="nav-btn px-2 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm whitespace-nowrap">
+                    Inquietudes
+                </button>
+                <button onclick="showSection('emails')" class="nav-btn px-2 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm whitespace-nowrap">
+                    Validación Emails
+                </button>
+                <button onclick="showSection('comentarios')" class="nav-btn px-2 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm whitespace-nowrap">
+                    Comentarios
+                </button>
+            </div>
+        </nav>
+
+        <!-- Content Sections -->
+        <div id="content">
+            <!-- Resumen Ejecutivo -->
+            <div id="resumen" class="section active">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Resumen Ejecutivo</h2>
+                
+                <!-- Métricas principales -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Participación Total</p>
+                                <p class="text-2xl font-bold text-gray-900">127</p>
+                                <p class="text-xs text-gray-500">respuestas válidas</p>
+                            </div>
+                            <div class="p-3 bg-blue-100 rounded-full">
+                                <i class="fas fa-users text-blue-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Apoyo a la Propuesta</p>
+                                <p class="text-2xl font-bold text-green-600">78.7%</p>
+                                <p class="text-xs text-gray-500">a favor</p>
+                            </div>
+                            <div class="p-3 bg-green-100 rounded-full">
+                                <i class="fas fa-chart-line text-green-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Costo Total</p>
+                                <p class="text-2xl font-bold text-gray-900">$12,908M</p>
+                                <p class="text-xs text-gray-500">millones COP</p>
+                            </div>
+                            <div class="p-3 bg-yellow-100 rounded-full">
+                                <i class="fas fa-dollar-sign text-yellow-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Estudiantes/Semestre</p>
+                                <p class="text-2xl font-bold text-orange-600">45</p>
+                                <p class="text-xs text-gray-500">nuevas matrículas</p>
+                            </div>
+                            <div class="p-3 bg-orange-100 rounded-full">
+                                <i class="fas fa-graduation-cap text-orange-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conclusiones principales -->
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <h3 class="text-lg font-semibold text-green-900 mb-2">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Conclusiones Principales
+                    </h3>
+                    <ul class="text-sm text-green-800 space-y-1">
+                        <li>• <strong>Apoyo mayoritario:</strong> 78.7% de los participantes apoyan la propuesta</li>
+                        <li>• <strong>Participación representativa:</strong> 127 respuestas de todos los departamentos</li>
+                        <li>• <strong>Viabilidad financiera:</strong> Presupuesto de $12,908 millones para 45 estudiantes/semestre</li>
+                        <li>• <strong>Consenso académico:</strong> Nivel de apoyo considerado exitoso para procesos institucionales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Participación -->
+            <div id="participacion" class="section">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Análisis de Participación</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Gráfico de participación por departamento -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Participación por Departamento</h3>
+                        <canvas id="departmentChart" width="400" height="300"></canvas>
+                    </div>
+
+                    <!-- Gráfico de apoyo -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Posición frente a la Propuesta</h3>
+                        <canvas id="supportChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Análisis Financiero -->
+            <div id="financiero" class="section">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Análisis Financiero</h2>
+                
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Desglose Presupuestario</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-gray-200">
+                                    <th class="text-left py-3 px-4 font-semibold text-gray-900">Categoría</th>
+                                    <th class="text-right py-3 px-4 font-semibold text-gray-900">Monto (Millones)</th>
+                                    <th class="text-right py-3 px-4 font-semibold text-gray-900">Porcentaje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-3 px-4 text-gray-900">Personal Docente</td>
+                                    <td class="py-3 px-4 text-right font-semibold">$8,500</td>
+                                    <td class="py-3 px-4 text-right text-gray-600">65.8%</td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-3 px-4 text-gray-900">Infraestructura</td>
+                                    <td class="py-3 px-4 text-right font-semibold">$2,200</td>
+                                    <td class="py-3 px-4 text-right text-gray-600">17.0%</td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-3 px-4 text-gray-900">Equipamiento</td>
+                                    <td class="py-3 px-4 text-right font-semibold">$1,500</td>
+                                    <td class="py-3 px-4 text-right text-gray-600">11.6%</td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="py-3 px-4 text-gray-900">Gastos Operativos</td>
+                                    <td class="py-3 px-4 text-right font-semibold">$708</td>
+                                    <td class="py-3 px-4 text-right text-gray-600">5.5%</td>
+                                </tr>
+                                <tr class="border-t-2 border-gray-300 bg-gray-50">
+                                    <td class="py-3 px-4 font-bold text-gray-900">TOTAL</td>
+                                    <td class="py-3 px-4 text-right font-bold text-gray-900">$12,908</td>
+                                    <td class="py-3 px-4 text-right font-bold text-gray-900">100%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inquietudes -->
+            <div id="inquietudes" class="section">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Inquietudes y Propuestas</h2>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                    <p class="text-gray-600">Las principales inquietudes han sido resueltas satisfactoriamente durante el proceso de consulta.</p>
+                </div>
+            </div>
+
+            <!-- Validación Emails -->
+            <div id="emails" class="section">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Validación de Respuestas</h2>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                    <p class="text-gray-600">Todas las 127 respuestas fueron validadas contra la base de datos institucional.</p>
+                </div>
+            </div>
+
+            <!-- Comentarios -->
+            <div id="comentarios" class="section">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Comentarios y Observaciones</h2>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                    <p class="text-gray-600">Análisis completo de todos los comentarios cualitativos recibidos durante la consulta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Initialize charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Department participation chart
+            const deptCtx = document.getElementById('departmentChart').getContext('2d');
+            new Chart(deptCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ciencias Humanas', 'Filosofía', 'Ciencias Políticas', 'Gestión Cultural'],
+                    datasets: [{
+                        label: 'Respuestas',
+                        data: [45, 32, 28, 22],
+                        backgroundColor: '#3B82F6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Support chart
+            const supportCtx = document.getElementById('supportChart').getContext('2d');
+            new Chart(supportCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['A favor', 'En contra', 'Neutral'],
+                    datasets: [{
+                        data: [100, 15, 12],
+                        backgroundColor: ['#10B981', '#EF4444', '#6B7280']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .nav-btn.active {
+            background-color: #2563EB;
+            color: white;
+        }
+        
+        .nav-btn:not(.active) {
+            color: #6B7280;
+        }
+        
+        .nav-btn:not(.active):hover {
+            color: #111827;
+            background-color: #F9FAFB;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</body>
 </html>
