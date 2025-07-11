@@ -4,7 +4,7 @@ import { MessageSquare, Eye, EyeOff, AlertTriangle, Heart, ThumbsUp } from 'luci
 
 const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
-  const [revealedComments, setRevealedComments] = useState<Set<number>>(new Set());
+  const [revealedComments, setRevealedComments] = useState<Set<number>>(() => new Set());
 
   // Comentarios completos extraídos del documento
   const supportiveComments = [
@@ -107,7 +107,7 @@ const Comments: React.FC = () => {
   const censoredComment = "Este comentario contenía expresiones despectivas hacia la administración universitaria y lenguaje inapropiado que no se ajusta a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo y respetuoso entre todos los participantes.";
 
   const toggleCommentReveal = (commentId: number) => {
-    const newRevealed = new Set(revealedComments);
+    const newRevealed = new Set(revealedComments || new Set());
     if (newRevealed.has(commentId)) {
       newRevealed.delete(commentId);
     } else {
