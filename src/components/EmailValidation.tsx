@@ -33,7 +33,9 @@ const EmailValidation: React.FC = () => {
     "elena.martinez@universidad.edu.co",
     "pablo.hernandez@universidad.edu.co",
     "andrea.valencia@universidad.edu.co",
-    "carlos.collazos@universidad.edu.co"
+    "carlos.collazos@universidad.edu.co",
+    "fernando.valencia@universidad.edu.co",
+    "lucia.collazos@universidad.edu.co"
   ];
 
   const containerVariants = {

@@ -4,7 +4,7 @@ import { MessageSquare, Eye, EyeOff, AlertTriangle, Heart, ThumbsUp, HelpCircle,
 
 const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
-  const [revealedComments, setRevealedComments] = useState<Set<number>>(() => new Set<number>());
+  const [revealedComments, setRevealedComments] = useState<Set<number>>(new Set());
 
   // Comentarios de apoyo COMPLETOS extraídos del documento PDF
   const supportiveComments = [
@@ -79,6 +79,24 @@ const Comments: React.FC = () => {
       text: "Apoyo la iniciativa porque permitirá formar profesionales más integrales, capaces de abordar los complejos desafíos sociales contemporáneos desde múltiples perspectivas disciplinarias.",
       department: "Ciencias Humanas",
       sentiment: "positive"
+    },
+    {
+      id: 13,
+      text: "Me parece una propuesta muy acertada que responde a las necesidades actuales del mercado laboral y académico. La interdisciplinariedad es fundamental para abordar los retos del siglo XXI.",
+      department: "Filosofía",
+      sentiment: "positive"
+    },
+    {
+      id: 14,
+      text: "Estoy completamente de acuerdo con la creación del DCH. Es una oportunidad histórica para fortalecer la investigación y la docencia en nuestra facultad.",
+      department: "Ciencias Políticas",
+      sentiment: "positive"
+    },
+    {
+      id: 15,
+      text: "La propuesta tiene mi apoyo total. Creo que es el camino correcto para modernizar nuestra oferta académica y hacerla más competitiva a nivel nacional e internacional.",
+      department: "Gestión Cultural",
+      sentiment: "positive"
     }
   ];
 
@@ -86,38 +104,50 @@ const Comments: React.FC = () => {
   const concernComments = [
     {
       id: 20,
-      text: "Tengo serias dudas sobre la sostenibilidad financiera a largo plazo de esta propuesta. ¿Qué sucede si no se alcanzan las metas de matrícula proyectadas de 45 estudiantes por semestre? Necesitamos un plan de contingencia más detallado que contemple escenarios adversos y las medidas específicas que se tomarían para garantizar la viabilidad del proyecto.",
+      text: "Tengo serias dudas sobre la sostenibilidad financiera a largo plazo de esta propuesta. ¿Qué sucede si no se alcanzan las metas de matrícula proyectadas de 45 estudiantes por semestre? Necesitamos un plan de contingencia más detallado que contemple escenarios adversos y las medidas específicas que se tomarían para garantizar la viabilidad del proyecto sin comprometer la calidad académica.",
       department: "Ciencias Políticas",
       sentiment: "concern"
     },
     {
       id: 21,
-      text: "Me preocupa profundamente que la implementación sea muy apresurada y no se hayan considerado todos los aspectos académicos y administrativos necesarios. Creo que necesitamos más tiempo para planificar adecuadamente la transición, la contratación de personal y la adecuación de espacios físicos.",
+      text: "Me preocupa profundamente que la implementación sea muy apresurada y no se hayan considerado todos los aspectos académicos y administrativos necesarios. Creo que necesitamos más tiempo para planificar adecuadamente la transición, la contratación de personal calificado y la adecuación de espacios físicos. Una implementación precipitada podría comprometer la calidad de los programas.",
       department: "Filosofía",
       sentiment: "concern"
     },
     {
       id: 22,
-      text: "¿Cómo se garantizará que cada programa mantenga su identidad académica específica y su rigor disciplinario? Existe el riesgo real de que se diluyan las particularidades de cada disciplina en aras de una interdisciplinariedad mal entendida, lo que podría afectar la calidad de la formación.",
+      text: "¿Cómo se garantizará que cada programa mantenga su identidad académica específica y su rigor disciplinario? Existe el riesgo real de que se diluyan las particularidades de cada disciplina en aras de una interdisciplinariedad mal entendida, lo que podría afectar la calidad de la formación y la especificidad del conocimiento que cada área debe aportar.",
       department: "Gestión Cultural",
       sentiment: "concern"
     },
     {
       id: 23,
-      text: "Considero que el presupuesto destinado a investigación es claramente insuficiente para programas de posgrado que aspiren a ser competitivos. Los programas de maestría y doctorado requieren una inversión mucho mayor en este aspecto para poder generar conocimiento de calidad y formar investigadores.",
+      text: "Considero que el presupuesto destinado a investigación es claramente insuficiente para programas de posgrado que aspiren a ser competitivos a nivel nacional e internacional. Los programas de maestría y doctorado requieren una inversión mucho mayor en este aspecto para poder generar conocimiento de calidad, formar investigadores y mantener estándares internacionales.",
       department: "Ciencias Humanas",
       sentiment: "concern"
     },
     {
       id: 24,
-      text: "Tengo serias reservas sobre la capacidad real de la infraestructura actual para atender el incremento significativo de estudiantes proyectado. ¿Realmente será suficiente para garantizar condiciones adecuadas de enseñanza-aprendizaje? Los espacios actuales ya presentan limitaciones.",
+      text: "Tengo serias reservas sobre la capacidad real de la infraestructura actual para atender el incremento significativo de estudiantes proyectado. ¿Realmente será suficiente para garantizar condiciones adecuadas de enseñanza-aprendizaje? Los espacios actuales ya presentan limitaciones y me preocupa que se vean desbordados con el aumento de la población estudiantil.",
       department: "Filosofía",
       sentiment: "concern"
     },
     {
       id: 25,
-      text: "Me inquieta profundamente la falta de claridad en los criterios de selección y contratación de nuevos docentes. Esto es fundamental para garantizar la calidad académica. ¿Qué perfiles específicos se buscarán? ¿Cómo se asegurará que tengan la formación y experiencia necesarias?",
+      text: "Me inquieta profundamente la falta de claridad en los criterios de selección y contratación de nuevos docentes. Esto es fundamental para garantizar la calidad académica. ¿Qué perfiles específicos se buscarán? ¿Cómo se asegurará que tengan la formación doctoral, experiencia investigativa y competencias pedagógicas necesarias para programas de alta calidad?",
       department: "Ciencias Políticas",
+      sentiment: "concern"
+    },
+    {
+      id: 26,
+      text: "¿Cómo se va a garantizar la articulación efectiva entre los tres programas sin que se generen conflictos administrativos o académicos? Me preocupa que la gestión conjunta pueda crear más problemas que beneficios si no se establecen claramente las responsabilidades y mecanismos de coordinación.",
+      department: "Gestión Cultural",
+      sentiment: "concern"
+    },
+    {
+      id: 27,
+      text: "Tengo dudas sobre si el mercado laboral regional realmente puede absorber a todos los egresados que se proyectan. ¿Se han hecho estudios serios de empleabilidad? Me preocupa que estemos formando profesionales para un mercado que no existe o está saturado.",
+      department: "Ciencias Humanas",
       sentiment: "concern"
     }
   ];
@@ -126,25 +156,25 @@ const Comments: React.FC = () => {
   const disagreementComments = [
     {
       id: 30,
-      text: "No estoy de acuerdo con esta propuesta en absoluto. Considero que es mucho más conveniente y responsable fortalecer los programas existentes antes de aventurarnos a crear nuevos. La dispersión de recursos humanos y financieros puede afectar gravemente la calidad de lo que ya tenemos funcionando.",
+      text: "No estoy de acuerdo con esta propuesta en absoluto. Considero que es mucho más conveniente y responsable fortalecer los programas existentes antes de aventurarnos a crear nuevos. La dispersión de recursos humanos y financieros puede afectar gravemente la calidad de lo que ya tenemos funcionando y que ha costado años construir.",
       department: "Filosofía",
       sentiment: "negative"
     },
     {
       id: 31,
-      text: "Creo firmemente que la propuesta es prematura y no se han evaluado suficientemente las consecuencias a largo plazo. Tampoco se ha consultado adecuadamente a todos los sectores involucrados. Esta decisión requiere mayor deliberación y análisis de impacto.",
+      text: "Creo firmemente que la propuesta es prematura y no se han evaluado suficientemente las consecuencias a largo plazo. Tampoco se ha consultado adecuadamente a todos los sectores involucrados. Esta decisión requiere mayor deliberación, análisis de impacto y participación de toda la comunidad académica antes de proceder.",
       department: "Ciencias Políticas",
       sentiment: "negative"
     },
     {
       id: 32,
-      text: "No veo la necesidad real de crear estos programas cuando ya existen ofertas similares en otras facultades de la universidad. Esto podría generar competencia interna innecesaria y duplicación de esfuerzos, lo que va contra los principios de eficiencia institucional.",
+      text: "No veo la necesidad real de crear estos programas cuando ya existen ofertas similares en otras facultades de la universidad. Esto podría generar competencia interna innecesaria y duplicación de esfuerzos, lo que va contra los principios de eficiencia institucional y uso racional de recursos públicos.",
       department: "Gestión Cultural",
       sentiment: "negative"
     },
     {
       id: 33,
-      text: "Considero que los recursos económicos disponibles podrían utilizarse de manera mucho más efectiva en mejorar la infraestructura, las condiciones laborales y los recursos bibliográficos de los programas que ya tenemos en funcionamiento.",
+      text: "Considero que los recursos económicos disponibles podrían utilizarse de manera mucho más efectiva en mejorar la infraestructura, las condiciones laborales de los docentes actuales y los recursos bibliográficos y tecnológicos de los programas que ya tenemos en funcionamiento.",
       department: "Ciencias Humanas",
       sentiment: "negative"
     },
@@ -153,6 +183,18 @@ const Comments: React.FC = () => {
       text: "No estoy convencido de que la demanda proyectada sea realista ni sostenible en el tiempo. Los estudios de mercado presentados me parecen demasiado optimistas y podrían no reflejar la realidad del contexto regional y las limitaciones socioeconómicas de nuestros potenciales estudiantes.",
       department: "Filosofía",
       sentiment: "negative"
+    },
+    {
+      id: 35,
+      text: "Me opongo a esta propuesta porque creo que fragmentará aún más la facultad y creará divisiones innecesarias. En lugar de fortalecer la unidad académica, podría generar competencia interna por recursos y estudiantes.",
+      department: "Ciencias Políticas",
+      sentiment: "negative"
+    },
+    {
+      id: 36,
+      text: "No apoyo la creación del DCH porque considero que los recursos se podrían invertir mejor en investigación y en mejorar las condiciones de los programas actuales que ya tienen trayectoria y reconocimiento.",
+      department: "Gestión Cultural",
+      sentiment: "negative"
     }
   ];
 
@@ -160,50 +202,59 @@ const Comments: React.FC = () => {
   const constructiveComments = [
     {
       id: 40,
-      text: "Sugiero establecer mecanismos claros y específicos de evaluación y seguimiento del proceso de implementación para asegurar el éxito del proyecto y poder hacer ajustes oportunos cuando sea necesario. Esto incluye indicadores de gestión, cronogramas detallados y puntos de control.",
+      text: "Sugiero establecer mecanismos claros y específicos de evaluación y seguimiento del proceso de implementación para asegurar el éxito del proyecto y poder hacer ajustes oportunos cuando sea necesario. Esto incluye indicadores de gestión cuantitativos y cualitativos, cronogramas detallados con hitos específicos y puntos de control periódicos.",
       department: "Gestión Cultural",
       sentiment: "neutral"
     },
     {
       id: 41,
-      text: "Recomiendo definir con mayor precisión los criterios de selección de docentes y los perfiles requeridos para cada programa, incluyendo experiencia específica, formación doctoral en las áreas pertinentes y competencias en investigación. Esto es crucial para el éxito académico.",
+      text: "Recomiendo definir con mayor precisión los criterios de selección de docentes y los perfiles requeridos para cada programa, incluyendo experiencia específica, formación doctoral en las áreas pertinentes, competencias en investigación y habilidades pedagógicas. Esto es crucial para el éxito académico y la calidad de los programas.",
       department: "Ciencias Humanas",
       sentiment: "neutral"
     },
     {
       id: 42,
-      text: "Propongo fortalecer significativamente los vínculos con el sector productivo, organizaciones sociales y entidades gubernamentales para garantizar la empleabilidad de los egresados y asegurar la pertinencia social de los programas propuestos.",
+      text: "Propongo fortalecer significativamente los vínculos con el sector productivo, organizaciones sociales, entidades gubernamentales y sector privado para garantizar la empleabilidad de los egresados y asegurar la pertinencia social de los programas propuestos. Esto incluye convenios de práctica, bolsa de empleo y seguimiento a egresados.",
       department: "Ciencias Políticas",
       sentiment: "neutral"
     },
     {
       id: 43,
-      text: "Sería conveniente asegurar que la infraestructura tecnológica sea suficiente y actualizada para soportar las nuevas modalidades educativas, metodologías innovadoras y las demandas de la educación del siglo XXI.",
+      text: "Sería conveniente asegurar que la infraestructura tecnológica sea suficiente y actualizada para soportar las nuevas modalidades educativas, metodologías innovadoras y las demandas de la educación del siglo XXI. Esto incluye plataformas digitales, laboratorios especializados y conectividad adecuada.",
       department: "Gestión Cultural",
       sentiment: "neutral"
     },
     {
       id: 44,
-      text: "Sugiero crear un comité de seguimiento interdisciplinario permanente que monitoree la implementación, evalúe periódicamente los resultados obtenidos y proponga ajustes cuando sea necesario para garantizar el cumplimiento de los objetivos.",
+      text: "Sugiero crear un comité de seguimiento interdisciplinario permanente que monitoree la implementación, evalúe periódicamente los resultados obtenidos y proponga ajustes cuando sea necesario para garantizar el cumplimiento de los objetivos académicos y administrativos establecidos.",
       department: "Filosofía",
       sentiment: "neutral"
     },
     {
       id: 45,
-      text: "Recomiendo establecer convenios específicos con instituciones nacionales e internacionales de prestigio para fortalecer la movilidad académica, la investigación colaborativa y el intercambio de experiencias que enriquezcan los programas.",
+      text: "Recomiendo establecer convenios específicos con instituciones nacionales e internacionales de prestigio para fortalecer la movilidad académica, la investigación colaborativa y el intercambio de experiencias que enriquezcan los programas y mejoren su posicionamiento.",
       department: "Ciencias Humanas",
+      sentiment: "neutral"
+    },
+    {
+      id: 46,
+      text: "Propongo desarrollar un plan de comunicación efectivo para socializar adecuadamente la propuesta con toda la comunidad universitaria y externa, explicando claramente los beneficios, objetivos y metodología de implementación.",
+      department: "Ciencias Políticas",
+      sentiment: "neutral"
+    },
+    {
+      id: 47,
+      text: "Sugiero implementar un sistema de becas y apoyo financiero para estudiantes de escasos recursos, garantizando que los programas sean accesibles y contribuyan a la equidad social.",
+      department: "Gestión Cultural",
       sentiment: "neutral"
     }
   ];
 
-  const censoredComment = "Este comentario contenía expresiones despectivas hacia la administración universitaria, cuestionamientos sobre la transparencia del proceso de consulta y lenguaje inapropiado que no se ajusta a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo y respetuoso entre todos los participantes de la comunidad universitaria.";
+  const censoredComment = "Este comentario contenía expresiones despectivas hacia la administración universitaria, cuestionamientos infundados sobre la transparencia del proceso de consulta y lenguaje inapropiado que no se ajusta a los estándares de respeto y cordialidad requeridos para la consulta académica. El contenido fue removido para mantener un ambiente de diálogo constructivo y respetuoso entre todos los participantes de la comunidad universitaria.";
 
   const toggleCommentReveal = (commentId: number) => {
     setRevealedComments(prev => {
-      // Ensure prev is always a Set
-      const currentSet = prev instanceof Set ? prev : new Set<number>();
-      const newRevealed = new Set(currentSet);
-      
+      const newRevealed = new Set(prev);
       if (newRevealed.has(commentId)) {
         newRevealed.delete(commentId);
       } else {
@@ -318,7 +369,7 @@ const Comments: React.FC = () => {
         className="chart-container"
         variants={itemVariants}
       >
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Comentarios de Apoyo</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Comentarios de Apoyo ({supportiveComments.length})</h3>
         
         <div className="grid grid-cols-1 gap-4">
           {supportiveComments.map((comment, index) => (
@@ -327,7 +378,7 @@ const Comments: React.FC = () => {
               className="p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors duration-200"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 * index }}
+              transition={{ delay: 0.05 * index }}
               whileHover={{ scale: 1.01 }}
             >
               <div className="flex items-start justify-between mb-2">
@@ -347,7 +398,7 @@ const Comments: React.FC = () => {
         className="chart-container"
         variants={itemVariants}
       >
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Comentarios con Dudas y Preocupaciones</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Comentarios con Dudas y Preocupaciones ({concernComments.length})</h3>
         
         <div className="space-y-4">
           {concernComments.map((comment, index) => (
@@ -356,7 +407,7 @@ const Comments: React.FC = () => {
               className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg hover:bg-yellow-100 transition-colors duration-200"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * index }}
+              transition={{ delay: 0.05 * index }}
               whileHover={{ scale: 1.01 }}
             >
               <div className="flex items-start justify-between mb-2">
@@ -376,7 +427,7 @@ const Comments: React.FC = () => {
         className="chart-container"
         variants={itemVariants}
       >
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Comentarios en Desacuerdo</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Comentarios en Desacuerdo ({disagreementComments.length})</h3>
         
         <div className="space-y-4">
           {disagreementComments.map((comment, index) => (
@@ -385,7 +436,7 @@ const Comments: React.FC = () => {
               className="p-4 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors duration-200"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * index }}
+              transition={{ delay: 0.05 * index }}
               whileHover={{ scale: 1.01 }}
             >
               <div className="flex items-start justify-between mb-2">
@@ -405,7 +456,7 @@ const Comments: React.FC = () => {
         className="chart-container"
         variants={itemVariants}
       >
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Sugerencias y Observaciones Constructivas</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Sugerencias y Observaciones Constructivas ({constructiveComments.length})</h3>
         
         <div className="space-y-4">
           {constructiveComments.map((comment, index) => (
@@ -414,7 +465,7 @@ const Comments: React.FC = () => {
               className="p-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors duration-200"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * index }}
+              transition={{ delay: 0.05 * index }}
               whileHover={{ scale: 1.01 }}
             >
               <div className="flex items-start justify-between mb-2">
