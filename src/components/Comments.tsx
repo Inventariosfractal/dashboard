@@ -4,7 +4,8 @@ import { MessageSquare, Eye, EyeOff, AlertTriangle, Heart, ThumbsUp, HelpCircle,
 
 const Comments: React.FC = () => {
   const [showCensoredComment, setShowCensoredComment] = useState(false);
-  const [expandedComments, setExpandedComments] = useState<Set<number>>(new Set());
+  // Fix: Initialize with a proper Set constructor function
+  const [expandedComments, setExpandedComments] = useState<Set<number>>(() => new Set<number>());
 
   // COMENTARIOS COMPLETOS EXTRAÍDOS DEL DOCUMENTO WORD
   const supportiveComments = [
@@ -268,24 +269,29 @@ const Comments: React.FC = () => {
     }
   ];
 
+  // Fix: Robust function to handle comment expansion
   const toggleCommentExpansion = (commentId: number) => {
     setExpandedComments(prev => {
-      const newExpanded = new Set(prev);
+      // Ensure we always work with a valid Set
+      let currentSet: Set<number>;
       
-      // Defensive check to ensure newExpanded is a valid Set before calling methods
-      if (!newExpanded || typeof newExpanded.add !== 'function') {
-        const safeSet = new Set();
-        if (commentId !== undefined) {
-          safeSet.add(commentId);
-        }
-        return safeSet;
+      if (prev instanceof Set) {
+        currentSet = prev;
+      } else {
+        // If prev is not a Set, create a new one
+        currentSet = new Set<number>();
       }
       
+      // Create a new Set from the current one
+      const newExpanded = new Set(currentSet);
+      
+      // Safely toggle the comment
       if (newExpanded.has(commentId)) {
         newExpanded.delete(commentId);
       } else {
         newExpanded.add(commentId);
       }
+      
       return newExpanded;
     });
   };
